@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>tabemasen — Japan Restaurant Card Generator</title>
+  <meta name="description" content="Generate a free Japanese restaurant card for your food allergies and dietary needs. No signup. Mobile-first. Built for tourists in Japan.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="tabemasen — Japan Restaurant Card Generator">
+  <meta property="og:description" content="Generate a free Japanese restaurant card for your food allergies and dietary needs. No signup. Mobile-first. Built for tourists in Japan.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="og-image.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="tabemasen — Japan Restaurant Card Generator">
+  <meta name="twitter:description" content="Generate a free Japanese restaurant card for your food allergies and dietary needs. No signup. Mobile-first. Built for tourists in Japan.">
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HEADER
+  ═══════════════════════════════════════════════════════════ -->
+  <header class="site-header">
+    <h1 class="site-title">🍽️ tabemasen</h1>
+    <p class="site-tagline">Show this to your waiter</p>
+    <a class="github-link" href="https://github.com/iwakuralane/tabemasen" target="_blank" rel="noopener noreferrer" aria-label="View on GitHub">GitHub</a>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       MAIN
+  ═══════════════════════════════════════════════════════════ -->
+  <main class="main-content">
+
+    <!-- ──── Selection panel ─────────────────────────────── -->
+    <section class="selection-panel" aria-label="Card options">
+
+      <!-- Allergens -->
+      <div class="panel-section" id="panel-allergens">
+        <h2 class="panel-heading">
+          <button class="panel-toggle" aria-expanded="true" aria-controls="allergens-content" type="button">
+            <span>Allergens</span>
+            <span class="panel-chevron" aria-hidden="true">▼</span>
+          </button>
+        </h2>
+        <div class="panel-body" id="allergens-content">
+          <div class="chip-grid" role="group" aria-label="Select allergens">
+            <!-- Chips injected by app.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Diet -->
+      <div class="panel-section" id="panel-diet">
+        <h2 class="panel-heading">
+          <button class="panel-toggle" aria-expanded="true" aria-controls="diet-content" type="button">
+            <span>Diet</span>
+            <span class="panel-chevron" aria-hidden="true">▼</span>
+          </button>
+        </h2>
+        <div class="panel-body" id="diet-content">
+          <div class="pattern-list" role="group" aria-label="Select dietary pattern">
+            <!-- Pattern buttons injected by app.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Severity -->
+      <div class="panel-section" id="panel-severity">
+        <h2 class="panel-heading">
+          <button class="panel-toggle" aria-expanded="true" aria-controls="severity-content" type="button">
+            <span>Severity</span>
+            <span class="panel-chevron" aria-hidden="true">▼</span>
+          </button>
+        </h2>
+        <div class="panel-body" id="severity-content">
+          <div class="severity-options" role="group" aria-label="Select severity">
+            <label class="radio-option">
+              <input type="radio" name="severity" value="allergy" checked>
+              <span class="radio-label">⚠️ Allergy (medical)</span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="severity" value="severe">
+              <span class="radio-label">🚨 Severe allergy</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optional -->
+      <div class="panel-section" id="panel-optional">
+        <h2 class="panel-heading">
+          <button class="panel-toggle" aria-expanded="false" aria-controls="optional-content" type="button">
+            <span>Name &amp; Custom Item</span>
+            <span class="panel-chevron" aria-hidden="true">▼</span>
+          </button>
+        </h2>
+        <div class="panel-body hidden" id="optional-content">
+          <div class="optional-fields">
+            <div class="field-group">
+              <label for="name-input" class="field-label">Your first name (optional)</label>
+              <input
+                id="name-input"
+                type="text"
+                class="text-input"
+                placeholder="e.g. Sarah"
+                autocomplete="given-name"
+                maxlength="40"
+              >
+            </div>
+            <div class="field-group">
+              <label for="custom-input" class="field-label">Custom item to add to card</label>
+              <textarea
+                id="custom-input"
+                class="text-input textarea-input"
+                placeholder="Paste any text (in any language) as-is on the card"
+                rows="2"
+                maxlength="200"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clear -->
+      <div class="panel-section panel-section--tools">
+        <button type="button" class="btn btn--ghost" id="clear-btn">Clear All</button>
+      </div>
+
+    </section><!-- /selection-panel -->
+
+    <!-- ──── Live card preview ──────────────────────────── -->
+    <section class="card-preview-section" aria-label="Card preview" aria-live="polite">
+      <p class="preview-label">Your card</p>
+      <div class="card" id="card" tabindex="0" aria-label="Japanese restaurant card preview">
+        <!-- Card content injected by app.js -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       ACTION BUTTONS (sticky bottom bar)
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="action-bar" role="toolbar" aria-label="Card actions">
+    <button type="button" class="btn btn--primary" id="copy-btn">
+      <span class="btn-icon" aria-hidden="true">🔗</span>
+      <span class="btn-text">Copy Link</span>
+    </button>
+    <button type="button" class="btn btn--primary" id="download-btn">
+      <span class="btn-icon" aria-hidden="true">⬇</span>
+      <span class="btn-text">Download PNG</span>
+    </button>
+    <button type="button" class="btn btn--primary" id="print-btn">
+      <span class="btn-icon" aria-hidden="true">🖨</span>
+      <span class="btn-text">Print</span>
+    </button>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <p class="footer-disclaimer">Translations are checked against common Japanese restaurant phrasing but are not a substitute for medical advice or professional translation. If you have a life-threatening allergy, please carry an EpiPen and a doctor's letter.</p>
+    <p class="footer-credit">Built by a fellow traveller</p>
+  </footer>
+
+  <!-- html2canvas — lazy-loaded only when Download is clicked -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script data-goatcounter="https://nqtn.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>

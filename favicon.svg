@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="6" fill="#FBF8F1"/>
+  <rect x="3" y="3" width="26" height="26" rx="4" fill="none" stroke="#2B6EC4" stroke-width="1.5"/>
+  <text x="16" y="23" text-anchor="middle" font-size="16" font-family="serif" fill="#2B6EC4">🍽</text>
+</svg>
