@@ -100,7 +100,7 @@ a:hover { text-decoration: underline; }
 
 .bmc-icon {
   display: inline-block;
-  animation: bmc-pulse 1.8s ease-in-out infinite;
+  animation: bmc-pulse 5s ease-in-out infinite;
   transform-origin: center;
 }
 
