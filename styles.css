@@ -299,7 +299,8 @@ a:hover { text-decoration: underline; }
   border-color: var(--color-primary);
 }
 
-.radio-option input[type="radio"] {
+.radio-option input[type="radio"],
+.radio-option input[type="checkbox"] {
   width: 18px;
   height: 18px;
   accent-color: var(--color-primary);

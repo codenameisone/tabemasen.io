@@ -30,7 +30,7 @@
   function cacheEls() {
     els.allergenChips   = document.querySelectorAll('.chip[data-key]');
     els.patternBtns     = document.querySelectorAll('.pattern-btn[data-key]');
-    els.severityRadios  = document.querySelectorAll('input[name="severity"]');
+    els.severityToggle  = document.getElementById('severity-toggle');
     els.nameInput       = document.getElementById('name-input');
     els.customInput     = document.getElementById('custom-input');
     els.clearBtn        = document.getElementById('clear-btn');
@@ -132,9 +132,7 @@
       btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
     });
 
-    els.severityRadios.forEach(function (radio) {
-      radio.checked = radio.value === state.severity;
-    });
+    if (els.severityToggle) els.severityToggle.checked = (state.severity === 'severe');
 
     if (els.nameInput)   els.nameInput.value   = state.name;
     if (els.customInput) els.customInput.value = state.customText;
@@ -268,8 +266,8 @@
   }
 
   function onSeverityChange(e) {
-    if (e.target.name !== 'severity') return;
-    setSeverity(e.target.value);
+    if (e.target.id !== 'severity-toggle') return;
+    setSeverity(e.target.checked ? 'severe' : 'allergy');
     syncUI();
   }
 
