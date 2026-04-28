@@ -126,7 +126,7 @@ window.CARD_DATA = (function () {
     thanks:   'ご協力ありがとうございます。',
 
     // Disclaimer — appears on card below Japanese
-    disclaimer: 'This card was machine-generated. Please verify with the restaurant. Severe allergy sufferers should travel with a doctor\'s note in Japanese. tabemasen.io',
+    disclaimer: 'This card was machine-generated. Please verify with the restaurant. Severe allergy sufferers should travel with a doctor\'s note in Japanese.\ntabemasen.io',
   };
 
   // ─────────────────────────────────────────────────────────────────────────
