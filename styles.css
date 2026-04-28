@@ -475,6 +475,14 @@ a:hover { text-decoration: underline; }
   border-top: 1px dashed var(--color-border);
 }
 
+.card-line--site-url {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-style: normal;
+  margin-top: var(--space-sm);
+}
+
 .card-line--blank { height: 0.6em; }
 
 /* ─────────────────────────────────────────────────────────────────────────
