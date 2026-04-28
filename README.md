@@ -2,7 +2,7 @@
 
 **Generate a free Japanese restaurant card for your food allergies and dietary needs. No signup. Mobile-first. Built for tourists in Japan.**
 
-👉 **Live site:** https://iwakuralane.github.io/tabemasen
+👉 **Live site:** https://tabemasen.io
 
 ---
 
@@ -29,12 +29,6 @@ This is a free, fast, mobile-first web app that generates a polite, accurate Jap
 - Download as PNG for offline use
 - Print-friendly stylesheet
 - LocalStorage persistence — your selections survive page refresh
-
----
-
-## Screenshots
-
-> _Add your screenshot here_
 
 ---
 
