@@ -87,7 +87,7 @@ a:hover { text-decoration: underline; }
   margin-top: 2px;
 }
 
-.github-link {
+.bmc-link {
   position: absolute;
   top: var(--space-md);
   right: var(--space-md);
@@ -95,7 +95,7 @@ a:hover { text-decoration: underline; }
   color: var(--color-text-muted);
   font-weight: 500;
 }
-.github-link:hover { text-decoration: none; color: var(--color-text); }
+.bmc-link:hover { text-decoration: none; color: var(--color-text); }
 
 /* ─────────────────────────────────────────────────────────────────────────
    Main content layout
