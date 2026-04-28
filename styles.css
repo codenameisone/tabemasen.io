@@ -120,18 +120,11 @@ a:hover { text-decoration: underline; }
 }
 
 .bmc-link {
-  position: fixed;
-  top: var(--space-md);
-  right: var(--space-md);
-  z-index: 20;
+  display: inline-block;
+  margin-top: var(--space-sm);
   font-size: 0.75rem;
   color: var(--color-text-muted);
   font-weight: 500;
-  background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-full);
-  padding: 4px 10px;
-  box-shadow: var(--shadow-chip);
 }
 .bmc-link:hover { text-decoration: none; color: var(--color-text); }
 
@@ -426,7 +419,7 @@ a:hover { text-decoration: underline; }
 /* ─────────────────────────────────────────────────────────────────────────
    Card Preview
 ───────────────────────────────────────────────────────────────────────── */
-.card-preview-section { margin-bottom: var(--space-xl); }
+.card-preview-section { margin-bottom: var(--space-sm); }
 
 .preview-label {
   font-size: 0.8125rem;
