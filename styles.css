@@ -323,6 +323,7 @@ a:hover { text-decoration: underline; }
 
 .field-hint {
   font-size: 0.75rem;
+  font-style: italic;
   color: var(--color-text-muted);
   margin-top: var(--space-xs);
   line-height: 1.4;
