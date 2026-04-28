@@ -93,13 +93,15 @@ a:hover { text-decoration: underline; }
 }
 
 @keyframes bmc-pulse {
-  0%, 100% { transform: scale(1);   opacity: 1; }
-  50%       { transform: scale(1.2); opacity: 0.85; }
+  0%, 100% { transform: scale(1);    opacity: 1; }
+  40%       { transform: scale(1.35); opacity: 0.9; }
+  60%       { transform: scale(1.35); opacity: 0.9; }
 }
 
 .bmc-icon {
   display: inline-block;
-  animation: bmc-pulse 2.4s ease-in-out infinite;
+  animation: bmc-pulse 1.8s ease-in-out infinite;
+  transform-origin: center;
 }
 
 .site-tagline {
