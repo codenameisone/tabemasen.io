@@ -127,6 +127,7 @@ a:hover { text-decoration: underline; }
   font-weight: 500;
 }
 .bmc-link:hover { text-decoration: none; color: var(--color-text); }
+.bmc-link--footer { display: block; margin-top: var(--space-md); }
 
 /* ─────────────────────────────────────────────────────────────────────────
    Main content layout
