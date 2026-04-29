@@ -551,16 +551,45 @@ a:hover { text-decoration: underline; }
 }
 
 .card-en-line {
-  font-family: var(--font-ui);
-  font-size: 0.8rem;
+  font-family: var(--font-card);
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.card-en-line--greeting {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.card-en-line--statement { font-weight: 600; }
+
+.card-en-line--list-header { margin-top: var(--space-xs); }
+
+.card-en-line--item { padding-left: var(--space-sm); }
+
+.card-en-line--warning {
+  color: var(--color-danger);
+  font-weight: 600;
+  background: var(--color-danger-light);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  border-left: 3px solid var(--color-danger);
+  margin: var(--space-sm) 0;
+}
+
+.card-en-line--note {
+  font-size: 0.875rem;
   color: var(--color-text-muted);
   line-height: 1.6;
-  font-style: italic;
 }
-.card-en-line--greeting  { font-weight: 600; font-style: normal; }
-.card-en-line--statement { font-weight: 500; font-style: normal; }
-.card-en-line--warning   { color: var(--color-danger); font-style: normal; font-weight: 500; }
-.card-en-line--closing   { font-style: normal; }
+
+.card-en-line--closing { font-weight: 500; }
+
+.card-en-line--blank { height: 0.6em; }
 
 /* ─────────────────────────────────────────────────────────────────────────
    Action Bar — sticky on mobile, in-flow on desktop

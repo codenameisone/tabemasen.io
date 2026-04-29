@@ -121,12 +121,17 @@
       return '<p class="card-line card-line--' + line.kind + '">' + esc(line.ja) + '</p>';
     }).join('');
 
-    // English block — always in DOM so CSS transition works; hidden via class
-    var enLines = lines.filter(function(l) { return !!l.en; });
+    // English block — always in DOM so CSS transition works; hidden via class.
+    // Use mainLines (trailing blanks already trimmed) so rhythm matches Japanese.
+    var enLines = mainLines.filter(function(l) { return l.kind === 'blank' || !!l.en; });
     html += '<div class="card-en' + (state.showEnglish ? '' : ' card-en--hidden') + '">';
     html += '<div class="card-en-divider"></div>';
     enLines.forEach(function(line) {
-      html += '<p class="card-en-line card-en-line--' + line.kind + '">' + esc(line.en) + '</p>';
+      if (line.kind === 'blank') {
+        html += '<p class="card-en-line card-en-line--blank">&nbsp;</p>';
+      } else {
+        html += '<p class="card-en-line card-en-line--' + line.kind + '">' + esc(line.en) + '</p>';
+      }
     });
     html += '</div>';
 
