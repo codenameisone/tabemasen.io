@@ -104,7 +104,7 @@ a:hover { text-decoration: underline; }
 .site-tagline {
   font-size: 0.8125rem;
   color: var(--color-text-muted);
-  margin-top: 2px;
+  margin-top: var(--space-sm);
 }
 
 .site-seo-heading {
