@@ -515,6 +515,43 @@ a:hover { text-decoration: underline; }
 
 .card-line--blank { height: 0.6em; }
 
+.card-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-sm);
+}
+
+.english-toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+.english-toggle-label input { accent-color: var(--color-primary); cursor: pointer; }
+
+.card-en-divider {
+  border: none;
+  border-top: 1px dashed var(--color-border);
+  margin: var(--space-md) 0 var(--space-sm);
+}
+
+.card-en { }
+
+.card-en-line {
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  font-style: italic;
+}
+.card-en-line--greeting  { font-weight: 600; font-style: normal; }
+.card-en-line--statement { font-weight: 500; font-style: normal; }
+.card-en-line--warning   { color: var(--color-danger); font-style: normal; font-weight: 500; }
+.card-en-line--closing   { font-style: normal; }
+
 /* ─────────────────────────────────────────────────────────────────────────
    Action Bar — sticky on mobile, in-flow on desktop
 ───────────────────────────────────────────────────────────────────────── */

@@ -15,11 +15,12 @@
   // State
   // ─────────────────────────────────────────────────────────────────────────
   var state = {
-    allergens: [],
-    pattern:   null,
-    severity:  'allergy',  // 'allergy' | 'severe'
-    name:      '',
-    customText:'',
+    allergens:   [],
+    pattern:     null,
+    severity:    'allergy',  // 'allergy' | 'severe'
+    name:        '',
+    customText:  '',
+    showEnglish: true,
   };
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -31,6 +32,7 @@
     els.allergenChips   = document.querySelectorAll('.chip[data-key]');
     els.patternBtns     = document.querySelectorAll('.pattern-btn[data-key]');
     els.severityToggle  = document.getElementById('severity-toggle');
+    els.englishToggle   = document.getElementById('english-toggle');
     els.nameInput       = document.getElementById('name-input');
     els.customInput     = document.getElementById('custom-input');
     els.clearBtn        = document.getElementById('clear-btn');
@@ -97,18 +99,28 @@
 
     var lines = CARD_DATA.buildCard(state);
 
-    var html = lines.map(function (line) {
-      if (line.kind === 'blank') {
-        return '<p class="card-line card-line--blank">&nbsp;</p>';
-      }
-      var escaped = line.text
+    function esc(text) {
+      return text
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/\n/g, '<br>');
-      return '<p class="card-line card-line--' + line.kind + '">' + escaped + '</p>';
+    }
+
+    var html = lines.map(function (line) {
+      if (line.kind === 'blank') return '<p class="card-line card-line--blank">&nbsp;</p>';
+      return '<p class="card-line card-line--' + line.kind + '">' + esc(line.ja) + '</p>';
     }).join('');
+
+    if (state.showEnglish && lines.some(function(l) { return l.en; })) {
+      html += '<div class="card-en-divider"></div><div class="card-en">';
+      lines.forEach(function(line) {
+        if (!line.en) return;
+        html += '<p class="card-en-line card-en-line--' + line.kind + '">' + esc(line.en) + '</p>';
+      });
+      html += '</div>';
+    }
 
     cardEl.innerHTML = html;
   }
@@ -133,6 +145,7 @@
     });
 
     if (els.severityToggle) els.severityToggle.checked = (state.severity === 'severe');
+    if (els.englishToggle)  els.englishToggle.checked  = state.showEnglish;
 
     if (els.nameInput)   els.nameInput.value   = state.name;
     if (els.customInput) els.customInput.value = state.customText;
@@ -153,17 +166,19 @@
     if (state.severity === 'severe') parts.push('s=severe');
     if (state.name)                 parts.push('n=' + encodeURIComponent(state.name));
     if (state.customText)           parts.push('c=' + encodeURIComponent(state.customText));
+    if (!state.showEnglish)         parts.push('en=0');
     // FIX: was joining with '&amp;' (HTML entity) which produced broken URLs.
     return parts.join('&');
   }
 
   function parseHash(hash) {
     var result = {
-      allergens: [],
-      pattern:   null,
-      severity:  'allergy',
-      name:      '',
-      customText:'',
+      allergens:   [],
+      pattern:     null,
+      severity:    'allergy',
+      name:        '',
+      customText:  '',
+      showEnglish: true,
     };
     if (!hash || hash === '#') return result;
 
@@ -191,6 +206,9 @@
           break;
         case 'c':
           result.customText = val;
+          break;
+        case 'en':
+          result.showEnglish = (val !== '0');
           break;
       }
     });
@@ -240,11 +258,12 @@
   function setSeverity(val) { state.severity = (val === 'severe') ? 'severe' : 'allergy'; }
 
   function clearState() {
-    state.allergens = [];
-    state.pattern   = null;
-    state.severity  = 'allergy';
-    state.name      = '';
-    state.customText= '';
+    state.allergens   = [];
+    state.pattern     = null;
+    state.severity    = 'allergy';
+    state.name        = '';
+    state.customText  = '';
+    state.showEnglish = true;
   }
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -268,6 +287,11 @@
   function onSeverityChange(e) {
     if (e.target.id !== 'severity-toggle') return;
     setSeverity(e.target.checked ? 'severe' : 'allergy');
+    syncUI();
+  }
+
+  function onEnglishToggleChange(e) {
+    state.showEnglish = e.target.checked;
     syncUI();
   }
 
@@ -377,19 +401,21 @@
     var hasHash = window.location.hash && window.location.hash !== '#';
     if (hasHash) {
       var hashState = parseHash(window.location.hash);
-      state.allergens = hashState.allergens;
-      state.pattern   = hashState.pattern;
-      state.severity  = hashState.severity;
-      state.name      = hashState.name;
-      state.customText= hashState.customText;
+      state.allergens   = hashState.allergens;
+      state.pattern     = hashState.pattern;
+      state.severity    = hashState.severity;
+      state.name        = hashState.name;
+      state.customText  = hashState.customText;
+      state.showEnglish = hashState.showEnglish;
     } else {
       var stored = loadFromStorage();
       if (stored) {
-        state.allergens = stored.allergens  || [];
-        state.pattern   = stored.pattern    || null;
-        state.severity  = stored.severity   || 'allergy';
-        state.name      = stored.name       || '';
-        state.customText= stored.customText || '';
+        state.allergens   = stored.allergens  || [];
+        state.pattern     = stored.pattern    || null;
+        state.severity    = stored.severity   || 'allergy';
+        state.name        = stored.name       || '';
+        state.customText  = stored.customText || '';
+        state.showEnglish = stored.showEnglish !== undefined ? stored.showEnglish : true;
       }
     }
 
@@ -398,8 +424,9 @@
     document.querySelector('.pattern-list').addEventListener('click', onPatternClick);
     document.querySelector('.severity-options').addEventListener('change', onSeverityChange);
 
-    if (els.nameInput)   els.nameInput.addEventListener('input', onNameInput);
-    if (els.customInput) els.customInput.addEventListener('input', onCustomInput);
+    if (els.englishToggle) els.englishToggle.addEventListener('change', onEnglishToggleChange);
+    if (els.nameInput)     els.nameInput.addEventListener('input', onNameInput);
+    if (els.customInput)   els.customInput.addEventListener('input', onCustomInput);
 
     els.clearBtn.addEventListener('click', onClearClick);
     els.copyBtn.addEventListener('click', onCopyClick);

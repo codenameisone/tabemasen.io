@@ -165,7 +165,13 @@
 
     <!-- ──── Live card preview ──────────────────────────── -->
     <section class="card-preview-section" aria-label="Card preview" aria-live="polite">
-      <p class="preview-label">Your card</p>
+      <div class="card-preview-header">
+        <p class="preview-label">Your card</p>
+        <label class="english-toggle-label">
+          <input type="checkbox" id="english-toggle" checked>
+          <span>Show English</span>
+        </label>
+      </div>
       <div class="card" id="card" tabindex="0" aria-label="Japanese restaurant card preview">
         <!-- Card content injected by app.js -->
       </div>
