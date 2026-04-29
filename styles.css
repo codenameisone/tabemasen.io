@@ -550,6 +550,34 @@ a:hover { text-decoration: underline; }
   text-align: center;
 }
 
+.site-safetynote {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-top: var(--space-xs);
+}
+
+.footer-resources {
+  margin-bottom: var(--space-md);
+  text-align: left;
+}
+
+.footer-resources-heading {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+}
+
+.footer-resources-list {
+  list-style: none;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.8;
+}
+
 .footer-disclaimer {
   font-size: 0.75rem;
   color: var(--color-text-muted);
