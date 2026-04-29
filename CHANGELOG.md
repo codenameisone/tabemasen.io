@@ -8,3 +8,4 @@
 - verify: mushroom allergen confirmed deployed and selectable (きのこ全般 present in allergens list)
 - content: added "safety net" framing and Resources section in footer
 - feat: English mirror of the card, with toggle to hide
+- feat: dietary patterns are now multi-select (e.g. gluten-free + pescatarian); URL hash uses comma-separated `&p=` values; old single-value URLs still work

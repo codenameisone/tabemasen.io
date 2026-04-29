@@ -16,7 +16,7 @@
   // ─────────────────────────────────────────────────────────────────────────
   var state = {
     allergens:   [],
-    pattern:     null,
+    patterns:    [],          // multi-select; was single `pattern` string
     severity:    'allergy',  // 'allergy' | 'severe'
     name:        '',
     customText:  '',
@@ -138,8 +138,8 @@
 
     els.patternBtns.forEach(function (btn) {
       var key = btn.dataset.key;
-      var isSelected = (key === '' && state.pattern === null) ||
-                       (key !== '' && key === state.pattern);
+      var isSelected = (key === '' && state.patterns.length === 0) ||
+                       (key !== '' && state.patterns.indexOf(key) !== -1);
       btn.classList.toggle('pattern-btn--selected', isSelected);
       btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
     });
@@ -162,7 +162,7 @@
   function encodeHash() {
     var parts = [];
     if (state.allergens.length > 0) parts.push('a=' + state.allergens.join(','));
-    if (state.pattern)              parts.push('p=' + state.pattern);
+    if (state.patterns.length > 0)  parts.push('p=' + state.patterns.join(','));
     if (state.severity === 'severe') parts.push('s=severe');
     if (state.name)                 parts.push('n=' + encodeURIComponent(state.name));
     if (state.customText)           parts.push('c=' + encodeURIComponent(state.customText));
@@ -174,7 +174,7 @@
   function parseHash(hash) {
     var result = {
       allergens:   [],
-      pattern:     null,
+      patterns:    [],
       severity:    'allergy',
       name:        '',
       customText:  '',
@@ -196,7 +196,7 @@
           if (val) result.allergens = val.split(',').filter(Boolean);
           break;
         case 'p':
-          if (val) result.pattern = val;
+          if (val) result.patterns = val.split(',').filter(Boolean);
           break;
         case 's':
           if (val === 'severe') result.severity = 'severe';
@@ -229,7 +229,7 @@
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({
         allergens: state.allergens,
-        pattern:   state.pattern,
+        patterns:  state.patterns,
         severity:  state.severity,
         name:      state.name,
         customText:state.customText,
@@ -254,12 +254,17 @@
     else state.allergens.splice(idx, 1);
   }
 
-  function setPattern(key) { state.pattern = key === '' ? null : key; }
+  function togglePattern(key) {
+    if (key === '') { state.patterns = []; return; }
+    var idx = state.patterns.indexOf(key);
+    if (idx === -1) state.patterns.push(key);
+    else state.patterns.splice(idx, 1);
+  }
   function setSeverity(val) { state.severity = (val === 'severe') ? 'severe' : 'allergy'; }
 
   function clearState() {
     state.allergens   = [];
-    state.pattern     = null;
+    state.patterns    = [];
     state.severity    = 'allergy';
     state.name        = '';
     state.customText  = '';
@@ -280,7 +285,7 @@
   function onPatternClick(e) {
     var btn = e.target.closest('.pattern-btn[data-key]');
     if (!btn) return;
-    setPattern(btn.dataset.key);
+    togglePattern(btn.dataset.key);
     syncUI();
   }
 
@@ -402,7 +407,7 @@
     if (hasHash) {
       var hashState = parseHash(window.location.hash);
       state.allergens   = hashState.allergens;
-      state.pattern     = hashState.pattern;
+      state.patterns    = hashState.patterns;
       state.severity    = hashState.severity;
       state.name        = hashState.name;
       state.customText  = hashState.customText;
@@ -411,7 +416,14 @@
       var stored = loadFromStorage();
       if (stored) {
         state.allergens   = stored.allergens  || [];
-        state.pattern     = stored.pattern    || null;
+        // Migration: old storage had pattern (string), new has patterns (array)
+        if (stored.patterns) {
+          state.patterns = stored.patterns;
+        } else if (stored.pattern) {
+          state.patterns = [stored.pattern];
+        } else {
+          state.patterns = [];
+        }
         state.severity    = stored.severity   || 'allergy';
         state.name        = stored.name       || '';
         state.customText  = stored.customText || '';

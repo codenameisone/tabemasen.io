@@ -14,7 +14,7 @@
  * URL hash format (parseable by app.js hashUtils):
  *   #a=peanut,wheat&p=vegetarian&s=severe&n=Name
  *   a = comma-separated allergen keys
- *   p = single pattern key
+ *   p = comma-separated pattern keys (multi-select)
  *   s = severe (omitted for default)
  *   n = URL-encoded name
  */
@@ -213,7 +213,7 @@ window.CARD_DATA = (function () {
    */
   function buildCard(state) {
     var lines = [];
-    var patternObj = state.pattern ? getPattern(state.pattern) : null;
+    var patternObjs = (state.patterns || []).map(getPattern).filter(Boolean);
     var hasAllergens = state.allergens.length > 0;
     var hasCustom = !!(state.customText && state.customText.trim());
 
@@ -235,14 +235,14 @@ window.CARD_DATA = (function () {
         state.severity === 'severe' ? card.statementSevereAllergy_en : card.statementAllergy_en,
         'statement'
       );
-    } else if (patternObj || hasCustom) {
+    } else if (patternObjs.length > 0 || hasCustom) {
       push(card.statementPreference, card.statementPreference_en, 'statement');
     }
 
-    // ── Dietary pattern statement ────────────────────────────────────────
-    if (patternObj) {
-      push(patternObj.statement, patternObj.statement_en, 'statement');
-    }
+    // ── Dietary pattern statements ───────────────────────────────────────
+    patternObjs.forEach(function (p) {
+      push(p.statement, p.statement_en, 'statement');
+    });
 
     // ── Bulleted list ────────────────────────────────────────────────────
     push(card.listHeader, card.listHeader_en, 'list-header');
@@ -256,15 +256,17 @@ window.CARD_DATA = (function () {
       }
     });
 
-    if (patternObj && patternObj.exclusions) {
-      patternObj.exclusions.forEach(function (ex, i) {
-        if (!seen[ex]) {
-          seen[ex] = true;
-          var enEx = patternObj.exclusions_en ? (patternObj.exclusions_en[i] || ex) : ex;
-          push('・' + ex, '• ' + enEx, 'item');
-        }
-      });
-    }
+    patternObjs.forEach(function (patternObj) {
+      if (patternObj.exclusions) {
+        patternObj.exclusions.forEach(function (ex, i) {
+          if (!seen[ex]) {
+            seen[ex] = true;
+            var enEx = patternObj.exclusions_en ? (patternObj.exclusions_en[i] || ex) : ex;
+            push('・' + ex, '• ' + enEx, 'item');
+          }
+        });
+      }
+    });
 
     if (hasCustom) {
       push('★ ' + state.customText.trim() + ' (お客様による入力)', '★ ' + state.customText.trim() + ' (custom item)', 'item');
@@ -276,11 +278,13 @@ window.CARD_DATA = (function () {
       push(card.severityWarning, card.severityWarning_en, 'warning');
     }
 
-    // ── Pattern-specific note ────────────────────────────────────────────
-    if (patternObj && patternObj.note) {
-      blank();
-      push(patternObj.note, patternObj.note_en || '', 'note');
-    }
+    // ── Pattern-specific notes ───────────────────────────────────────────
+    patternObjs.forEach(function (patternObj) {
+      if (patternObj.note) {
+        blank();
+        push(patternObj.note, patternObj.note_en || '', 'note');
+      }
+    });
 
     // ── Closing ──────────────────────────────────────────────────────────
     blank();
