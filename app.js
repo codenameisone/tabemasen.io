@@ -20,7 +20,7 @@
     severity:    'allergy',  // 'allergy' | 'severe'
     name:        '',
     customText:  '',
-    showEnglish: true,
+    showEnglish: false,
   };
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -108,19 +108,32 @@
         .replace(/\n/g, '<br>');
     }
 
-    var html = lines.map(function (line) {
+    // Split: main content vs disclaimer lines
+    var mainLines = lines.filter(function(l) { return l.kind !== 'disclaimer' && l.kind !== 'site-url'; });
+    var disclaimerLines = lines.filter(function(l) { return l.kind === 'disclaimer' || l.kind === 'site-url'; });
+    // Trim trailing blanks from main (the blank that preceded the disclaimer)
+    while (mainLines.length > 0 && mainLines[mainLines.length - 1].kind === 'blank') {
+      mainLines.pop();
+    }
+
+    var html = mainLines.map(function (line) {
       if (line.kind === 'blank') return '<p class="card-line card-line--blank">&nbsp;</p>';
       return '<p class="card-line card-line--' + line.kind + '">' + esc(line.ja) + '</p>';
     }).join('');
 
-    if (state.showEnglish && lines.some(function(l) { return l.en; })) {
-      html += '<div class="card-en-divider"></div><div class="card-en">';
-      lines.forEach(function(line) {
-        if (!line.en) return;
-        html += '<p class="card-en-line card-en-line--' + line.kind + '">' + esc(line.en) + '</p>';
-      });
-      html += '</div>';
-    }
+    // English block — always in DOM so CSS transition works; hidden via class
+    var enLines = lines.filter(function(l) { return !!l.en; });
+    html += '<div class="card-en' + (state.showEnglish ? '' : ' card-en--hidden') + '">';
+    html += '<div class="card-en-divider"></div>';
+    enLines.forEach(function(line) {
+      html += '<p class="card-en-line card-en-line--' + line.kind + '">' + esc(line.en) + '</p>';
+    });
+    html += '</div>';
+
+    // Disclaimer after English
+    disclaimerLines.forEach(function(line) {
+      html += '<p class="card-line card-line--' + line.kind + '">' + esc(line.ja) + '</p>';
+    });
 
     cardEl.innerHTML = html;
   }
@@ -166,7 +179,7 @@
     if (state.severity === 'severe') parts.push('s=severe');
     if (state.name)                 parts.push('n=' + encodeURIComponent(state.name));
     if (state.customText)           parts.push('c=' + encodeURIComponent(state.customText));
-    if (!state.showEnglish)         parts.push('en=0');
+    if (state.showEnglish)          parts.push('en=1');
     // FIX: was joining with '&amp;' (HTML entity) which produced broken URLs.
     return parts.join('&');
   }
@@ -178,7 +191,7 @@
       severity:    'allergy',
       name:        '',
       customText:  '',
-      showEnglish: true,
+      showEnglish: false,
     };
     if (!hash || hash === '#') return result;
 
@@ -208,7 +221,8 @@
           result.customText = val;
           break;
         case 'en':
-          result.showEnglish = (val !== '0');
+          // en=1 → show; en=0 (old format) or absent → hide (new default)
+          result.showEnglish = (val === '1');
           break;
       }
     });
@@ -268,7 +282,7 @@
     state.severity    = 'allergy';
     state.name        = '';
     state.customText  = '';
-    state.showEnglish = true;
+    state.showEnglish = false;
   }
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -297,7 +311,11 @@
 
   function onEnglishToggleChange(e) {
     state.showEnglish = e.target.checked;
-    syncUI();
+    // Toggle class on existing element (no re-render) so CSS transition plays
+    var enEl = els.card.querySelector('.card-en');
+    if (enEl) enEl.classList.toggle('card-en--hidden', !state.showEnglish);
+    updateHash();
+    saveToStorage();
   }
 
   function onNameInput(e)   { state.name       = e.target.value; syncUI(); }
@@ -427,7 +445,7 @@
         state.severity    = stored.severity   || 'allergy';
         state.name        = stored.name       || '';
         state.customText  = stored.customText || '';
-        state.showEnglish = stored.showEnglish !== undefined ? stored.showEnglish : true;
+        state.showEnglish = stored.showEnglish !== undefined ? stored.showEnglish : false;
       }
     }
 

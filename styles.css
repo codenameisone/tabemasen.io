@@ -538,7 +538,17 @@ a:hover { text-decoration: underline; }
   margin: var(--space-md) 0 var(--space-sm);
 }
 
-.card-en { }
+.card-en {
+  overflow: hidden;
+  max-height: 800px;
+  opacity: 1;
+  transition: max-height 350ms ease, opacity 200ms ease;
+}
+
+.card-en--hidden {
+  max-height: 0;
+  opacity: 0;
+}
 
 .card-en-line {
   font-family: var(--font-ui);
@@ -594,26 +604,6 @@ a:hover { text-decoration: underline; }
   margin-top: var(--space-xs);
 }
 
-.footer-resources {
-  margin-bottom: var(--space-md);
-  text-align: left;
-}
-
-.footer-resources-heading {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: var(--space-xs);
-}
-
-.footer-resources-list {
-  list-style: none;
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  line-height: 1.8;
-}
 
 .footer-disclaimer {
   font-size: 0.75rem;
