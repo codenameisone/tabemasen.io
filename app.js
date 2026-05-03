@@ -418,14 +418,57 @@
           var blobUrl = URL.createObjectURL(blob);
 
           if (ios) {
-            // Navigate the pre-opened tab to the image.
-            // User can long-press → Save to Photos (or Add to Photos in iOS 26).
+            // Revoke after 5 minutes — enough time for the user to tap Save.
+            setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 300000);
+
             if (iosTab && !iosTab.closed) {
-              iosTab.location.href = blobUrl;
+              // Write an HTML page into the pre-opened tab instead of navigating
+              // directly to the blob URL. A raw blob image in Firefox iOS has no
+              // "Save Image" context menu; a proper <img> inside an HTML page does.
+              // The "Save Image" button calls navigator.share from a fresh user
+              // gesture inside the new tab — bypassing the activation-expiry issue.
+              var esc = blobUrl.replace(/'/g, "\\'");
+              var page = '<!DOCTYPE html><html lang="en"><head>'
+                + '<meta charset="UTF-8">'
+                + '<meta name="viewport" content="width=device-width,initial-scale=1">'
+                + '<title>Save your allergy card</title>'
+                + '<style>'
+                + 'body{margin:0;min-height:100dvh;display:flex;flex-direction:column;'
+                + 'align-items:center;padding:24px 16px 40px;'
+                + 'font-family:system-ui,sans-serif;background:#f5f2ec;gap:16px}'
+                + 'h1{font-size:1rem;font-weight:600;color:#1a1612;margin:0}'
+                + 'img{max-width:100%;border-radius:8px;'
+                + 'box-shadow:0 2px 12px rgba(0,0,0,.12)}'
+                + '.btn{padding:13px 28px;background:#2b6ec4;color:#fff;border:none;'
+                + 'border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;'
+                + 'min-height:48px;width:100%;max-width:320px}'
+                + '.hint{font-size:.8125rem;color:#6b6355;text-align:center;'
+                + 'max-width:280px;line-height:1.5;margin:0}'
+                + '</style></head><body>'
+                + '<h1>Your tabemasen card</h1>'
+                + '<img src="' + blobUrl + '" alt="tabemasen allergy card">'
+                + '<button class="btn" onclick="saveImg()">&#8659; Save Image</button>'
+                + '<p class="hint">Or long-press the image above<br>and choose <strong>Add to Photos</strong></p>'
+                + '<script>async function saveImg(){'
+                + 'try{'
+                + 'var r=await fetch(\'' + esc + '\');'
+                + 'var b=await r.blob();'
+                + 'var f=new File([b],\'tabemasen-card.png\',{type:\'image/png\'});'
+                + 'await navigator.share({files:[f],title:\'tabemasen allergy card\'});'
+                + '}catch(e){'
+                + 'if(e.name!==\'AbortError\')'
+                + 'alert(\'Long-press the image above and choose Add to Photos.\');'
+                + '}}<\/script>'
+                + '</body></html>';
+              try {
+                iosTab.document.write(page);
+                iosTab.document.close();
+              } catch (e) {
+                iosTab.location.href = blobUrl;
+              }
             } else {
               window.open(blobUrl, '_blank');
             }
-            setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 60000);
           } else {
             var link = document.createElement('a');
             link.download = filename;
