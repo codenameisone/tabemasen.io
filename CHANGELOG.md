@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-05-03
+
+- fix: PNG download now works in Firefox on iPhone — replaced `canvas.toDataURL` with `canvas.toBlob` + `URL.createObjectURL` so large data URLs no longer silently fail
+- feat: on iOS (all browsers), tapping Download triggers the native share sheet via `navigator.share({ files })` (iOS 15+); older iOS falls back to opening the image in a new tab for long-press save
+- fix: sticky hover highlight on allergen and diet chips after tap-to-deselect on mobile — hover styles now gated behind `@media (hover: hover)` so touch devices never apply them
+- fix: action bar buttons (Copy Link / Download PNG / Print) now scroll horizontally on narrow screens instead of silently overflowing; button `flex` changed to `1 0 auto` to prevent invisible compression
+
 ## 2026-04-29
 
 - fix: allergen and pattern chips now correctly deselect on tap (Android Chrome regression) — `buildAllergenChips()` and `buildPatternButtons()` confirmed running before `cacheEls()` so the cached NodeList is always populated

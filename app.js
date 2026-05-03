@@ -369,6 +369,12 @@
   // ─────────────────────────────────────────────────────────────────────────
   // Download PNG (lazy-aware of html2canvas)
   // ─────────────────────────────────────────────────────────────────────────
+
+  function isIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+           (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+
   function onDownloadClick() {
     var btn = els.downloadBtn;
     var btnText = btn.querySelector('.btn-text');
@@ -388,16 +394,53 @@
         backgroundColor: '#FBF8F1',
         logging: false,
       }).then(function (canvas) {
-        btn.disabled = false;
-        btnText.textContent = original;
-
-        var link = document.createElement('a');
         var date = new Date().toISOString().substring(0, 10);
-        link.download = 'tabemasen-' + date + '.png';
-        link.href = canvas.toDataURL('image/png');
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        var filename = 'tabemasen-' + date + '.png';
+
+        canvas.toBlob(function (blob) {
+          btn.disabled = false;
+          btnText.textContent = original;
+
+          if (!blob) {
+            alert('Sorry, PNG generation failed. Please try taking a screenshot instead.');
+            return;
+          }
+
+          var ios = isIOS();
+
+          // iOS: try native share sheet first (iOS 15+, all browsers)
+          if (ios && navigator.share && navigator.canShare) {
+            var file = new File([blob], filename, { type: 'image/png' });
+            if (navigator.canShare({ files: [file] })) {
+              navigator.share({ files: [file], title: 'tabemasen allergy card' })
+                .catch(function (err) {
+                  // AbortError = user cancelled — no fallback needed
+                  if (err.name !== 'AbortError') {
+                    window.open(URL.createObjectURL(blob), '_blank');
+                  }
+                });
+              return;
+            }
+          }
+
+          var blobUrl = URL.createObjectURL(blob);
+
+          if (ios) {
+            // iOS doesn't honour <a download> for blob URLs in non-Safari browsers.
+            // Open in a new tab so the user can long-press → Save to Photos.
+            window.open(blobUrl, '_blank');
+            // Revoke after a generous delay so the new tab has time to load the blob.
+            setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 60000);
+          } else {
+            var link = document.createElement('a');
+            link.download = filename;
+            link.href = blobUrl;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 1000);
+          }
+        }, 'image/png');
       }).catch(function (err) {
         btn.disabled = false;
         btnText.textContent = original;
