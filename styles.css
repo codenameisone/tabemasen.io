@@ -221,8 +221,10 @@ a:hover { text-decoration: underline; }
   line-height: 1.2;
 }
 
-.chip:hover { border-color: var(--color-primary); background: var(--color-chip-selected); }
 .chip:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+@media (hover: hover) {
+  .chip:hover { border-color: var(--color-primary); background: var(--color-chip-selected); }
+}
 
 .chip--selected {
   background: var(--color-chip-selected);
@@ -258,8 +260,10 @@ a:hover { text-decoration: underline; }
   line-height: 1.4;
 }
 
-.pattern-btn:hover { border-color: var(--color-primary); background: var(--color-chip-selected); }
 .pattern-btn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+@media (hover: hover) {
+  .pattern-btn:hover { border-color: var(--color-primary); background: var(--color-chip-selected); }
+}
 
 .pattern-btn--selected {
   background: var(--color-chip-selected);
@@ -606,10 +610,12 @@ a:hover { text-decoration: underline; }
   gap: var(--space-sm);
   z-index: 20;
   box-shadow: 0 -2px 8px rgba(0,0,0,0.06);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .action-bar .btn {
-  flex: 1;
+  flex: 1 0 auto;
   font-size: 0.8125rem;
   padding: 10px var(--space-sm);
   min-height: 48px;
