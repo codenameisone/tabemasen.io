@@ -383,12 +383,16 @@
     btnText.textContent = 'Generating…';
 
     var ios = isIOS();
-    // Firefox iOS rejects navigator.share after async work (strict activation) and
-    // needs the pre-opened tab trick. All other iOS browsers (Safari, DuckDuckGo,
-    // Chrome iOS) support navigator.share — opening a tab would consume the one
-    // activation we have, so we leave it untouched for those browsers.
+    // Probe file-share capability RIGHT NOW (synchronous, no activation cost).
+    // canShare({files}) returning false in DDG/Chrome means we must pre-open a
+    // tab now while the gesture is active. If it returns true (Safari) we leave
+    // the activation untouched so navigator.share can use it after the async work.
+    // Firefox iOS is excluded — it needs the tab regardless of canShare.
     var firefoxIOS = /FxiOS/.test(navigator.userAgent);
-    var iosTab = firefoxIOS ? window.open('', '_blank') : null;
+    var canShareFiles = !firefoxIOS && ios &&
+      !!(navigator.share && navigator.canShare &&
+         navigator.canShare({ files: [new File([], 'x.png', { type: 'image/png' })] }));
+    var iosTab = (ios && !canShareFiles) ? window.open('', '_blank') : null;
 
     function doCapture() {
       if (typeof html2canvas === 'undefined') {
@@ -417,31 +421,23 @@
 
           var blobUrl = URL.createObjectURL(blob);
 
-          if (firefoxIOS) {
-            // Navigate the pre-opened tab to the image.
+          if (canShareFiles) {
+            // Safari (and any iOS browser that confirmed file sharing) —
+            // activation is still valid; trigger the native share sheet.
+            var file = new File([blob], filename, { type: 'image/png' });
+            navigator.share({ files: [file], title: 'tabemasen allergy card' })
+              .catch(function (err) {
+                if (err.name !== 'AbortError') { window.open(blobUrl, '_blank'); }
+              });
+            setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 60000);
+          } else if (ios) {
+            // Firefox iOS, DDG, Chrome iOS (canShare returned false) —
+            // use the pre-opened tab.
             if (iosTab && !iosTab.closed) {
               iosTab.location.href = blobUrl;
             } else {
               window.open(blobUrl, '_blank');
             }
-            setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 60000);
-          } else if (ios) {
-            // Safari, DuckDuckGo, Chrome iOS — trigger native share sheet.
-            if (navigator.share && navigator.canShare) {
-              var file = new File([blob], filename, { type: 'image/png' });
-              if (navigator.canShare({ files: [file] })) {
-                navigator.share({ files: [file], title: 'tabemasen allergy card' })
-                  .catch(function (err) {
-                    if (err.name !== 'AbortError') {
-                      window.open(blobUrl, '_blank');
-                    }
-                  });
-                setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 60000);
-                return;
-              }
-            }
-            // No share API — open in new tab as fallback.
-            window.open(blobUrl, '_blank');
             setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 60000);
           } else {
             var link = document.createElement('a');
