@@ -391,7 +391,7 @@
     var firefoxIOS = /FxiOS/.test(navigator.userAgent);
     var canShareFiles = !firefoxIOS && ios &&
       !!(navigator.share && navigator.canShare &&
-         navigator.canShare({ files: [new File([], 'x.png', { type: 'image/png' })] }));
+         navigator.canShare({ files: [new File([new Uint8Array(1)], 'x.png', { type: 'image/png' })] }));
     var iosTab = (ios && !canShareFiles) ? window.open('', '_blank') : null;
 
     function doCapture() {
