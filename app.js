@@ -382,13 +382,13 @@
     btn.disabled = true;
     btnText.textContent = 'Generating…';
 
-    // On iOS, window.open and navigator.share both require an active user gesture.
-    // That activation is consumed by the time html2canvas + toBlob finish (both async).
-    // Fix: open a blank tab RIGHT NOW (synchronously, gesture still active) and
-    // redirect it to the blob URL once it's ready. Works in Safari, Firefox iOS,
-    // DuckDuckGo, Chrome iOS — all WebKit.
     var ios = isIOS();
-    var iosTab = ios ? window.open('', '_blank') : null;
+    // Firefox iOS rejects navigator.share after async work (strict activation) and
+    // needs the pre-opened tab trick. All other iOS browsers (Safari, DuckDuckGo,
+    // Chrome iOS) support navigator.share — opening a tab would consume the one
+    // activation we have, so we leave it untouched for those browsers.
+    var firefoxIOS = /FxiOS/.test(navigator.userAgent);
+    var iosTab = firefoxIOS ? window.open('', '_blank') : null;
 
     function doCapture() {
       if (typeof html2canvas === 'undefined') {
@@ -417,12 +417,31 @@
 
           var blobUrl = URL.createObjectURL(blob);
 
-          if (ios) {
+          if (firefoxIOS) {
+            // Navigate the pre-opened tab to the image.
             if (iosTab && !iosTab.closed) {
               iosTab.location.href = blobUrl;
             } else {
               window.open(blobUrl, '_blank');
             }
+            setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 60000);
+          } else if (ios) {
+            // Safari, DuckDuckGo, Chrome iOS — trigger native share sheet.
+            if (navigator.share && navigator.canShare) {
+              var file = new File([blob], filename, { type: 'image/png' });
+              if (navigator.canShare({ files: [file] })) {
+                navigator.share({ files: [file], title: 'tabemasen allergy card' })
+                  .catch(function (err) {
+                    if (err.name !== 'AbortError') {
+                      window.open(blobUrl, '_blank');
+                    }
+                  });
+                setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 60000);
+                return;
+              }
+            }
+            // No share API — open in new tab as fallback.
+            window.open(blobUrl, '_blank');
             setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 60000);
           } else {
             var link = document.createElement('a');
