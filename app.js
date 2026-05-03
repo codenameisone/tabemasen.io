@@ -382,6 +382,14 @@
     btn.disabled = true;
     btnText.textContent = 'Generating…';
 
+    // On iOS, window.open and navigator.share both require an active user gesture.
+    // That activation is consumed by the time html2canvas + toBlob finish (both async).
+    // Fix: open a blank tab RIGHT NOW (synchronously, gesture still active) and
+    // redirect it to the blob URL once it's ready. Works in Safari, Firefox iOS,
+    // DuckDuckGo, Chrome iOS — all WebKit.
+    var ios = isIOS();
+    var iosTab = ios ? window.open('', '_blank') : null;
+
     function doCapture() {
       if (typeof html2canvas === 'undefined') {
         setTimeout(doCapture, 100);
@@ -402,34 +410,21 @@
           btnText.textContent = original;
 
           if (!blob) {
+            if (iosTab) iosTab.close();
             alert('Sorry, PNG generation failed. Please try taking a screenshot instead.');
             return;
-          }
-
-          var ios = isIOS();
-
-          // iOS: try native share sheet first (iOS 15+, all browsers)
-          if (ios && navigator.share && navigator.canShare) {
-            var file = new File([blob], filename, { type: 'image/png' });
-            if (navigator.canShare({ files: [file] })) {
-              navigator.share({ files: [file], title: 'tabemasen allergy card' })
-                .catch(function (err) {
-                  // AbortError = user cancelled — no fallback needed
-                  if (err.name !== 'AbortError') {
-                    window.open(URL.createObjectURL(blob), '_blank');
-                  }
-                });
-              return;
-            }
           }
 
           var blobUrl = URL.createObjectURL(blob);
 
           if (ios) {
-            // iOS doesn't honour <a download> for blob URLs in non-Safari browsers.
-            // Open in a new tab so the user can long-press → Save to Photos.
-            window.open(blobUrl, '_blank');
-            // Revoke after a generous delay so the new tab has time to load the blob.
+            // Navigate the pre-opened tab to the image.
+            // User can long-press → Save to Photos (or Add to Photos in iOS 26).
+            if (iosTab && !iosTab.closed) {
+              iosTab.location.href = blobUrl;
+            } else {
+              window.open(blobUrl, '_blank');
+            }
             setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 60000);
           } else {
             var link = document.createElement('a');
@@ -444,6 +439,7 @@
       }).catch(function (err) {
         btn.disabled = false;
         btnText.textContent = original;
+        if (iosTab) iosTab.close();
         console.error('PNG export failed:', err);
         alert('Sorry, PNG download failed. Please try the screenshot button on your phone instead.');
       });
