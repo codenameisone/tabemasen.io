@@ -288,7 +288,7 @@
     state.severity    = 'allergy';
     state.name        = '';
     state.customText  = '';
-    state.showEnglish = false;
+    // showEnglish intentionally preserved — it's a display preference, not a selection.
   }
 
   // ─────────────────────────────────────────────────────────────────────────

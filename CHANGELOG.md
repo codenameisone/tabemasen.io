@@ -3,6 +3,7 @@
 ## 2026-05-05
 
 - fix(B1): persist Show English toggle across page reloads — `showEnglish` is now saved to localStorage; previously only read on load, so the toggle silently reverted to off after every reload
+- fix(B2): Clear All no longer wipes the Show English preference — clearing selections is for allergens/patterns/custom text, not for display preferences
 
 ## 2026-05-03
 
