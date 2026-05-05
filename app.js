@@ -393,7 +393,12 @@
     var canShareFiles = !firefoxIOS && ios &&
       !!(navigator.share && navigator.canShare &&
          navigator.canShare({ files: [new File([new Uint8Array(1)], 'x.png', { type: 'image/png' })] }));
-    var iosTab = (ios && !canShareFiles) ? window.open('', '_blank') : null;
+    // Pre-open the fallback tab unconditionally on iOS. If navigator.share
+    // fails (or is never reached), the user-activation that allowed
+    // window.open will already be gone — Safari's popup blocker would
+    // silently eat any later window.open call. Cost: a brief blank tab on
+    // Safari that gets closed when share succeeds.
+    var iosTab = ios ? window.open('', '_blank') : null;
 
     function doCapture() {
       if (typeof html2canvas === 'undefined') {
@@ -425,10 +430,21 @@
           if (canShareFiles) {
             // Safari (and any iOS browser that confirmed file sharing) —
             // activation is still valid; trigger the native share sheet.
+            // The pre-opened iosTab is the popup-blocker-safe fallback if
+            // share rejects with a non-Abort error.
             var file = new File([blob], filename, { type: 'image/png' });
             navigator.share({ files: [file], title: 'tabemasen allergy card' })
+              .then(function () {
+                if (iosTab && !iosTab.closed) iosTab.close();
+              })
               .catch(function (err) {
-                if (err.name !== 'AbortError') { window.open(blobUrl, '_blank'); }
+                if (err.name === 'AbortError') {
+                  if (iosTab && !iosTab.closed) iosTab.close();
+                } else if (iosTab && !iosTab.closed) {
+                  iosTab.location.href = blobUrl;
+                } else {
+                  window.open(blobUrl, '_blank');
+                }
               });
             setTimeout(function () { URL.revokeObjectURL(blobUrl); }, 60000);
           } else if (ios) {
