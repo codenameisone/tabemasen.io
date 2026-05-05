@@ -282,7 +282,7 @@ a:hover { text-decoration: underline; }
   gap: var(--space-sm);
 }
 
-.radio-option {
+.severity-option {
   flex: 1;
   display: flex;
   align-items: center;
@@ -296,13 +296,12 @@ a:hover { text-decoration: underline; }
   min-height: 44px;
 }
 
-.radio-option:has(input:checked) {
+.severity-option:has(input:checked) {
   background: var(--color-chip-selected);
   border-color: var(--color-primary);
 }
 
-.radio-option input[type="radio"],
-.radio-option input[type="checkbox"] {
+.severity-option input[type="checkbox"] {
   width: 18px;
   height: 18px;
   accent-color: var(--color-primary);
@@ -310,7 +309,7 @@ a:hover { text-decoration: underline; }
   flex-shrink: 0;
 }
 
-.radio-label { font-size: 0.9375rem; color: var(--color-text); }
+.severity-label { font-size: 0.9375rem; color: var(--color-text); }
 
 /* ─────────────────────────────────────────────────────────────────────────
    Optional / Name fields

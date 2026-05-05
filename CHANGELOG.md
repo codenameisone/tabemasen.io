@@ -9,6 +9,7 @@
 - feat(D2): Resources section in footer with vetted GF travel links — Find Me Gluten Free, Legal Nomads' Japan guide, r/Celiac wiki. Bumped version to v1.2
 - refactor(T1): syncUI re-queries chip/pattern lists each render — no stale NodeList. Dropped the `cacheEls()` chip/pattern caches; queries are negligible (<25 chips)
 - fix(T2): English block no longer clips on long cards — `.card-en` max-height bumped from 800px to 3000px (animation duration 350→500ms to match)
+- refactor(T3): rename `.radio-option` / `.radio-label` to `.severity-option` / `.severity-label` (severity is a checkbox now, not a radio group); dropped the now-orphan `input[type="radio"]` selector
 
 ## 2026-05-03
 
