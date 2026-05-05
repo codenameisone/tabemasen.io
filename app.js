@@ -247,11 +247,12 @@
   function saveToStorage() {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({
-        allergens: state.allergens,
-        patterns:  state.patterns,
-        severity:  state.severity,
-        name:      state.name,
-        customText:state.customText,
+        allergens:   state.allergens,
+        patterns:    state.patterns,
+        severity:    state.severity,
+        name:        state.name,
+        customText:  state.customText,
+        showEnglish: state.showEnglish,
       }));
     } catch (e) { /* quota or private mode — fail silently */ }
   }
