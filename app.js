@@ -20,7 +20,7 @@
     severity:    'allergy',  // 'allergy' | 'severe'
     name:        '',
     customText:  '',
-    showEnglish: false,
+    showEnglish: true,
   };
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -184,7 +184,7 @@
     if (state.severity === 'severe') parts.push('s=severe');
     if (state.name)                 parts.push('n=' + encodeURIComponent(state.name));
     if (state.customText)           parts.push('c=' + encodeURIComponent(state.customText));
-    if (state.showEnglish)          parts.push('en=1');
+    if (!state.showEnglish)         parts.push('en=0');
     // FIX: was joining with '&amp;' (HTML entity) which produced broken URLs.
     return parts.join('&');
   }
@@ -196,7 +196,7 @@
       severity:    'allergy',
       name:        '',
       customText:  '',
-      showEnglish: false,
+      showEnglish: true,
     };
     if (!hash || hash === '#') return result;
 
@@ -226,8 +226,9 @@
           result.customText = val;
           break;
         case 'en':
-          // en=1 → show; en=0 (old format) or absent → hide (new default)
-          result.showEnglish = (val === '1');
+          // New default is ON. en=0 → hide; absent or any other value
+          // (including legacy en=1) → show.
+          result.showEnglish = (val !== '0');
           break;
       }
     });
@@ -519,7 +520,7 @@
         state.severity    = stored.severity   || 'allergy';
         state.name        = stored.name       || '';
         state.customText  = stored.customText || '';
-        state.showEnglish = stored.showEnglish !== undefined ? stored.showEnglish : false;
+        state.showEnglish = stored.showEnglish !== undefined ? stored.showEnglish : true;
       }
     }
 

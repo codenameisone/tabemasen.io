@@ -5,6 +5,7 @@
 - fix(B1): persist Show English toggle across page reloads — `showEnglish` is now saved to localStorage; previously only read on load, so the toggle silently reverted to off after every reload
 - fix(B2): Clear All no longer wipes the Show English preference — clearing selections is for allergens/patterns/custom text, not for display preferences
 - fix(B3): iOS Safari PNG share now has a popup-blocker-safe fallback tab — the fallback tab is pre-opened during the user gesture so a later `navigator.share` rejection can navigate to the blob URL instead of being silently blocked
+- feat(D1): English mirror now defaults to shown — the trust feature is on by default. Hash uses `en=0` to opt out; legacy `en=1` URLs still parse as shown. localStorage with explicit `showEnglish: false` is preserved
 
 ## 2026-05-03
 
