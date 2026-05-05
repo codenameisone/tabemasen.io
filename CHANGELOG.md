@@ -8,6 +8,7 @@
 - feat(D1): English mirror now defaults to shown — the trust feature is on by default. Hash uses `en=0` to opt out; legacy `en=1` URLs still parse as shown. localStorage with explicit `showEnglish: false` is preserved
 - feat(D2): Resources section in footer with vetted GF travel links — Find Me Gluten Free, Legal Nomads' Japan guide, r/Celiac wiki. Bumped version to v1.2
 - refactor(T1): syncUI re-queries chip/pattern lists each render — no stale NodeList. Dropped the `cacheEls()` chip/pattern caches; queries are negligible (<25 chips)
+- fix(T2): English block no longer clips on long cards — `.card-en` max-height bumped from 800px to 3000px (animation duration 350→500ms to match)
 
 ## 2026-05-03
 
