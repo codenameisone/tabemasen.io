@@ -29,8 +29,9 @@
   var els = {};
 
   function cacheEls() {
-    els.allergenChips   = document.querySelectorAll('.chip[data-key]');
-    els.patternBtns     = document.querySelectorAll('.pattern-btn[data-key]');
+    // Chip and pattern lists are intentionally NOT cached — syncUI re-queries
+    // them per call so dynamic chip rebuilds don't leave it operating on a
+    // stale NodeList.
     els.severityToggle  = document.getElementById('severity-toggle');
     els.englishToggle   = document.getElementById('english-toggle');
     els.nameInput       = document.getElementById('name-input');
@@ -147,14 +148,14 @@
   // Sync UI to state (called after any state change)
   // ─────────────────────────────────────────────────────────────────────────
   function syncUI() {
-    els.allergenChips.forEach(function (chip) {
+    document.querySelectorAll('.chip[data-key]').forEach(function (chip) {
       var key = chip.dataset.key;
       var isSelected = state.allergens.indexOf(key) !== -1;
       chip.classList.toggle('chip--selected', isSelected);
       chip.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
     });
 
-    els.patternBtns.forEach(function (btn) {
+    document.querySelectorAll('.pattern-btn[data-key]').forEach(function (btn) {
       var key = btn.dataset.key;
       var isSelected = (key === '' && state.patterns.length === 0) ||
                        (key !== '' && state.patterns.indexOf(key) !== -1);
