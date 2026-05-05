@@ -386,15 +386,19 @@
     btnText.textContent = 'Generating…';
 
     var ios = isIOS();
-    // Probe file-share capability RIGHT NOW (synchronous, no activation cost).
-    // canShare({files}) returning false in DDG/Chrome means we must pre-open a
-    // tab now while the gesture is active. If it returns true (Safari) we leave
-    // the activation untouched so navigator.share can use it after the async work.
-    // Firefox iOS is excluded — it needs the tab regardless of canShare.
+    // Decide which iOS path to take BEFORE the async chain.
+    //
+    // Why we don't trust navigator.canShare alone: DDG iOS's probe returns
+    // false on the cold first call (then true on subsequent calls), which
+    // caused the user to need 3 taps before the share sheet appeared.
+    //
+    // Strategy: classify by UA. Firefox iOS (FxiOS) and Chrome iOS (CriOS)
+    // genuinely don't support file sharing on WKWebView — they go down the
+    // blob-in-tab path. Everything else on iOS (Safari, DDG, Brave, etc.)
+    // is assumed to support share() with files.
     var firefoxIOS = /FxiOS/.test(navigator.userAgent);
-    var canShareFiles = !firefoxIOS && ios &&
-      !!(navigator.share && navigator.canShare &&
-         navigator.canShare({ files: [new File([new Uint8Array(1)], 'x.png', { type: 'image/png' })] }));
+    var chromeIOS  = /CriOS/.test(navigator.userAgent);
+    var canShareFiles = ios && !firefoxIOS && !chromeIOS && !!navigator.share;
     // Pre-open the fallback tab ONLY for browsers that can't use share().
     // On Safari/DDG iOS (canShareFiles=true), calling window.open consumes
     // the transient user activation that navigator.share needs — the share
