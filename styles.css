@@ -130,6 +130,171 @@ a:hover { text-decoration: underline; }
 .bmc-link--footer { display: block; margin-top: var(--space-md); }
 
 /* ─────────────────────────────────────────────────────────────────────────
+   Site Navigation
+───────────────────────────────────────────────────────────────────────── */
+.site-nav {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  text-align: left;
+  margin-bottom: var(--space-md);
+}
+
+.site-nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  min-height: 44px;
+  padding: var(--space-xs) 0;
+  color: var(--color-text);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+.site-nav__brand:hover { text-decoration: none; color: var(--color-text); }
+.site-nav__brand:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.site-nav__brand-mark {
+  width: 1.4em;
+  height: 1.4em;
+  flex-shrink: 0;
+}
+
+.site-nav__toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  cursor: pointer;
+}
+.site-nav__toggle:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+.site-nav__toggle-icon {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.site-nav__panel {
+  position: absolute;
+  top: calc(100% + var(--space-xs));
+  left: 0;
+  right: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  transform: translateY(-6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 180ms ease, transform 180ms ease, visibility 180ms;
+  z-index: 50;
+}
+.site-nav__panel[aria-hidden="false"] {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.site-nav__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: var(--space-xs);
+  gap: 2px;
+}
+
+.site-nav__link {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: var(--space-sm) var(--space-md);
+  color: var(--color-text);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  border-left: 3px solid transparent;
+}
+@media (hover: hover) {
+  .site-nav__link:hover {
+    background: var(--color-chip-selected);
+    text-decoration: none;
+  }
+}
+.site-nav__link:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+.site-nav__link--cta {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+.site-nav__link--active {
+  font-weight: 700;
+  color: var(--color-primary);
+  border-left-color: var(--color-primary);
+}
+
+@media (min-width: 768px) {
+  .site-nav { margin-bottom: var(--space-lg); }
+  .site-nav__toggle { display: none; }
+  .site-nav__panel {
+    position: static;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    padding: 0;
+    transition: none;
+  }
+  .site-nav__list {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: 0;
+  }
+  .site-nav__link {
+    min-height: auto;
+    padding: 6px var(--space-sm);
+    font-size: 0.875rem;
+    border-left: none;
+  }
+  .site-nav__link--active {
+    border-left: none;
+    border-bottom: 2px solid var(--color-primary);
+    border-radius: 0;
+    padding-bottom: 4px;
+  }
+}
+
+/* Hide nav on print — card-only output */
+@media print {
+  .site-nav { display: none !important; }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────
    Main content layout
 ───────────────────────────────────────────────────────────────────────── */
 .main-content {

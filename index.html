@@ -54,6 +54,34 @@
        HEADER
   ═══════════════════════════════════════════════════════════ -->
   <header class="site-header">
+    <nav class="site-nav" aria-label="Main">
+      <a class="site-nav__brand" href="/" aria-label="tabemasen home">
+        <img src="/assets/favicon.svg" alt="" class="site-nav__brand-mark">
+        <span>tabemasen</span>
+      </a>
+
+      <button class="site-nav__toggle" type="button"
+              aria-label="Open menu"
+              aria-expanded="false"
+              aria-controls="site-nav-panel">
+        <svg class="site-nav__toggle-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <line x1="4" y1="7" x2="20" y2="7" />
+          <line x1="4" y1="12" x2="20" y2="12" />
+          <line x1="4" y1="17" x2="20" y2="17" />
+        </svg>
+      </button>
+
+      <div class="site-nav__panel" id="site-nav-panel" aria-hidden="true">
+        <ul class="site-nav__list">
+          <li><a class="site-nav__link site-nav__link--cta site-nav__link--active" href="/" aria-current="page">Generate card</a></li>
+          <li><a class="site-nav__link" href="/allergies/">Allergies</a></li>
+          <li><a class="site-nav__link" href="/gluten-free/">Gluten-free</a></li>
+          <li><a class="site-nav__link" href="/vegan/">Vegan</a></li>
+          <li><a class="site-nav__link" href="/halal/">Halal</a></li>
+        </ul>
+      </div>
+    </nav>
+
     <h1 class="site-title">
       <img src="assets/favicon.svg" alt="tabemasen" class="site-logo">
       tabemasen
@@ -209,6 +237,7 @@
 
   <!-- html2canvas — lazy-loaded only when Download is clicked -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
+  <script src="/nav.js" defer></script>
   <script src="data.js"></script>
   <script src="app.js"></script>
   <script data-goatcounter="https://nqtn.goatcounter.com/count"

@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-05-07
+
+- feat(T0): site navigation with mobile hamburger and 5 destinations (Generate card, Allergies, Gluten-free, Vegan, Halal). Shared `nav.js` handles aria state, focus, Esc, outside-click, and breakpoint sync. Active page is hardcoded per page; CTA "Generate card" gets emphasised weight.
+
 ## 2026-05-05
 
 - revert(B3): no longer pre-open the iOS fallback tab on Safari/DDG. The pre-open consumed transient user activation that `navigator.share` needs, leaving Safari/DDG iOS users staring at a blank tab with no share sheet. Firefox/Chrome iOS still pre-open because they go down the blob-in-tab path
