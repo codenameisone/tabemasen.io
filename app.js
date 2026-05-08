@@ -71,14 +71,6 @@
     var list = document.querySelector('.pattern-list');
     if (!list) return;
 
-    var noneBtn = document.createElement('button');
-    noneBtn.type = 'button';
-    noneBtn.className = 'pattern-btn pattern-btn--none';
-    noneBtn.dataset.key = '';
-    noneBtn.setAttribute('aria-pressed', 'true');
-    noneBtn.textContent = CARD_DATA.ui.patternNone;
-    list.appendChild(noneBtn);
-
     CARD_DATA.patterns.forEach(function (pattern) {
       var btn = document.createElement('button');
       btn.type = 'button';

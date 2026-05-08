@@ -81,21 +81,21 @@
         </ul>
       </div>
     </nav>
-
-    <h1 class="site-title">
-      <img src="assets/favicon.svg" alt="tabemasen" class="site-logo">
-      tabemasen
-    </h1>
-    <p class="site-tagline">Pick your allergies and diet below → get a card in Japanese to show your waiter</p>
-    <p class="site-safetynote">Best used as a safety net — when possible, plan around dedicated GF/allergy-friendly restaurants.</p>
-    <h2 class="site-seo-heading">Free Japanese restaurant cards for food allergies, vegetarian, vegan, halal &amp; gluten-free travelers</h2>
-    <a class="bmc-link" href="https://buymeacoffee.com/iwakuranik" target="_blank" rel="noopener noreferrer" aria-label="Buy me a coffee"><span class="bmc-icon">☕</span> Buy me a coffee</a>
   </header>
 
   <!-- ═══════════════════════════════════════════════════════════
        MAIN
   ═══════════════════════════════════════════════════════════ -->
   <main class="main-content">
+
+    <section class="app-intro">
+      <h1 class="app-title">Generate your Japanese restaurant card</h1>
+      <p class="app-lede">Pick your allergies and diet below — your card builds live as you choose. Show it on your phone or download a PNG to keep offline.</p>
+      <p class="app-safety-note">Best used as a safety net — when possible, plan around dedicated GF/allergy-friendly restaurants.</p>
+      <h2 class="site-seo-heading">Free Japanese restaurant cards for food allergies, vegetarian, vegan, halal &amp; gluten-free travelers</h2>
+    </section>
+
+    <div class="app-grid">
 
     <!-- ──── Selection panel ─────────────────────────────── -->
     <section class="selection-panel" aria-label="Card options">
@@ -124,7 +124,7 @@
           </button>
         </h2>
         <div class="panel-body" id="diet-content">
-          <p class="field-hint">You can select multiple diets at once — e.g. gluten-free + pescatarian.</p>
+          <p class="field-hint">Select multiple at once — e.g. gluten-free + pescatarian.</p>
           <div class="pattern-list" role="group" aria-label="Select dietary pattern">
             <!-- Pattern buttons injected by app.js -->
           </div>
@@ -154,7 +154,7 @@
       <div class="panel-section" id="panel-optional">
         <h2 class="panel-heading">
           <button class="panel-toggle" aria-expanded="false" aria-controls="optional-content" type="button">
-            <span>Name &amp; Custom Item</span>
+            <span>Name &amp; custom item</span>
             <span class="panel-chevron" aria-hidden="true">▼</span>
           </button>
         </h2>
@@ -186,8 +186,8 @@
       </div>
 
       <!-- Clear -->
-      <div class="panel-section panel-section--tools">
-        <button type="button" class="btn btn--ghost" id="clear-btn">Clear All</button>
+      <div class="panel-tools">
+        <button type="button" class="clear-btn" id="clear-btn">Clear all</button>
       </div>
 
     </section><!-- /selection-panel -->
@@ -206,21 +206,23 @@
       </div>
     </section>
 
+    </div><!-- /.app-grid -->
+
   </main>
 
   <!-- ═══════════════════════════════════════════════════════════
        ACTION BUTTONS (sticky bottom bar)
   ═══════════════════════════════════════════════════════════ -->
   <div class="action-bar" role="toolbar" aria-label="Card actions">
-    <button type="button" class="btn btn--primary" id="copy-btn">
+    <button type="button" class="btn btn--ghost btn--action" id="copy-btn">
       <span class="btn-icon" aria-hidden="true">🔗</span>
       <span class="btn-text">Copy Link</span>
     </button>
-    <button type="button" class="btn btn--primary" id="download-btn">
+    <button type="button" class="btn btn--primary btn--action" id="download-btn">
       <span class="btn-icon" aria-hidden="true">⬇</span>
       <span class="btn-text">Download PNG</span>
     </button>
-    <button type="button" class="btn btn--primary" id="print-btn">
+    <button type="button" class="btn btn--ghost btn--action" id="print-btn">
       <span class="btn-icon" aria-hidden="true">🖨</span>
       <span class="btn-text">Print</span>
     </button>
@@ -230,9 +232,51 @@
        FOOTER
   ═══════════════════════════════════════════════════════════ -->
   <footer class="site-footer">
-    <p class="footer-disclaimer">Translations are checked against common Japanese restaurant phrasing but are not a substitute for medical advice or professional translation. If you have a life-threatening allergy, please carry an EpiPen and a doctor's letter.</p>
-    <p class="footer-credit">Built by a fellow traveller &nbsp;·&nbsp; v1.2</p>
-    <a class="bmc-link bmc-link--footer" href="https://buymeacoffee.com/iwakuranik" target="_blank" rel="noopener noreferrer" aria-label="Buy me a coffee"><span class="bmc-icon">☕</span> Buy me a coffee</a>
+    <div class="site-footer__inner">
+
+      <div class="site-footer__col site-footer__col--brand">
+        <a class="site-footer__brand" href="/" aria-label="tabemasen home">
+          <img src="/assets/favicon.svg" alt="" class="site-footer__brand-mark">
+          <span>tabemasen</span>
+        </a>
+        <p class="site-footer__tagline">Free Japanese restaurant cards for travelers with food allergies and dietary restrictions.</p>
+        <a class="bmc-link bmc-link--footer" href="https://buymeacoffee.com/iwakuranik" target="_blank" rel="noopener noreferrer" aria-label="Buy me a coffee"><span class="bmc-icon" aria-hidden="true">☕</span> Buy me a coffee</a>
+      </div>
+
+      <div class="site-footer__col">
+        <h3 class="site-footer__heading">Cards by</h3>
+        <ul class="site-footer__list">
+          <li><a href="/allergies/">Allergies</a></li>
+          <li><a href="/gluten-free/">Gluten-free</a></li>
+          <li><a href="/vegan/">Vegan</a></li>
+          <li><a href="/halal/">Halal</a></li>
+        </ul>
+      </div>
+
+      <div class="site-footer__col">
+        <h3 class="site-footer__heading">Resources</h3>
+        <ul class="site-footer__list">
+          <li><a href="https://www.foodallergy.org/resources/travel-tips-japan" target="_blank" rel="noopener">FoodAllergy.org Japan tips</a></li>
+          <li><a href="https://www.legalnomads.com/gluten-free/japanese/" target="_blank" rel="noopener">Legal Nomads — GF Japan</a></li>
+          <li><a href="https://jp.usembassy.gov/services/importing-medication/" target="_blank" rel="noopener">Yunyu Kakunin-sho</a></li>
+          <li><a href="https://www.reddit.com/r/Celiac/wiki/index/" target="_blank" rel="noopener">r/Celiac wiki</a></li>
+        </ul>
+      </div>
+
+      <div class="site-footer__col">
+        <h3 class="site-footer__heading">About</h3>
+        <ul class="site-footer__list">
+          <li><a href="https://github.com/codenameisone/tabemasen.io" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="/CHANGELOG.md">Changelog</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="site-footer__bottom">
+      <p class="site-footer__disclaimer">Translations are checked against common Japanese restaurant phrasing but are not a substitute for medical advice or professional translation. If you have a life-threatening allergy, please carry an EpiPen and a doctor's letter.</p>
+      <p class="site-footer__credit">Built by a fellow traveller &nbsp;·&nbsp; v1.2</p>
+    </div>
   </footer>
 
   <!-- html2canvas — lazy-loaded only when Download is clicked -->

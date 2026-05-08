@@ -3,6 +3,7 @@
 ## 2026-05-07
 
 - feat(T0): site navigation with mobile hamburger and 5 destinations (Generate card, Allergies, Gluten-free, Vegan, Halal). Shared `nav.js` handles aria state, focus, Esc, outside-click, and breakpoint sync. Active page is hardcoded per page; CTA "Generate card" gets emphasised weight.
+- feat(T1): `/gluten-free/` landing page with placeholder content — page-specific title/description, OG and Twitter meta, canonical URL, FAQPage JSON-LD, hero/sections/grid/card preview/FAQ/CTA layout, both CTAs deep-link to `/#p=gluten-free` to pre-select the gluten-free pattern on the homepage. Sitemap updated with the new URL.
 
 ## 2026-05-05
 
