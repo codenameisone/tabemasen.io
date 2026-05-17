@@ -1,0 +1,139 @@
+# tabemasen
+
+> Free Japanese restaurant card generator for travelers with food allergies, celiac disease, and dietary restrictions. Produces polite, naturally-phrased Japanese cards in ~30 seconds — no account required. Covers gluten-free, common allergens, vegan, and halal, with specific warnings for cross-contamination and hidden ingredients common in Japanese restaurants.
+
+tabemasen solves a specific problem: Japan's mandatory allergen labeling covers packaged food but not restaurants, and most phrasebooks don't warn about the ingredients that actually catch travelers out. Cards are written in natural Japanese (not machine-translated), use polite phrasing appropriate for restaurant staff, and include specific ingredient warnings, cross-contamination notes, and alternative suggestions (e.g. tamari instead of regular soy sauce).
+
+The name "tabemasen" (食べません) means "I don't eat" in Japanese.
+
+## Free Japanese Restaurant Card Generator
+
+- [Card generator](https://tabemasen.io/): Main tool — select dietary needs, generate a Japanese-language restaurant card to show staff on your phone
+
+### How the generator works
+
+Users visit the generator page, select one or more dietary restrictions (gluten-free, specific allergens, vegan, halal), and optionally set severity level and add custom notes. The tool generates a card in Japanese with:
+
+- A polite opening: "すみません、お願いがあります。" (Excuse me, I have a request.)
+- A clear statement of what the person cannot eat, listing specific ingredients in Japanese
+- Warnings about hidden sources of the allergen (e.g. wheat in soy sauce, dashi in soup)
+- A cross-contamination note requesting separate cookware and oil where relevant
+- Suggested alternatives (e.g. tamari instead of regular soy sauce)
+- A polite closing: "ご協力ありがとうございます。" (Thank you for your cooperation.)
+
+The card displays on the user's phone screen. No PDF download, no printing needed — users show the phone directly to restaurant staff. The card loads as a simple webpage; once generated, it can be viewed offline if the page is kept open or saved to the home screen.
+
+## Gluten-Free Guide
+
+- [Gluten-free guide](https://tabemasen.io/gluten-free/): Why gluten-free travel in Japan is harder than it looks
+
+### Why gluten-free in Japan is harder than it looks
+
+Japan's mandatory allergen labeling is one of the strictest in the world — but it only covers packaged food. In restaurants, gluten hides in places that catch out even prepared travelers. Most staff don't realise their soy sauce contains wheat, because to them it's just "shoyu" — that's normal soy sauce in Japan.
+
+### Hidden gluten sources in Japanese restaurants
+
+**Soy sauce (shoyu):** Standard Japanese soy sauce is brewed with wheat. Tamari is the gluten-free version, but restaurants rarely stock it unless asked. The gluten-free card specifically requests tamari or gluten-free soy sauce.
+
+**Barley tea (mugicha):** The free tea served at most restaurants in Japan. Made from roasted barley, which contains gluten. Many travelers drink it without realizing.
+
+**Tempura batter:** Made with wheat flour. The bigger risk is cross-contamination — shared fryers mean anything cooked in the same oil picks up gluten from previous batches.
+
+**Soba noodles:** Despite being known as "buckwheat noodles," most soba in Japan is 80% buckwheat and 20% wheat flour. Pure 100% buckwheat soba is called "juwari soba" (十割そば) and is safe, but you need to ask specifically.
+
+**Udon and ramen noodles:** Both are wheat-based. No gluten-free alternative is standard in Japanese restaurants.
+
+### Frequently asked questions — gluten-free Japan
+
+**Can celiacs eat sushi in Japan?**
+Mostly yes — the rice and fish are safe. However, the soy sauce served alongside contains wheat. Bring your own gluten-free tamari, or ask the restaurant for it. Many restaurants have tamari available on request.
+
+**Is rice always safe?**
+Plain steamed rice (gohan) is safe. Sushi rice contains rice vinegar, which is also safe. However, flavoured rice dishes (like takikomi gohan) may include soy sauce or mirin. Mirin (sweet rice wine) is generally gluten-free but some cheaper versions use grain alcohol.
+
+**Does the card warn about cross-contamination?**
+Yes, by default. The gluten-free card specifically asks staff to use separate cookware and oil, since trace gluten from shared fryers and cooking surfaces can trigger celiac reactions.
+
+**What about dashi (stock)?**
+Traditional dashi made from kombu (kelp) and katsuobushi (bonito flakes) is naturally gluten-free. However, instant dashi powder (hondashi) and some restaurant-made dashi may contain soy sauce or wheat-based additives. The card warns about this.
+
+For travelers with both celiac disease and other food allergies, see the [Allergy Cards section](#allergy-cards) to combine gluten-free with allergen-specific warnings in a single card.
+
+## Allergy Cards
+
+- [Allergy cards](https://tabemasen.io/allergies/): Cards for Japan's labeled allergens
+
+### Supported allergens
+
+Japan mandates labeling for 8 specific allergens on packaged food (the "specified ingredients"): wheat, buckwheat, peanuts, shrimp, crab, eggs, milk, and walnuts. An additional 20 ingredients are recommended for labeling but not mandatory.
+
+tabemasen generates cards for all of these, with specific warnings about where each allergen hides in Japanese cuisine. For example:
+- Eggs appear in many unexpected places: tamagoyaki (egg omelette), chawanmushi (egg custard), and as a binding agent in many fried foods
+- Milk and dairy appear in curry roux, cream-based soups, and many bakery items
+- Shrimp and crab are used in broths and as flavoring in crackers (senbei) and rice toppings (furikake)
+- Buckwheat: relevant for those with buckwheat allergy (distinct from gluten — soba noodles are a risk, not because of gluten but because of buckwheat protein)
+
+### Severity levels
+
+Users can set severity from mild intolerance to life-threatening allergy. Higher severity levels add stronger language to the card, including explicit mention of anaphylaxis risk and a request to confirm ingredients with the kitchen before serving.
+
+Example — mild intolerance: "できれば、以下のものを避けたいです。" (If possible, I would like to avoid the following.)
+
+Example — life-threatening allergy: "以下の食品に対して、命に関わる重度のアレルギーがあります。アナフィラキシーを起こす可能性があるため、調理前に原材料をご確認ください。" (I have a life-threatening allergy to the following foods. Please confirm all ingredients before preparation, as I may go into anaphylaxis.)
+
+Travelers with both dietary restrictions and allergies (e.g. vegan with a shellfish allergy) can combine multiple options in a single card. See the [Gluten-Free Guide](#gluten-free-guide), [Vegan Guide](#vegan-guide), or [Halal Guide](#halal-guide) for diet-specific details.
+
+## Vegan Guide
+
+- [Vegan guide](https://tabemasen.io/vegan/): Vegan dining in Japan — hidden fish-based dashi in most dishes, and how to request plant-based alternatives
+
+### The dashi problem
+
+The biggest challenge for vegans in Japan is dashi — the stock that forms the base of almost every dish. Standard dashi is made from katsuobushi (dried bonito fish flakes) and/or iriko (dried sardines). It's in miso soup, noodle broth, simmered dishes (nimono), rice seasonings, and even some pickles.
+
+Kombu (kelp) dashi and shiitake mushroom dashi are vegan alternatives, but most restaurants use bonito-based dashi by default without considering it "fish" in the same way a whole piece of fish would be.
+
+### Other hidden animal ingredients
+
+- Lard is used in some ramen broths and as cooking fat in older-style restaurants
+- Gelatin appears in some Japanese sweets (wagashi) and desserts
+- Honey is common in Japanese baked goods and some sauces
+- Worcestershire-style sauce: thin Worcester sauce (ウスターソース) can contain anchovy extract; thick tonkatsu sauce (e.g. Bulldog brand) is often fruit-and-vegetable based and vegan, but check ingredients as formulations vary
+
+The vegan card explains the concept clearly and asks for dishes prepared without any animal-derived ingredients, including dashi.
+
+For vegans who also have food allergies (e.g. soy, nuts, shellfish), see the [Allergy Cards section](#allergy-cards) to combine vegan with allergen-specific warnings. For vegans who also need to avoid gluten, see the [Gluten-Free Guide](#gluten-free-guide).
+
+## Halal Guide
+
+- [Halal guide](https://tabemasen.io/halal/): Halal dining in Japan — alcohol, pork, and sourcing
+
+### Key challenges for halal dining in Japan
+
+**Alcohol in cooking:** Mirin (sweet rice wine) and sake are used extensively in Japanese cooking — in sauces, marinades, simmered dishes, and even sushi rice vinegar. Many dishes that appear alcohol-free contain mirin. The halal card asks for dishes prepared without any alcohol-based ingredients.
+
+**Pork-derived ingredients:** Pork is pervasive in Japanese cuisine beyond obvious dishes like tonkatsu. Lard is used as cooking fat, pork-based broth is standard in many ramen shops, and pork-derived gelatin appears in some confections. The card warns about all of these.
+
+**Cross-contamination:** Shared grills, fryers, and cooking surfaces may have contact with pork or alcohol. The card requests separate preparation where possible.
+
+**Finding halal-certified restaurants:** The number of halal-certified restaurants in Japan is growing, particularly in Tokyo, Osaka, and Kyoto. The card is designed for restaurants that are not specifically halal-certified — it helps communicate requirements to staff at any restaurant.
+
+For halal travelers who also have food allergies, see the [Allergy Cards section](#allergy-cards) to combine halal with allergen-specific warnings in a single card.
+
+## About
+
+- [GitHub repository](https://github.com/codenameisone/tabemasen.io): Open-source project, changelog, and issue tracker
+- [Support the project](https://buymeacoffee.com/iwakuranik): Buy me a coffee — tabemasen is free and has no ads
+
+### Project details
+
+tabemasen is a free, open-source tool. There is no account required, no email collection, and no advertising. The site is built by a fellow traveler who navigated dietary restrictions while traveling in Japan.
+
+Translations are checked against common Japanese restaurant phrasing but are not a substitute for medical advice or professional translation. Users with life-threatening allergies should carry an EpiPen and a doctor's letter (and consider obtaining a [Yunyu Kakunin-sho](https://jp.usembassy.gov/services/importing-medication/) — import certificate for medication — before traveling to Japan).
+
+## Optional
+
+- [FoodAllergy.org Japan tips](https://www.foodallergy.org/resources/travel-tips-japan): External resource on food allergy travel preparation for Japan
+- [Legal Nomads — Gluten-free Japan](https://www.legalnomads.com/gluten-free/japanese/): Detailed celiac traveler guide to Japan by Jodi Ettenberg
+- [Yunyu Kakunin-sho info](https://jp.usembassy.gov/services/importing-medication/): US Embassy guidance on importing medication to Japan — relevant for travelers carrying EpiPens
+- [r/Celiac wiki](https://www.reddit.com/r/Celiac/wiki/index/): Community-maintained celiac disease resources and travel tips

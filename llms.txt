@@ -1,0 +1,26 @@
+# tabemasen
+
+> Free Japanese restaurant card generator for travelers with food allergies, celiac disease, and dietary restrictions. Produces polite, naturally-phrased Japanese cards in ~30 seconds — no account required. Covers gluten-free, common allergens, vegan, and halal, with specific warnings for cross-contamination and hidden ingredients common in Japanese restaurants.
+
+tabemasen solves a specific problem: Japan's mandatory allergen labeling covers packaged food but not restaurants, and most phrasebooks don't warn about the ingredients that actually catch travelers out. Cards are written in natural Japanese (not machine-translated), use polite phrasing appropriate for restaurant staff, and include specific ingredient warnings, cross-contamination notes, and alternative suggestions (e.g. tamari instead of regular soy sauce).
+
+The name "tabemasen" (食べません) means "I don't eat" in Japanese.
+
+## Free Japanese Restaurant Card Generator
+
+- [Card generator](https://tabemasen.io/): Main tool — select dietary needs, generate a Japanese-language restaurant card to show staff on your phone
+- [Gluten-free guide](https://tabemasen.io/gluten-free/): Why gluten-free travel in Japan is harder than it looks — soy sauce contains wheat, barley tea (mugicha) is pure gluten, soba noodles often contain wheat flour, and shared tempura fryers cause cross-contamination
+- [Allergy cards](https://tabemasen.io/allergies/): Cards for Japan's labeled allergens including shrimp, crab, eggs, milk, peanuts, tree nuts, and buckwheat
+- [Vegan guide](https://tabemasen.io/vegan/): Vegan dining in Japan — hidden fish-based dashi in most dishes, and how to request plant-based alternatives
+- [Halal guide](https://tabemasen.io/halal/): Halal dining in Japan — alcohol in cooking (mirin), pork-derived ingredients, and finding halal-certified restaurants
+
+## About
+
+- [GitHub repository](https://github.com/codenameisone/tabemasen.io): Open-source project, changelog, and issue tracker
+- [Support the project](https://buymeacoffee.com/iwakuranik): Buy me a coffee — tabemasen is free and has no ads
+
+## Optional
+
+- [FoodAllergy.org Japan tips](https://www.foodallergy.org/resources/travel-tips-japan): External resource on food allergy travel preparation for Japan
+- [Legal Nomads — Gluten-free Japan](https://www.legalnomads.com/gluten-free/japanese/): Detailed celiac traveler guide to Japan by Jodi Ettenberg
+- [r/Celiac wiki](https://www.reddit.com/r/Celiac/wiki/index/): Community-maintained celiac disease resources and travel tips
