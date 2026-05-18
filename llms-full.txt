@@ -136,4 +136,3 @@ Translations are checked against common Japanese restaurant phrasing but are not
 - [FoodAllergy.org Japan tips](https://www.foodallergy.org/resources/travel-tips-japan): External resource on food allergy travel preparation for Japan
 - [Legal Nomads — Gluten-free Japan](https://www.legalnomads.com/gluten-free/japanese/): Detailed celiac traveler guide to Japan by Jodi Ettenberg
 - [Yunyu Kakunin-sho info](https://jp.usembassy.gov/services/importing-medication/): US Embassy guidance on importing medication to Japan — relevant for travelers carrying EpiPens
-- [r/Celiac wiki](https://www.reddit.com/r/Celiac/wiki/index/): Community-maintained celiac disease resources and travel tips
