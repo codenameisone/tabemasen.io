@@ -16,6 +16,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://tabemasen.io/allergies/food-allergies-in-japanese/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://tabemasen.io/gluten-free/</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
