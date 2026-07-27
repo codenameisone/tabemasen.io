@@ -9,7 +9,7 @@ The name "tabemasen" (食べません) means "I don't eat" in Japanese.
 ## Free Japanese Restaurant Card Generator
 
 - [Card generator](https://tabemasen.io/): Main tool — select dietary needs, generate a Japanese-language restaurant card to show staff on your phone
-- [Gluten-free guide](https://tabemasen.io/gluten-free/): Why gluten-free travel in Japan is harder than it looks — soy sauce contains wheat, barley tea (mugicha) is pure gluten, soba noodles often contain wheat flour, and shared tempura fryers cause cross-contamination
+- [Gluten-free guide](https://tabemasen.io/gluten-free-japan/): Why gluten-free travel in Japan is harder than it looks — soy sauce contains wheat, barley tea (mugicha) is pure gluten, soba noodles often contain wheat flour, and shared tempura fryers cause cross-contamination
 - [Allergy cards](https://tabemasen.io/allergies/): Cards for Japan's labeled allergens including shrimp, crab, eggs, milk, peanuts, tree nuts, and buckwheat
 - [Vegan guide](https://tabemasen.io/vegan/): Vegan dining in Japan — hidden fish-based dashi in most dishes, and how to request plant-based alternatives
 - [Halal guide](https://tabemasen.io/halal/): Halal dining in Japan — alcohol in cooking (mirin), pork-derived ingredients, and finding halal-certified restaurants
