@@ -14,7 +14,9 @@ Tourists in Japan with food allergies, religious dietary requirements, or lifest
 - Standard **soy sauce contains wheat** (gluten issue)
 - **Mirin contains alcohol** (halal issue)
 
-This is a free, fast, mobile-first web app that generates a polite, accurate Japanese restaurant card you can show on your phone or print. One page, no signup, no tracking.
+This is a free, fast, mobile-first web app that generates a polite, accurate Japanese restaurant card you can show on your phone or print. One page, no signup, no accounts.
+
+Analytics are the bare minimum needed to keep the product working: [GoatCounter](https://www.goatcounter.com/) records page views and a handful of anonymous events — which buttons get used, and whether PNG export is failing. No cookies, no fingerprinting, no cross-site tracking, no ad networks, nothing sold or shared. **Your card never leaves your browser.** Allergens, your name and any custom text live only in the URL fragment and localStorage, neither of which is ever sent to analytics — see `analytics.js`.
 
 ---
 

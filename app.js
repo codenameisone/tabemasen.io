@@ -24,6 +24,23 @@
   };
 
   // ─────────────────────────────────────────────────────────────────────────
+  // Analytics (see analytics.js — never pass card content into an event name)
+  // ─────────────────────────────────────────────────────────────────────────
+  function track(name) {
+    if (window.tabemasenTrack) window.tabemasenTrack(name);
+  }
+
+  // Fires at most once per page load, on the first real interaction with the
+  // builder. Splits "landed and left" from "actually made a card" — without it
+  // the export counts have no denominator.
+  var ENGAGED = false;
+  function markEngaged() {
+    if (ENGAGED) return;
+    ENGAGED = true;
+    track('builder-engaged');
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
   // DOM refs (cached AFTER chips/patterns are built)
   // ─────────────────────────────────────────────────────────────────────────
   var els = {};
@@ -292,6 +309,10 @@
   function onAllergenChipClick(e) {
     var chip = e.target.closest('.chip[data-key]');
     if (!chip) return;
+    // Deliberately not tracking individual allergens: 23 keys toggled on and
+    // off while composing is noise, and events count against the GoatCounter
+    // quota. Engagement is the signal worth having here.
+    markEngaged();
     toggleAllergen(chip.dataset.key);
     syncUI();
   }
@@ -299,12 +320,18 @@
   function onPatternClick(e) {
     var btn = e.target.closest('.pattern-btn[data-key]');
     if (!btn) return;
-    togglePattern(btn.dataset.key);
+    markEngaged();
+    var key = btn.dataset.key;
+    // Selections only — a deselect isn't interesting, and tracking both would
+    // double-count anyone who changes their mind.
+    if (key && state.patterns.indexOf(key) === -1) track('pattern-' + key);
+    togglePattern(key);
     syncUI();
   }
 
   function onSeverityChange(e) {
     if (e.target.id !== 'severity-toggle') return;
+    markEngaged();
     setSeverity(e.target.checked ? 'severe' : 'allergy');
     syncUI();
   }
@@ -318,8 +345,8 @@
     saveToStorage();
   }
 
-  function onNameInput(e)   { state.name       = e.target.value; syncUI(); }
-  function onCustomInput(e) { state.customText = e.target.value; syncUI(); }
+  function onNameInput(e)   { markEngaged(); state.name       = e.target.value; syncUI(); }
+  function onCustomInput(e) { markEngaged(); state.customText = e.target.value; syncUI(); }
   function onClearClick()   { clearState();                      syncUI(); }
 
   function onPanelToggle(e) {
@@ -338,6 +365,10 @@
   var COPY_TIMEOUT = null;
 
   function onCopyClick() {
+    // Fired on intent, not on clipboard success: both the clipboard path and
+    // the prompt() fallback put the link in front of the user.
+    track('card-copy');
+
     var url = window.location.origin + window.location.pathname +
               (encodeHash() ? '#' + encodeHash() : '');
 
@@ -371,6 +402,8 @@
   }
 
   function onDownloadClick() {
+    track('card-download');
+
     var btn = els.downloadBtn;
     var btnText = btn.querySelector('.btn-text');
     var original = btnText.textContent;
@@ -419,6 +452,11 @@
           btnText.textContent = original;
 
           if (!blob) {
+            // card-download-error / card-download gives a failure rate. These
+            // paths only ever surfaced as an alert() the user saw and we
+            // didn't — a browser where export silently breaks is exactly what
+            // this is here to catch.
+            track('card-download-error');
             if (iosTab) iosTab.close();
             alert('Sorry, PNG generation failed. Please try taking a screenshot instead.');
             return;
@@ -460,6 +498,7 @@
           }
         }, 'image/png');
       }).catch(function (err) {
+        track('card-download-error');
         btn.disabled = false;
         btnText.textContent = original;
         if (iosTab) iosTab.close();
@@ -474,7 +513,28 @@
   // ─────────────────────────────────────────────────────────────────────────
   // Print
   // ─────────────────────────────────────────────────────────────────────────
-  function onPrintClick() { window.print(); }
+  function onPrintClick() { track('card-print'); window.print(); }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Arrival tracking
+  //
+  // Two ways to land here with a hash, and they mean opposite things:
+  //   #p=vegan alone           → a landing-page CTA or the nav link
+  //   anything with a,n,c set  → a card someone shared, or their own bookmark
+  // Only the pattern key is ever sent, and only after matching it against
+  // CARD_DATA — the hash also carries allergens and a name, which must never
+  // reach analytics.
+  // ─────────────────────────────────────────────────────────────────────────
+  function trackArrival(hashState) {
+    if (hashState.allergens.length || hashState.name || hashState.customText) {
+      track('arrive-shared');
+      return;
+    }
+    if (hashState.patterns.length !== 1) return;
+    var key = hashState.patterns[0];
+    var known = CARD_DATA.patterns.some(function (p) { return p.key === key; });
+    if (known) track('arrive-preset-' + key);
+  }
 
   // ─────────────────────────────────────────────────────────────────────────
   // Init
@@ -497,6 +557,7 @@
       state.name        = hashState.name;
       state.customText  = hashState.customText;
       state.showEnglish = hashState.showEnglish;
+      trackArrival(hashState);
     } else {
       var stored = loadFromStorage();
       if (stored) {

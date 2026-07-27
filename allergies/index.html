@@ -438,7 +438,7 @@
 
       <div class="site-nav__panel" id="site-nav-panel" aria-hidden="true">
         <ul class="site-nav__list">
-          <li><a class="site-nav__link site-nav__link--cta" href="/">Generate card</a></li>
+          <li><a data-gc-event="cta-allergies-nav" class="site-nav__link site-nav__link--cta" href="/">Generate card</a></li>
           <li><a class="site-nav__link site-nav__link--active" href="/allergies/" aria-current="page">Allergies</a></li>
           <li><a class="site-nav__link" href="/gluten-free/">Gluten-free</a></li>
           <li><a class="site-nav__link" href="/vegan/">Vegan</a></li>
@@ -459,7 +459,7 @@
         <h1 class="al-hero__title">Japan food allergy restaurant card</h1>
         <p class="al-hero__lede">Pick your allergens, get a polite Japanese card to show your waiter. Each allergen is listed in kanji staff will recognise, with a clear note about cross-contamination — and a reminder that it's an allergy, not a preference.</p>
         <div class="al-hero__actions">
-          <a href="/" class="btn btn--primary">Generate my allergy card →</a>
+          <a data-gc-event="cta-allergies-hero" href="/" class="btn btn--primary">Generate my allergy card →</a>
           <span class="al-microcopy">No signup · Free</span>
         </div>
       </div>
@@ -625,7 +625,7 @@
     <div class="al-cta__inner">
       <h2>Ready to generate yours?</h2>
       <p>Free, no signup, takes about 30 seconds. Pick the allergens that apply, set severity, and add other dietary needs.</p>
-      <a href="/" class="btn btn--ghost">Generate my allergy card →</a>
+      <a data-gc-event="cta-allergies-footer" href="/" class="btn btn--ghost">Generate my allergy card →</a>
     </div>
   </section>
 
@@ -641,7 +641,7 @@
           <span>tabemasen</span>
         </a>
         <p class="site-footer__tagline">Free Japanese restaurant cards for travelers with food allergies and dietary restrictions.</p>
-        <a class="bmc-link bmc-link--footer" href="https://buymeacoffee.com/iwakuranik" target="_blank" rel="noopener noreferrer" aria-label="Buy me a coffee"><span class="bmc-icon" aria-hidden="true">☕</span> Buy me a coffee</a>
+        <a data-gc-event="coffee-allergies" class="bmc-link bmc-link--footer" href="https://buymeacoffee.com/iwakuranik" target="_blank" rel="noopener noreferrer" aria-label="Buy me a coffee"><span class="bmc-icon" aria-hidden="true">☕</span> Buy me a coffee</a>
       </div>
 
       <div class="site-footer__col">
@@ -682,6 +682,7 @@
   </footer>
 
   <script src="/nav.js" defer></script>
+  <script src="/analytics.js"></script>
   <script data-goatcounter="https://nqtn.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 </body>

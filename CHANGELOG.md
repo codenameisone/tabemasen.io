@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-07-27
+
+- feat(analytics): GoatCounter event tracking via new shared `analytics.js`. Exposes `window.tabemasenTrack(name)` and auto-tracks any element carrying `data-gc-event`. Events are queued for up to ~4s while the async `count.js` loads, so events fired at DOMContentLoaded aren't lost
+- feat(analytics): CTA clicks tracked per page *and* per slot (`cta-vegan-hero`, `cta-vegan-footer`, …) — GoatCounter stores the event name in the path column and does not record the originating page, so the slot has to live in the name
+- feat(analytics): card actions — `card-copy`, `card-download`, `card-print`, plus `card-download-error` on both PNG failure paths, which previously only ever surfaced as an `alert()` the user saw and we didn't
+- feat(analytics): `pattern-<key>` on first select of a diet pattern (not on deselect), `builder-engaged` once per page load on first builder interaction, and `arrive-shared` / `arrive-preset-<key>` to separate shared-card links from landing-page CTA arrivals
+- feat(analytics): `coffee-<page>` on the Buy me a coffee footer link, so donations are attributable to the page that drove them
+- No card content ever reaches analytics: allergens, name and custom text are health data, GoatCounter's default path excludes the hash, and the only dynamic event name is a pattern key validated against `CARD_DATA`
+- fix: the three CTAs on `/food-allergies-in-japanese/` linked to `/#p=allergies`, which is not a pattern key (`vegetarian`, `vegan`, `pescatarian`, `halal`, `kosher`, `gluten-free`). It preselected nothing and wrote a junk pattern into localStorage that survived reloads. Now link to `/`
+- docs: README no longer claims "no tracking" — replaced with what's actually collected and, more importantly, what isn't: card contents never leave the browser
+
 ## 2026-05-07
 
 - feat(T0): site navigation with mobile hamburger and 5 destinations (Generate card, Allergies, Gluten-free, Vegan, Halal). Shared `nav.js` handles aria state, focus, Esc, outside-click, and breakpoint sync. Active page is hardcoded per page; CTA "Generate card" gets emphasised weight.
