@@ -236,6 +236,105 @@
     }
 
     /* ── Phone mockup ────────────────────────────────────────── */
+    .ce-phone-stage {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+    .ce-phone {
+      width: 240px;
+      height: 500px;
+      background: #FFFFFF;
+      border-radius: 28px 28px 0 0;
+      padding: 8px 8px 0;
+      box-shadow:
+        0 -10px 36px rgba(0,0,0,0.10),
+        0 -3px 10px rgba(0,0,0,0.06),
+        0 0 0 1px rgba(0,0,0,0.05);
+      margin-bottom: -250px;
+    }
+    .ce-phone__screen {
+      background: var(--color-surface);
+      border-radius: 20px 20px 0 0;
+      overflow: hidden;
+      height: 100%;
+    }
+    .ce-phone__appheader {
+      background: var(--color-surface);
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .ce-phone__brand-mark {
+      width: 22px;
+      height: 22px;
+      background: var(--color-brand-red);
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-card);
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: var(--color-surface);
+    }
+    .ce-phone__brand-word {
+      font-weight: 700;
+      font-size: 0.875rem;
+    }
+    .ce-phone__body {
+      padding: 14px 14px 20px;
+      background: var(--color-bg);
+      height: calc(100% - 51px);
+    }
+
+    .ce-mini-panel {
+      background: var(--color-surface);
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+    .ce-mini-panel__heading {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+    .ce-mini-chip {
+      padding: 4px 9px;
+      border-radius: var(--radius-full);
+      border: 1.25px solid var(--color-primary);
+      background: var(--color-chip-selected);
+      color: var(--color-primary-dark);
+      font: inherit;
+      font-size: 0.65625rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+    .ce-mini-card {
+      background: var(--color-surface);
+      border: 2px solid var(--color-border-dark);
+      border-radius: var(--radius-sm);
+      padding: 12px 13px;
+      font-family: var(--font-card);
+      font-size: 0.71875rem;
+      line-height: 1.7;
+    }
+    .ce-mini-card .line { margin-bottom: 1px; }
+    .ce-mini-card .line--bold { font-weight: 600; }
+    .ce-mini-card .list { padding-left: 6px; margin: 3px 0 6px; }
+    .ce-mini-card .note {
+      font-family: var(--font-ui);
+      font-size: 0.625rem;
+      color: var(--color-danger);
+      background: var(--color-danger-light);
+      border-left: 2.5px solid var(--color-danger);
+      padding: 5px 8px;
+      border-radius: 2px;
+      margin: 5px 0 6px;
+      line-height: 1.5;
+    }
 
     /* ── Article body ────────────────────────────────────────── */
     .ce-main {
@@ -265,18 +364,9 @@
       margin-bottom: var(--space-md);
     }
     .ce-section p:last-child { margin-bottom: 0; }
-
-    /* ── Reassurance callout ─────────────────────────────────── */
-    .ce-reassurance {
-      background: var(--ce-safe-light);
-      border-left: 3px solid var(--ce-safe);
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-      padding: 14px 18px;
-      margin-top: var(--space-md);
-      font-size: 0.875rem;
-      line-height: 1.7;
-      color: var(--color-text);
-    }
+    /* Blocks (callout, grid, features) carry a bottom margin so following body
+       copy doesn't butt against them — zero it when they end the section. */
+    .ce-section > *:last-child { margin-bottom: 0; }
 
     /* ── Mid-page CTA ────────────────────────────────────────── */
     .ce-mid-cta {
@@ -298,41 +388,12 @@
       max-width: 420px;
     }
 
-    /* ── Gluten items (long-form list) ───────────────────────── */
-    .ce-gluten-list {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-md);
-      margin-top: 12px;
-    }
-    .ce-gluten-item {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius-sm);
-      padding: var(--space-md) 18px;
-    }
-    .ce-gluten-item__title {
-      font-size: 0.9375rem;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-    .ce-gluten-item__title em {
-      color: var(--color-text-muted);
-      font-style: normal;
-      font-weight: 400;
-    }
-    .ce-gluten-item__text {
-      font-size: 0.875rem;
-      color: var(--color-text-muted);
-      line-height: 1.7;
-    }
-
     /* ── Safe-foods grid ─────────────────────────────────────── */
     .ce-safe-grid {
       display: grid;
       grid-template-columns: 1fr;
       gap: 10px;
-      margin-top: 12px;
+      margin: 12px 0 var(--space-lg);
     }
     .ce-safe-card {
       background: var(--ce-safe-light);
@@ -362,7 +423,7 @@
       border: 1.5px solid var(--color-border-dark);
       border-radius: var(--radius-sm);
       padding: 18px 20px;
-      margin-top: 18px;
+      margin: 18px 0 var(--space-lg);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -477,11 +538,17 @@
         padding: 96px var(--space-lg) 0;
       }
       .ce-hero__inner {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1.1fr 1fr;
         gap: var(--space-2xl);
+        min-height: 460px;
       }
       .ce-hero__copy { padding-bottom: 60px; }
       .ce-hero__title { font-size: 2.5rem; }
+      .ce-phone {
+        width: 280px;
+        height: 580px;
+        margin-bottom: -140px;
+      }
       .ce-section h2 { font-size: 1.5rem; }
       .ce-safe-grid { grid-template-columns: 1fr 1fr; }
       .ce-kanji-callout {
@@ -558,6 +625,33 @@
           <span class="ce-trust-strip__item"><span class="ce-trust-strip__icon">✓</span> Sourced against Japanese food law</span>
         </div>
       </div>
+
+      <div class="ce-phone-stage">
+        <div class="ce-phone">
+          <div class="ce-phone__screen">
+            <div class="ce-phone__appheader">
+              <div class="ce-phone__brand-mark">食</div>
+              <div class="ce-phone__brand-word">tabemasen</div>
+            </div>
+            <div class="ce-phone__body">
+              <div class="ce-mini-panel">
+                <div class="ce-mini-panel__heading">Diet</div>
+                <button class="ce-mini-chip" type="button" tabindex="-1" aria-hidden="true">Gluten-free</button>
+              </div>
+              <div class="ce-mini-card">
+                <div class="line line--bold">すみません、お願いがあります。</div>
+                <div class="line line--bold">グルテン(小麦、大麦、ライ麦)を食べることができません。</div>
+                <div class="line">以下のものを食べることができません:</div>
+                <div class="list">・小麦<br>・大麦<br>・ライ麦<br>・麦茶（むぎ茶）<br>・麦芽（モルト）</div>
+                <div class="note">※醤油には小麦が含まれていることが多いので、たまり醤油やグルテンフリー醤油をお願いします。調理器具や揚げ油も分けていただけると助かります。微量のグルテンでも反応します。</div>
+                <div class="line">これらが含まれていない料理はありますか?</div>
+                <div class="line">ご協力ありがとうございます。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
