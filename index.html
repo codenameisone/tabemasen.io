@@ -25,22 +25,49 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "tabemasen",
-    "url": "https://tabemasen.io/",
-    "description": "Free generator for Japanese restaurant cards covering food allergies, vegetarian, vegan, halal, kosher, and gluten-free dietary needs.",
-    "applicationCategory": "TravelApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "inLanguage": ["en", "ja"],
-    "audience": {
-      "@type": "Audience",
-      "audienceType": "Travelers to Japan with dietary restrictions"
-    }
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://tabemasen.io/#organization",
+        "name": "tabemasen",
+        "alternateName": "食べません",
+        "url": "https://tabemasen.io/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://tabemasen.io/assets/android-chrome-512.png"
+        },
+        "description": "Free Japanese restaurant cards for travelers with food allergies and dietary restrictions. The name tabemasen (食べません) is Japanese for \"I don't eat\".",
+        "sameAs": ["https://github.com/codenameisone/tabemasen.io"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://tabemasen.io/#website",
+        "name": "tabemasen",
+        "alternateName": "食べません",
+        "url": "https://tabemasen.io/",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://tabemasen.io/#organization" }
+      },
+      {
+        "@type": "WebApplication",
+        "name": "tabemasen",
+        "url": "https://tabemasen.io/",
+        "description": "Free generator for Japanese restaurant cards covering food allergies, vegetarian, vegan, halal, kosher, and gluten-free dietary needs.",
+        "applicationCategory": "TravelApplication",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "inLanguage": ["en", "ja"],
+        "audience": {
+          "@type": "Audience",
+          "audienceType": "Travelers to Japan with dietary restrictions"
+        },
+        "publisher": { "@id": "https://tabemasen.io/#organization" }
+      }
+    ]
   }
   </script>
 
@@ -243,6 +270,7 @@
           <span>tabemasen</span>
         </a>
         <p class="site-footer__tagline">Free Japanese restaurant cards for travelers with food allergies and dietary restrictions.</p>
+        <p class="site-footer__tagline"><strong>Tabemasen</strong> (<span lang="ja">食べません</span>) is Japanese for “I don't eat” — the polite way to say a dish isn't for you.</p>
         <a data-gc-event="coffee-home" class="bmc-link bmc-link--footer" href="https://buymeacoffee.com/iwakuranik" target="_blank" rel="noopener noreferrer" aria-label="Buy me a coffee"><span class="bmc-icon" aria-hidden="true">☕</span> Buy me a coffee</a>
       </div>
 
