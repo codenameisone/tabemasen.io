@@ -1428,9 +1428,10 @@ body.landing-page {
 .feat-logo:hover { border-color: var(--color-border-dark); }
 .feat-logo img {
   display: block;
-  width: 100%;
-  max-width: 240px;
+  width: auto;
   height: auto;
+  max-width: min(100%, 240px);
+  max-height: 96px;
 }
 
 .feat-strip {
@@ -1458,8 +1459,15 @@ body.landing-page {
 .feat-strip__list .feat-logo {
   padding: var(--space-sm) var(--space-md);
 }
+.feat-strip__list .feat-logo {
+  height: 64px;
+}
+/* Logos come in different shapes (wide, stacked), so the strip sizes
+   them by height and lets the width follow. */
 .feat-strip__list .feat-logo img {
-  max-width: 160px;
+  height: 40px;
+  max-height: none;
+  max-width: none;
 }
 .feat-strip__more {
   display: inline-block;
