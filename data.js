@@ -51,6 +51,9 @@ window.CARD_DATA = (function () {
     { key: 'peach',      japanese: 'もも',                            english: 'Peach' },
     { key: 'apple',      japanese: 'りんご',                          english: 'Apple' },
     { key: 'mushroom',   japanese: 'きのこ全般',                       english: 'Mushrooms' },
+    { key: 'garlic',     japanese: 'にんにく',                          english: 'Garlic' },
+    { key: 'onion',      japanese: '玉ねぎ',                            english: 'Onion' },
+    { key: 'oats',       japanese: 'オーツ麦(オートミール)',            english: 'Oats' },
   ];
 
   // ─────────────────────────────────────────────────────────────────────────
@@ -112,10 +115,13 @@ window.CARD_DATA = (function () {
       label_en:     'Gluten-free',
       statement:    'グルテン(小麦、大麦、ライ麦)を食べることができません。',
       statement_en: 'I cannot eat gluten (wheat, barley, rye).',
-      exclusions:   ['小麦', '大麦', 'ライ麦', '麺類(うどん、ラーメン、そうめん)', 'てんぷら', 'お好み焼き', '麦茶（むぎ茶）', '麦芽（モルト）'],
-      exclusions_en:['wheat', 'barley', 'rye', 'noodles (udon, ramen, somen)', 'tempura', 'okonomiyaki', 'barley tea (mugicha)', 'malt (used in some seasonings)'],
-      note:         '※醤油には小麦が含まれていることが多いので、たまり醤油やグルテンフリー醤油をお願いします。調理器具やフライパン、揚げ油も分けていただけると助かります。微量のグルテンでも反応します。',
-      note_en:      'Soy sauce often contains wheat — please use tamari or gluten-free soy sauce. Please also use separate cookware, pans, and frying oil. Even trace amounts of gluten cause a reaction.',
+      exclusions:   ['小麦', '大麦・ライ麦', '小麦を含む麺(うどん、ラーメン、そうめん、二八そばなど)', 'てんぷら・お好み焼き', '麦味噌・合わせ味噌、麩（ふ）', '麦茶・麦芽（モルト）'],
+      exclusions_en:['wheat', 'barley, rye', 'noodles with wheat (udon, ramen, somen, soba cut with wheat)', 'tempura, okonomiyaki', 'barley or blended miso, fu (dried wheat gluten)', 'barley tea (mugicha), malt'],
+      // Its note already asks for separate cookware and oil, so the severe
+      // warning drops its own kitchen line rather than saying it twice.
+      coversKitchen: true,
+      note:         '※醤油は小麦不使用のものをお願いします(たまり醤油も小麦入りのことがあります)。なければ醤油なしで大丈夫です。天ぷら・フライと同じ油、めんのゆで汁、共用の調理器具は避けていただけると助かります。微量でも反応します。',
+      note_en:      "Could you use soy sauce made without wheat? (Tamari can contain wheat too.) If you don't have any, no soy sauce is fine. It would help to avoid oil shared with tempura or fried food, noodle water, and shared cookware. Even a trace causes a reaction.",
     },
   ];
 
@@ -138,9 +144,14 @@ window.CARD_DATA = (function () {
     // Severity warning — only shown when s=severe
     // FIX: was '重度のアレルギーー' (doubled long-vowel mark) — corrected to 'アレルギー'
     severityWarning: '⚠ 重度のアレルギーで、少量でも命に関わります。\n調理器具や油も分けていただけると助かります。',
+    severityWarningShort: '⚠ 重度のアレルギーで、少量でも命に関わります。',
+
+    // Wheat ticked without the gluten-free diet: soy sauce is where most of
+    // that wheat hides, and only the gluten-free note said so.
+    wheatSoyNote: '※醤油にも小麦が含まれています。',
 
     // Closing
-    question: 'これらが含まれていない料理はありますか?',
+    question: 'これらが含まれていない料理はありますか?難しい場合は、遠慮なくおっしゃってください。',
     thanks:   'ご協力ありがとうございます。',
 
     // English equivalents
@@ -151,7 +162,9 @@ window.CARD_DATA = (function () {
     statementPreference_en:  'I have dietary restrictions.',
     listHeader_en:           'I cannot eat the following:',
     severityWarning_en:      '⚠ My allergy is severe — even small amounts can be life-threatening. Please use separate utensils and oil.',
-    question_en:             'Are there any dishes that don\'t contain these?',
+    severityWarningShort_en: '⚠ My allergy is severe — even small amounts can be life-threatening.',
+    wheatSoyNote_en:         'Note: soy sauce contains wheat too.',
+    question_en:             'Are there any dishes that don\'t contain these? If it\'s difficult, please just say so.',
     thanks_en:               'Thank you for your help.',
 
     // Disclaimer — appears on card below Japanese
@@ -199,6 +212,10 @@ window.CARD_DATA = (function () {
 
   function getAllergen(key) {
     return allergens.find(function (a) { return a.key === key; }) || null;
+  }
+
+  function getPatternIn(patternObjs, key) {
+    return patternObjs.some(function (p) { return p.key === key; });
   }
 
   function getPattern(key) {
@@ -274,8 +291,19 @@ window.CARD_DATA = (function () {
 
     // ── Severity warning ─────────────────────────────────────────────────
     if (state.severity === 'severe' && hasAllergens) {
+      var kitchenCovered = patternObjs.some(function (p) { return p.coversKitchen; });
       blank();
-      push(card.severityWarning, card.severityWarning_en, 'warning');
+      push(
+        kitchenCovered ? card.severityWarningShort : card.severityWarning,
+        kitchenCovered ? card.severityWarningShort_en : card.severityWarning_en,
+        'warning'
+      );
+    }
+
+    // ── Wheat → soy sauce ────────────────────────────────────────────────
+    if (state.allergens.indexOf('wheat') !== -1 && !getPatternIn(patternObjs, 'gluten-free')) {
+      blank();
+      push(card.wheatSoyNote, card.wheatSoyNote_en, 'note');
     }
 
     // ── Pattern-specific notes ───────────────────────────────────────────

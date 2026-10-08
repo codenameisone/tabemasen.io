@@ -309,7 +309,7 @@
   function onAllergenChipClick(e) {
     var chip = e.target.closest('.chip[data-key]');
     if (!chip) return;
-    // Deliberately not tracking individual allergens: 23 keys toggled on and
+    // Deliberately not tracking individual allergens: 26 keys toggled on and
     // off while composing is noise, and events count against the GoatCounter
     // quota. Engagement is the signal worth having here.
     markEngaged();

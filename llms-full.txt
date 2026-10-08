@@ -2,7 +2,7 @@
 
 > Free Japanese restaurant card generator for travelers with food allergies, celiac disease, and dietary restrictions. Produces polite, naturally-phrased Japanese cards in ~30 seconds — no account required. Covers gluten-free, common allergens, vegan, and halal, with specific warnings for cross-contamination and hidden ingredients common in Japanese restaurants.
 
-tabemasen solves a specific problem: Japan's mandatory allergen labeling covers packaged food but not restaurants, and most phrasebooks don't warn about the ingredients that actually catch travelers out. Cards are written in natural Japanese (not machine-translated), use polite phrasing appropriate for restaurant staff, and include specific ingredient warnings, cross-contamination notes, and alternative suggestions (e.g. tamari instead of regular soy sauce).
+tabemasen solves a specific problem: Japan's mandatory allergen labeling covers packaged food but not restaurants, and most phrasebooks don't warn about the ingredients that actually catch travelers out. Cards are written in natural Japanese (not machine-translated), use polite phrasing appropriate for restaurant staff, and include specific ingredient warnings, cross-contamination notes, and alternative suggestions (e.g. soy sauce made without wheat instead of regular soy sauce).
 
 The name "tabemasen" (食べません) means "I don't eat" in Japanese.
 
@@ -18,7 +18,7 @@ Users visit the generator page, select one or more dietary restrictions (gluten-
 - A clear statement of what the person cannot eat, listing specific ingredients in Japanese
 - Warnings about hidden sources of the allergen (e.g. wheat in soy sauce, dashi in soup)
 - A cross-contamination note requesting separate cookware and oil where relevant
-- Suggested alternatives (e.g. tamari instead of regular soy sauce)
+- Suggested alternatives (e.g. soy sauce made without wheat instead of regular soy sauce)
 - A polite closing: "ご協力ありがとうございます。" (Thank you for your cooperation.)
 
 The card displays on the user's phone screen. No PDF download, no printing needed — users show the phone directly to restaurant staff. The card loads as a simple webpage; once generated, it can be viewed offline if the page is kept open or saved to the home screen.
@@ -33,7 +33,7 @@ Japan's mandatory allergen labeling is one of the strictest in the world — but
 
 ### Hidden gluten sources in Japanese restaurants
 
-**Soy sauce (shoyu):** Standard Japanese soy sauce is brewed with wheat. Tamari is the gluten-free version, but restaurants rarely stock it unless asked. The gluten-free card specifically requests tamari or gluten-free soy sauce.
+**Soy sauce (shoyu):** Standard Japanese soy sauce is brewed with wheat. Tamari is often sold abroad as the gluten-free version, but in Japan tamari can still contain wheat. The gluten-free card asks for soy sauce made without wheat (小麦不使用) and warns that tamari can contain wheat.
 
 **Barley tea (mugicha):** The free tea served at most restaurants in Japan. Made from roasted barley, which contains gluten. Many travelers drink it without realizing.
 
@@ -46,10 +46,10 @@ Japan's mandatory allergen labeling is one of the strictest in the world — but
 ### Frequently asked questions — gluten-free Japan
 
 **Can celiacs eat sushi in Japan?**
-Mostly yes — the rice and fish are safe. However, the soy sauce served alongside contains wheat. Bring your own gluten-free tamari, or ask the restaurant for it. Many restaurants have tamari available on request.
+Mostly yes — the rice and fish are safe. However, the soy sauce served alongside contains wheat. Bring your own soy sauce labelled gluten-free. Few restaurants keep a wheat-free soy sauce, and tamari in Japan is not a safe substitute by default.
 
 **Is rice always safe?**
-Plain steamed rice (gohan) is safe. Sushi rice contains rice vinegar, which is also safe. However, flavoured rice dishes (like takikomi gohan) may include soy sauce or mirin. Mirin (sweet rice wine) is generally gluten-free but some cheaper versions use grain alcohol.
+Plain steamed rice (gohan) is safe. Sushi rice is usually seasoned with rice vinegar, but some places use grain vinegar (穀物酢), which can be made with wheat, so ask. However, flavoured rice dishes (like takikomi gohan) may include soy sauce or mirin. Mirin (sweet rice wine) is generally gluten-free but some cheaper versions use grain alcohol.
 
 **Does the card warn about cross-contamination?**
 Yes, by default. The gluten-free card specifically asks staff to use separate cookware and oil, since trace gluten from shared fryers and cooking surfaces can trigger celiac reactions.
