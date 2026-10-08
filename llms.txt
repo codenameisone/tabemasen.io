@@ -16,6 +16,7 @@ The name "tabemasen" (食べません) means "I don't eat" in Japanese.
 
 ## About
 
+- [About & safety](https://tabemasen.io/about/): How the cards are made, their limits, corrections, privacy, terms, and what to carry with a serious allergy in Japan (emergency number 119). Wording last reviewed October 2026.
 - [GitHub repository](https://github.com/codenameisone/tabemasen.io): Open-source project, changelog, and issue tracker
 - [Support the project](https://buymeacoffee.com/iwakuranik): Buy me a coffee — tabemasen is free and has no ads
 

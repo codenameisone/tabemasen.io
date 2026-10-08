@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-10-08 (2)
+
+- feat(about): new /about/ page. How the wording is made, its limits, safety (119, medication, FARE's Japan tips, import certificate), corrections and how to report one, privacy, and plain-language terms. Linked from every footer, sitemap and llms.txt
+- fix(card): the line under every card said "This card was machine-generated", which wasn't accurate (the wording is fixed and hand-written, only assembled in the browser). Now: confirm with staff, the card helps you ask but can't guarantee the food, carry your medication
+- content(footer): disclaimer rewritten around what the card can't do, with 119 and a link to /about/. Footer now links About & safety and the changelog
+- content(guides): "Last reviewed October 2026" under each guide's hero, linking to /about/#corrections; dateModified bumped where present
+
 ## 2026-10-08
 
 All from feedback on r/glutenfree.
