@@ -168,7 +168,7 @@ window.CARD_DATA = (function () {
     thanks_en:               'Thank you for your help.',
 
     // Disclaimer — appears on card below Japanese
-    disclaimer: 'This card was machine-generated. Please verify with the restaurant. Severe allergy sufferers should travel with a doctor\'s note in Japanese.',
+    disclaimer: 'Please confirm ingredients with staff. This card helps you ask; it can\'t guarantee what\'s in the food. Carry your medication.',
     siteUrl:    'tabemasen.io',
   };
 
@@ -202,7 +202,7 @@ window.CARD_DATA = (function () {
 
     previewLabel:   'Your card preview',
 
-    footerDisclaimer: 'Translations are checked against common Japanese restaurant phrasing but are not a substitute for medical advice or professional translation. If you have a life-threatening allergy, please carry an EpiPen and a doctor\'s letter.',
+    footerDisclaimer: 'Not medical advice. A card helps you ask, but it can\'t guarantee what\'s in your food, so always confirm with staff. If you have a serious allergy, carry your prescribed medication and a doctor\'s letter. Emergency in Japan: 119. Wording last reviewed October 2026.',
     footerCredit:    'Built by a fellow traveller',
   };
 
