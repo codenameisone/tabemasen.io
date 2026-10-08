@@ -22,7 +22,7 @@ Analytics are the bare minimum needed to keep the product working: [GoatCounter]
 
 ## Features
 
-- Select from 23 allergens (Japan's 8 mandatory + common others)
+- Select from 26 allergens (Japan's 8 mandatory + common others)
 - Choose a dietary pattern: Vegetarian · Vegan · Pescatarian · Halal · Kosher · Gluten-free
 - Add a custom item (any language, shown as-is)
 - Add your name for a personalised greeting

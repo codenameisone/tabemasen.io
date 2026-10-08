@@ -184,14 +184,14 @@ Each pattern adds a **statement** and may add **implicit excluded items** and **
 
 #### Gluten-free
 - Statement: グルテン（小麦、大麦、ライ麦）を食べることができません。
-- Implied exclusions: 小麦、大麦、ライ麦、麺類（うどん、ラーメン、そうめん）、てんぷら、お好み焼き
-- Special note: ※醤油には小麦が含まれていることが多いので、たまり醤油やグルテンフリー醤油をお願いします。
+- Implied exclusions: 小麦、大麦・ライ麦、小麦を含む麺（うどん、ラーメン、そうめん、二八そばなど）、てんぷら・お好み焼き、麦味噌・合わせ味噌、麩、麦茶・麦芽
+- Special note: ※醤油は小麦不使用のものをお願いします(たまり醤油も小麦入りのことがあります)。なければ醤油なしで大丈夫です。天ぷら・フライと同じ油、めんのゆで汁、共用の調理器具は避けていただけると助かります。微量でも反応します。
 
 ### 7.6 Closing
 
 | Element | Japanese |
 |---|---|
-| Question | これらが含まれていない料理はありますか？ |
+| Question | これらが含まれていない料理はありますか？難しい場合は、遠慮なくおっしゃってください。 |
 | Thanks | ご協力ありがとうございます。 |
 
 ### 7.7 Severity warning (only when "Severe" is selected)

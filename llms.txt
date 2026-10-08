@@ -2,7 +2,7 @@
 
 > Free Japanese restaurant card generator for travelers with food allergies, celiac disease, and dietary restrictions. Produces polite, naturally-phrased Japanese cards in ~30 seconds — no account required. Covers gluten-free, common allergens, vegan, and halal, with specific warnings for cross-contamination and hidden ingredients common in Japanese restaurants.
 
-tabemasen solves a specific problem: Japan's mandatory allergen labeling covers packaged food but not restaurants, and most phrasebooks don't warn about the ingredients that actually catch travelers out. Cards are written in natural Japanese (not machine-translated), use polite phrasing appropriate for restaurant staff, and include specific ingredient warnings, cross-contamination notes, and alternative suggestions (e.g. tamari instead of regular soy sauce).
+tabemasen solves a specific problem: Japan's mandatory allergen labeling covers packaged food but not restaurants, and most phrasebooks don't warn about the ingredients that actually catch travelers out. Cards are written in natural Japanese (not machine-translated), use polite phrasing appropriate for restaurant staff, and include specific ingredient warnings, cross-contamination notes, and alternative suggestions (e.g. soy sauce made without wheat instead of regular soy sauce).
 
 The name "tabemasen" (食べません) means "I don't eat" in Japanese.
 

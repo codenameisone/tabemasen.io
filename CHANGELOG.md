@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-10-08
+
+All from feedback on r/glutenfree.
+
+- fix(gluten-free): the card no longer asks for tamari. In Japan たまり醤油 is a style of soy sauce and can contain wheat, so asking for it could get someone glutened. It now asks for 小麦不使用 soy sauce, says tamari can contain wheat, and that no soy sauce is fine if they don't have one. Same correction across /gluten-free-japan/, /celiac/, the labeling guide and llms(-full).txt, including dropping the unverified "Kikkoman gluten-free tamari at any konbini" claim
+- content(gluten-free): exclusions now name 麦味噌・合わせ味噌, 麩 and soba cut with wheat (二八そば); "noodles" narrowed to noodles containing wheat so rice noodles aren't caught
+- content(gluten-free): kitchen note asks to avoid oil shared with tempura/fried food, noodle water and shared cookware, instead of "separate frying oil"
+- content(gluten-free): card is shorter for staff despite the additions. Related exclusions merged into one bullet each (10 → 6), note tightened, and the severe warning drops its kitchen line when the gluten-free note already covers it (`coversKitchen`). GF card: 15 → 13 lines
+- feat(card): closing question now adds 「難しい場合は、遠慮なくおっしゃってください。」 so staff can say no without losing face. Same line, so no card gets longer
+- feat(card): ticking wheat without the gluten-free diet adds 「※醤油にも小麦が含まれています。」
+- content: English mirror of the gluten-free note reworded as a request to match the Japanese
+- content(gluten-free-japan, llms-full): sushi rice is "usually" safe, not always; some places use 穀物酢 (grain vinegar), which can be made with wheat
+- feat(allergens): garlic (にんにく), onion (玉ねぎ) and oats (オーツ麦) added. Custom items are shown as typed, so these weren't translatable before
+
 ## 2026-07-27
 
 - feat(analytics): GoatCounter event tracking via new shared `analytics.js`. Exposes `window.tabemasenTrack(name)` and auto-tracks any element carrying `data-gc-event`. Events are queued for up to ~4s while the async `count.js` loads, so events fired at DOMContentLoaded aren't lost
