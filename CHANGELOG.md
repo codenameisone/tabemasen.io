@@ -1,5 +1,9 @@
 # Changelog
 
+## 2026-10-10
+
+- seo(celiac, gluten-free-japan): titles, meta descriptions, OG/Twitter titles and the /celiac/ H1 now carry the UK/AU/NZ spelling "coeliac" alongside "celiac". UK and Australian searchers type "coeliac", and both pages were almost entirely US spelling. Same URLs, no new pages
+
 ## 2026-10-08 (2)
 
 - feat(about): new /about/ page. How the wording is made, its limits, safety (119, medication, FARE's Japan tips, import certificate), corrections and how to report one, privacy, and plain-language terms. Linked from every footer, sitemap and llms.txt
