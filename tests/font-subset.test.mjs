@@ -17,23 +17,40 @@ describe('selectFaces', () => {
 @font-face {
   font-family: 'F';
   font-weight: 400;
-  src: url(./files/f-0.woff2) format('woff2'), url(./files/f-0.woff) format('woff');
+  src: url(./files/f-0-400-normal.woff2) format('woff2'), url(./files/f-0-400-normal.woff) format('woff');
   unicode-range: U+3042;
 }
 /* b */
 @font-face {
   font-family: 'F';
   font-weight: 400;
-  src: url(./files/f-1.woff2) format('woff2'), url(./files/f-1.woff) format('woff');
+  src: url(./files/f-1-400-normal.woff2) format('woff2'), url(./files/f-1-400-normal.woff) format('woff');
   unicode-range: U+4E00;
 }`;
   it('keeps only faces whose range holds a used character, woff2 only', () => {
-    const out = selectFaces(css, new Set([0x3042]), '../fonts/');
+    const out = selectFaces(css, new Set([0x3042]), '../fonts/', { display: 'swap' });
     expect(out).toHaveLength(1);
-    expect(out[0]).toContain('url(../fonts/f-0.woff2)');
+    expect(out[0]).toContain('url(../fonts/f-0-400-normal.woff2)');
     expect(out[0]).not.toContain('.woff)');
-    expect(out[0]).toContain('font-display: optional');
+    expect(out[0]).toContain('font-display: swap');
     expect(out[0]).toContain('unicode-range: U+3042;');
+  });
+});
+
+describe('selectFaces and alphabet slices', () => {
+  const face = (file, range) => `@font-face {
+  font-family: 'F';
+  font-weight: 400;
+  src: url(./files/${file}.woff2) format('woff2'), url(./files/${file}.woff) format('woff');
+  unicode-range: ${range};
+}`;
+  it('keeps latin/latin-ext/cyrillic whole, so names like José Müller use the web font', () => {
+    const css = [face('f-latin-400-normal', 'U+0000-00FF'), face('f-cyrillic-400-normal', 'U+0400-045F'), face('f-12-400-normal', 'U+4E00,U+4E01')].join('\n');
+    const out = selectFaces(css, new Set([0x41, 0x4e00]), './');
+    expect(out).toHaveLength(3);
+    expect(out[0]).toContain('unicode-range: U+0000-00FF;');
+    expect(out[1]).toContain('unicode-range: U+0400-045F;');
+    expect(out[2]).toContain('unicode-range: U+4e00;');
   });
 });
 

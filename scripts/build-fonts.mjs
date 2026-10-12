@@ -4,11 +4,14 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { FONT_FILES, selectFaces, codePointsFor, siteCodePoints } from './lib/font-subset.mjs';
 
+// swap: text paints at once in a system font and switches when the web font arrives.
+const DISPLAY = 'swap';
 const cps = siteCodePoints();
 let total = 0;
 const blocks = FONT_FILES.map((file) => {
   const { name, weight, css } = file;
-  const faces = selectFaces(readFileSync(css, 'utf8'), codePointsFor(file), `../../node_modules/@fontsource/${name}/files/`);
+  const faces = selectFaces(readFileSync(css, 'utf8'), codePointsFor(file), `../../node_modules/@fontsource/${name}/files/`,
+    { display: DISPLAY, alphabets: file.chars === 'site' });
   total += faces.length;
   return `/* ${name} ${weight}: ${faces.length} ranges */\n${faces.join('\n')}`;
 });

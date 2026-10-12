@@ -39,20 +39,24 @@ export const inRanges = (cp, ranges) => ranges.some(([a, b]) => cp >= a && cp <=
 
 // Every @font-face in a Fontsource CSS file whose range holds a used code point,
 // rewritten to woff2 only (every supported browser has it) with files under `fileBase`.
-// font-display: optional — a font that misses the first ~100 ms is used from the next page
-// on, instead of swapping in and shifting the layout (CLS).
-export function selectFaces(css, codePoints, fileBase) {
+export function selectFaces(css, codePoints, fileBase, { display = 'swap', alphabets = true } = {}) {
   const out = [];
   for (const [face] of css.matchAll(/@font-face\s*\{[^}]*\}/g)) {
+    const file = face.match(/\.\/files\/([^)]+\.woff2)/)[1];
     const range = face.match(/unicode-range:([^;]+);/);
-    if (range && ![...codePoints].some((cp) => inRanges(cp, parseRanges(range[1])))) continue;
-    // Narrow the declared range to the characters we use: same file, far shorter CSS.
-    const used = range ? [...codePoints].filter((cp) => inRanges(cp, parseRanges(range[1]))).sort((a, b) => a - b) : null;
+    // Alphabet slices (latin, latin-ext, cyrillic…) stay whole: names and custom text on
+    // the card can use any of their letters. Numbered slices are Japanese: keep only those
+    // holding a character we use, narrowed to those characters (same file, far less CSS).
+    const alphabet = alphabets && !/-\d+-\d+-\w+\.woff2$/.test(file);
     let rule = face
-      .replace(/src:[^;]+;/, (src) => `src: url(${fileBase}${src.match(/\.\/files\/([^)]+\.woff2)/)[1]}) format('woff2');`)
+      .replace(/src:[^;]+;/, `src: url(${fileBase}${file}) format('woff2');`)
       .replace(/\s*font-display:[^;]+;/, '');
-    if (used) rule = rule.replace(/unicode-range:[^;]+;/, `unicode-range: ${formatRanges(used)};`);
-    out.push(rule.replace(/\{/, '{\n  font-display: optional;'));
+    if (range && !alphabet) {
+      const used = [...codePoints].filter((cp) => inRanges(cp, parseRanges(range[1]))).sort((a, b) => a - b);
+      if (!used.length) continue;
+      rule = rule.replace(/unicode-range:[^;]+;/, `unicode-range: ${formatRanges(used)};`);
+    }
+    out.push(rule.replace(/\{/, `{\n  font-display: ${display};`));
   }
   return out;
 }
