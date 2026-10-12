@@ -755,3 +755,19 @@ test('unknown paths get the branded, noindexed 404 page', async ({ page }) => {
   expect(violations.filter((v) => ['serious', 'critical'].includes(v.impact))).toEqual([]);
   expect(errors).toEqual([]);
 });
+
+test('halal certification table says it scrolls when it is wider than the screen', async ({ page }, info) => {
+  await page.goto('/halal/certification-guide/');
+  const wrap = page.locator('.cg-table-wrap');
+  const overflows = await wrap.evaluate((el) => el.scrollWidth > el.clientWidth);
+  const hint = page.locator('.cg-table-hint');
+  if (info.project.name === 'mobile') {
+    expect(overflows).toBe(true);
+    await expect(hint).toBeVisible();
+    await expect(hint).toContainText('sideways');
+    expect(await wrap.evaluate((el) => getComputedStyle(el).backgroundImage)).toContain('gradient');
+  } else {
+    expect(overflows).toBe(false);
+    await expect(hint).toBeHidden();
+  }
+});
