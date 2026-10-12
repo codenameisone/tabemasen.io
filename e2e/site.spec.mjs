@@ -123,9 +123,8 @@ test('allergies preview matches the builder after hand-off', async ({ page }) =>
   await expect(page.locator('#hub-card .card-line', { hasText: '・小麦' })).toHaveCount(1);
   const hub = await page.locator('#hub-card .card-line').allTextContents();
   await page.locator('.picker__go').click();
-  await expect(page.locator('#card .card-line').first()).toBeVisible();
-  const builder = await page.locator('#card .card-line').allTextContents();
-  expect(builder).toEqual(hub);
+  // The builder ships an empty-state card in its HTML; wait for app.js to apply the hand-off.
+  await expect.poll(() => page.locator('#card .card-line').allTextContents()).toEqual(hub);
 });
 
 test('mobile menu opens on the vegan hub', async ({ page }, info) => {
@@ -306,8 +305,7 @@ test('halal preview matches the builder after hand-off, with the halal pattern s
   await expect(page.locator('#hub-card .card-line', { hasText: '・小麦' })).toHaveCount(1);
   const hub = await page.locator('#hub-card .card-line').allTextContents();
   await page.locator('.picker__go').click();
-  await expect(page.locator('#card .card-line').first()).toBeVisible();
-  expect(await page.locator('#card .card-line').allTextContents()).toEqual(hub);
+  await expect.poll(() => page.locator('#card .card-line').allTextContents()).toEqual(hub);
   await expect(page.locator('.pattern-btn[data-key="halal"]')).toHaveClass(/pattern-btn--selected/);
   await expect(page.locator('.chip[data-key="shrimp"]')).toHaveAttribute('aria-pressed', 'true');
 });
@@ -450,8 +448,7 @@ test('vegan preview matches the builder after hand-off, with the vegan pattern s
   await expect(page.locator('#hub-card .card-line', { hasText: '・落花生' })).toHaveCount(1);
   const hub = await page.locator('#hub-card .card-line').allTextContents();
   await page.locator('.picker__go').click();
-  await expect(page.locator('#card .card-line').first()).toBeVisible();
-  expect(await page.locator('#card .card-line').allTextContents()).toEqual(hub);
+  await expect.poll(() => page.locator('#card .card-line').allTextContents()).toEqual(hub);
   await expect(page.locator('.pattern-btn[data-key="vegan"]')).toHaveClass(/pattern-btn--selected/);
   await expect(page.locator('.chip[data-key="peanut"]')).toHaveAttribute('aria-pressed', 'true');
 });
@@ -532,8 +529,7 @@ test('gluten-free preview matches the builder after hand-off, with the gluten-fr
   await expect(page.locator('#hub-card .card-line', { hasText: '・えび' })).toHaveCount(1);
   const hub = await page.locator('#hub-card .card-line').allTextContents();
   await page.locator('.picker__go').click();
-  await expect(page.locator('#card .card-line').first()).toBeVisible();
-  expect(await page.locator('#card .card-line').allTextContents()).toEqual(hub);
+  await expect.poll(() => page.locator('#card .card-line').allTextContents()).toEqual(hub);
   await expect(page.locator('.pattern-btn[data-key="gluten-free"]')).toHaveClass(/pattern-btn--selected/);
   await expect(page.locator('.chip[data-key="shrimp"]')).toHaveAttribute('aria-pressed', 'true');
   await expect(page.locator('#severity-toggle')).toBeChecked();
@@ -878,4 +874,16 @@ test('halal certification table hint shows exactly when the table scrolls', asyn
     const overflows = await page.locator('.cg-table-wrap').evaluate((el) => el.scrollWidth > el.clientWidth);
     expect(await page.locator('.cg-table-hint').isVisible(), `hint at ${width}px`).toBe(overflows);
   }
+});
+
+test('home: allergen chips, diet buttons and the card are in the HTML, so nothing shifts when app.js runs', async ({ page, request }) => {
+  const html = await (await request.get('/')).text();
+  const count = (re) => (html.match(re) ?? []).length;
+  const chips = count(/class="chip[ "]/g);
+  expect(chips).toBeGreaterThanOrEqual(20);
+  expect(count(/class="pattern-btn"/g)).toBeGreaterThanOrEqual(5);
+  expect(html).toMatch(/<div class="card"[^>]*id="card"[^>]*>\s*<p class="card-line/);
+  await page.goto('/');
+  await expect(page.locator('.chip-grid .chip')).toHaveCount(chips);
+  await expect(page.locator('.pattern-list .pattern-btn')).toHaveCount(count(/class="pattern-btn"/g));
 });

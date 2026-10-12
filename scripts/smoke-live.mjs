@@ -7,7 +7,7 @@ const pages = ['/', '/about/', '/allergies/', '/allergies/food-allergies-in-japa
   '/allergies/labeling-guide/', '/celiac/', '/featured/', '/gluten-free/', '/gluten-free-japan/',
   '/halal/', '/halal/certification-guide/', '/vegan/'];
 const files = ['/data.js', '/app.js', '/analytics.js',
-  '/sitemap.xml', '/robots.txt', '/llms.txt', '/llms-full.txt', '/assets/og-image.png'];
+  '/sitemap.xml', '/robots.txt', '/llms.txt', '/llms-full.txt', '/assets/og-image.png', '/assets/og-image-v2.png'];
 const slashless = ['/allergies', '/gluten-free', '/halal', '/vegan'];
 
 let failures = 0;

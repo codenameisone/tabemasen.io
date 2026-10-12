@@ -9,12 +9,18 @@ import BrushGlyph from '../components/BrushGlyph.astro';
 import GuideList from '../components/GuideList.astro';
 import FeaturedStrip from '../components/FeaturedStrip.astro';
 import { guidesForDiet } from '../lib/guides';
+import { loadCardData, cardLinesHtml } from '../lib/cardData';
 import counter from '../assets/illustrations/counter.jpg';
 import table from '../assets/illustrations/table.jpg';
 import konbini from '../assets/illustrations/konbini.jpg';
 import homeJsonLd from './_home-jsonld.json?raw';
 import '../styles/card.css';
 import '../styles/builder.css';
+
+// Chips, diet buttons and the empty-state card are rendered here with the same markup
+// app.js builds, so the builder doesn't jump when the script runs (CLS).
+const cardData = loadCardData();
+const emptyCard = cardLinesHtml({});
 
 const guides = await getCollection('guides');
 const allergyGuides = guidesForDiet(guides, 'allergies');
@@ -48,14 +54,14 @@ const chevron = '<svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stro
           <h2 class="panel-heading"><button class="panel-toggle" aria-expanded="true" aria-controls="allergens-content" type="button"><span class="panel-title">Allergens</span><Fragment set:html={chevron} /></button></h2>
           <div class="panel-body" id="allergens-content">
             <p class="chip-legend"><i aria-hidden="true"></i>Red dot: Japan's mandatory allergens, always on packaged-food labels</p>
-            <div class="chip-grid" role="group" aria-label="Select allergens"></div>
+            <div class="chip-grid" role="group" aria-label="Select allergens">{cardData.allergens.map((a) => <button type="button" class={a.mandatory ? 'chip chip--mandatory' : 'chip'} data-key={a.key} aria-pressed="false" aria-label={`${a.english} (${a.japanese})`}>{a.english}</button>)}</div>
           </div>
         </div>
         <div class="panel-section" id="panel-diet">
           <h2 class="panel-heading"><button class="panel-toggle" aria-expanded="true" aria-controls="diet-content" type="button"><span class="panel-title">Diet</span><Fragment set:html={chevron} /></button></h2>
           <div class="panel-body" id="diet-content">
             <p class="field-hint">Select multiple at once — e.g. gluten-free + pescatarian.</p>
-            <div class="pattern-list" role="group" aria-label="Select dietary pattern"></div>
+            <div class="pattern-list" role="group" aria-label="Select dietary pattern">{cardData.patterns.map((pt) => <button type="button" class="pattern-btn" data-key={pt.key} aria-pressed="false" aria-label={pt.label_en}>{pt.label_en}</button>)}</div>
           </div>
         </div>
         <div class="panel-section" id="panel-severity">
@@ -90,7 +96,7 @@ const chevron = '<svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stro
           <p class="preview-label">Your card</p>
           <label class="english-toggle-label"><input type="checkbox" id="english-toggle" checked><span>Show English</span></label>
         </div>
-        <div class="card" id="card" tabindex="0" aria-label="Japanese restaurant card preview" lang="ja"></div>
+        <div class="card" id="card" tabindex="0" aria-label="Japanese restaurant card preview" lang="ja" set:html={emptyCard}></div>
       </section>
     </div>
   </div>

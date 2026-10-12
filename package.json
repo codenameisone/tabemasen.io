@@ -15,6 +15,7 @@
     "check:seo": "node scripts/check-seo.mjs",
     "check:content": "node scripts/check-content.mjs",
     "content:snapshot": "node scripts/content-snapshot.mjs",
+    "fonts": "node scripts/build-fonts.mjs",
     "smoke:live": "node scripts/smoke-live.mjs"
   },
   "dependencies": {

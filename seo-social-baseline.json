@@ -4,7 +4,7 @@
     "og:description": "Free generator for Japanese restaurant cards. Show your food allergies, vegetarian, vegan, halal, or gluten-free needs to staff in polite Japanese. No signup. Mobile-friendly.",
     "og:type": "website",
     "og:url": "https://tabemasen.io/",
-    "og:image": "https://tabemasen.io/assets/og-image.png",
+    "og:image": "https://tabemasen.io/assets/og-image-v2.png",
     "twitter:card": "summary_large_image",
     "twitter:title": "Japan Allergy Card — Free Japanese Restaurant Translation Card | tabemasen",
     "twitter:description": "Free generator for Japanese restaurant cards. Show your food allergies, vegetarian, vegan, halal, or gluten-free needs to staff in polite Japanese. No signup. Mobile-friendly."
@@ -14,29 +14,29 @@
     "og:url": "https://tabemasen.io/about/",
     "og:title": "About & Safety — How the Cards Are Made | tabemasen",
     "og:description": "How tabemasen cards are put together, what they can and can't do, how corrections work, your privacy, and what to carry if you have a serious allergy in Japan.",
-    "og:image": "https://tabemasen.io/assets/og-image.png",
+    "og:image": "https://tabemasen.io/assets/og-image-v2.png",
     "twitter:card": "summary_large_image",
     "twitter:title": "About & Safety — How the Cards Are Made | tabemasen",
     "twitter:description": "How tabemasen cards are put together, what they can and can't do, how corrections work, your privacy, and what to carry if you have a serious allergy in Japan.",
-    "twitter:image": "https://tabemasen.io/assets/og-image.png"
+    "twitter:image": "https://tabemasen.io/assets/og-image-v2.png"
   },
   "/allergies/": {
     "og:type": "website",
     "og:url": "https://tabemasen.io/allergies/",
     "og:title": "Japan Food Allergy Restaurant Card — Free Generator | tabemasen",
     "og:description": "Free Japanese food allergy card for travelers. Pick your allergens, show your waiter. Explains cross-contamination and lists each allergen in kanji staff will recognise — peanut, shellfish, egg, dairy, sesame, soy and more.",
-    "og:image": "https://tabemasen.io/assets/og-image.png",
+    "og:image": "https://tabemasen.io/assets/og-image-v2.png",
     "twitter:card": "summary_large_image",
     "twitter:title": "Japan Food Allergy Restaurant Card — Free Generator | tabemasen",
     "twitter:description": "Free Japanese food allergy card for travelers. Pick your allergens, show your waiter. Explains cross-contamination and lists each allergen in kanji staff will recognise — peanut, shellfish, egg, dairy, sesame, soy and more.",
-    "twitter:image": "https://tabemasen.io/assets/og-image.png"
+    "twitter:image": "https://tabemasen.io/assets/og-image-v2.png"
   },
   "/allergies/food-allergies-in-japanese/": {
     "og:type": "article",
     "og:url": "https://tabemasen.io/allergies/food-allergies-in-japanese/",
     "og:title": "How to Say \"I Have a Food Allergy\" in Japanese | tabemasen",
     "og:description": "「小麦アレルギーがあります」— the exact phrase for every major allergen, in kanji with readings, plus a free card to show staff.",
-    "og:image": "https://tabemasen.io/assets/og-image.png",
+    "og:image": "https://tabemasen.io/assets/og-image-v2.png",
     "article:section": "Allergies",
     "article:tag": [
       "Japanese allergy phrases",
@@ -46,14 +46,14 @@
     "twitter:card": "summary_large_image",
     "twitter:title": "How to Say \"I Have a Food Allergy\" in Japanese | tabemasen",
     "twitter:description": "「小麦アレルギーがあります」— the exact phrase for every major allergen, in kanji with readings, plus a free card to show staff.",
-    "twitter:image": "https://tabemasen.io/assets/og-image.png"
+    "twitter:image": "https://tabemasen.io/assets/og-image-v2.png"
   },
   "/allergies/labeling-guide/": {
     "og:type": "article",
     "og:url": "https://tabemasen.io/allergies/labeling-guide/",
     "og:title": "Japan Food Allergen Labeling Guide: Mandatory Allergens, Labels & Restaurant Risks | tabemasen",
     "og:description": "Japan's 9 mandatory food allergens, how to read a Japanese label, why restaurants aren't required to disclose, and what celiac travelers need to watch for.",
-    "og:image": "https://tabemasen.io/assets/og-image.png",
+    "og:image": "https://tabemasen.io/assets/og-image-v2.png",
     "article:section": "Allergies",
     "article:tag": [
       "Japan food allergies",
@@ -63,14 +63,14 @@
     "twitter:card": "summary_large_image",
     "twitter:title": "Japan Food Allergen Labeling Guide: Mandatory Allergens, Labels & Restaurant Risks | tabemasen",
     "twitter:description": "Japan's 9 mandatory food allergens, how to read a Japanese label, why restaurants aren't required to disclose, and what celiac travelers need to watch for.",
-    "twitter:image": "https://tabemasen.io/assets/og-image.png"
+    "twitter:image": "https://tabemasen.io/assets/og-image-v2.png"
   },
   "/celiac/": {
     "og:type": "article",
     "og:url": "https://tabemasen.io/celiac/",
     "og:title": "Celiac / Coeliac in Japan: Why \"No Wheat\" Isn't Gluten-Free | tabemasen",
     "og:description": "Japan's allergen law covers wheat — not barley, rye or gluten. What a Japanese label guarantees, and how celiacs (coeliacs) verify food themselves.",
-    "og:image": "https://tabemasen.io/assets/og-image.png",
+    "og:image": "https://tabemasen.io/assets/og-image-v2.png",
     "article:section": "Celiac",
     "article:tag": [
       "Celiac disease Japan",
@@ -80,47 +80,47 @@
     "twitter:card": "summary_large_image",
     "twitter:title": "Celiac / Coeliac in Japan: Why \"No Wheat\" Isn't Gluten-Free | tabemasen",
     "twitter:description": "Japan's allergen law covers wheat — not barley, rye or gluten. What a Japanese label guarantees, and how celiacs verify food themselves.",
-    "twitter:image": "https://tabemasen.io/assets/og-image.png"
+    "twitter:image": "https://tabemasen.io/assets/og-image-v2.png"
   },
   "/featured/": {
     "og:type": "website",
     "og:url": "https://tabemasen.io/featured/",
     "og:title": "Featured In — Guides That Recommend tabemasen | tabemasen",
     "og:description": "Travel guides and family resources that recommend tabemasen, the free Japanese restaurant card for food allergies and dietary restrictions.",
-    "og:image": "https://tabemasen.io/assets/og-image.png",
+    "og:image": "https://tabemasen.io/assets/og-image-v2.png",
     "twitter:card": "summary_large_image",
     "twitter:title": "Featured In — Guides That Recommend tabemasen | tabemasen",
     "twitter:description": "Travel guides and family resources that recommend tabemasen, the free Japanese restaurant card for food allergies and dietary restrictions.",
-    "twitter:image": "https://tabemasen.io/assets/og-image.png"
+    "twitter:image": "https://tabemasen.io/assets/og-image-v2.png"
   },
   "/gluten-free-japan/": {
     "og:type": "article",
     "og:url": "https://tabemasen.io/gluten-free-japan/",
     "og:title": "Gluten-Free in Japan — Free Celiac & Coeliac Card and Guide | tabemasen",
     "og:description": "Hidden wheat in soy sauce, safe foods, konbini tips, and a free Japanese restaurant card for celiacs and coeliacs travelling to Japan.",
-    "og:image": "https://tabemasen.io/assets/og-image.png",
+    "og:image": "https://tabemasen.io/assets/og-image-v2.png",
     "twitter:card": "summary_large_image",
     "twitter:title": "Gluten-Free in Japan — Free Celiac & Coeliac Card and Guide | tabemasen",
     "twitter:description": "Hidden wheat in soy sauce, safe foods, konbini tips, and a free Japanese restaurant card for celiacs traveling to Japan.",
-    "twitter:image": "https://tabemasen.io/assets/og-image.png"
+    "twitter:image": "https://tabemasen.io/assets/og-image-v2.png"
   },
   "/halal/": {
     "og:type": "website",
     "og:url": "https://tabemasen.io/halal/",
     "og:title": "Halal in Japan: Free Muslim Restaurant Card + Dining Guide | tabemasen",
     "og:description": "Free Japanese restaurant card for Muslim travelers — no pork, no alcohol, no mirin — plus how to find halal-certified restaurants in Japan and read halal labels.",
-    "og:image": "https://tabemasen.io/assets/og-image.png",
+    "og:image": "https://tabemasen.io/assets/og-image-v2.png",
     "twitter:card": "summary_large_image",
     "twitter:title": "Halal in Japan: Free Muslim Restaurant Card + Dining Guide | tabemasen",
     "twitter:description": "Free Japanese restaurant card for Muslim travelers — no pork, no alcohol, no mirin — plus how to find halal-certified restaurants in Japan and read halal labels.",
-    "twitter:image": "https://tabemasen.io/assets/og-image.png"
+    "twitter:image": "https://tabemasen.io/assets/og-image-v2.png"
   },
   "/halal/certification-guide/": {
     "og:type": "article",
     "og:url": "https://tabemasen.io/halal/certification-guide/",
     "og:title": "Japan Halal Certification & Logos Explained | tabemasen",
     "og:description": "Confused by halal logos in Japan? A clear guide to the main certification bodies, what each symbol means, and how to tell if a Japanese restaurant is genuinely halal-certified.",
-    "og:image": "https://tabemasen.io/assets/og-image.png",
+    "og:image": "https://tabemasen.io/assets/og-image-v2.png",
     "article:section": "Halal",
     "article:tag": [
       "Halal certification Japan",
@@ -130,17 +130,17 @@
     "twitter:card": "summary_large_image",
     "twitter:title": "Japan Halal Certification & Logos Explained | tabemasen",
     "twitter:description": "Confused by halal logos in Japan? A clear guide to the main certification bodies, what each symbol means, and how to tell if a Japanese restaurant is genuinely halal-certified.",
-    "twitter:image": "https://tabemasen.io/assets/og-image.png"
+    "twitter:image": "https://tabemasen.io/assets/og-image-v2.png"
   },
   "/vegan/": {
     "og:type": "website",
     "og:url": "https://tabemasen.io/vegan/",
     "og:title": "Japan Vegan Restaurant Card — Free Generator | tabemasen",
     "og:description": "Free Japanese vegan restaurant card for travelers. Calls out the dashi problem — fish stock hidden in nearly every dish — plus a practical guide to eating vegan in Japan: shojin ryori, what to order, and the konbini reality.",
-    "og:image": "https://tabemasen.io/assets/og-image.png",
+    "og:image": "https://tabemasen.io/assets/og-image-v2.png",
     "twitter:card": "summary_large_image",
     "twitter:title": "Japan Vegan Restaurant Card — Free Generator | tabemasen",
     "twitter:description": "Free Japanese vegan restaurant card for travelers. Calls out the dashi problem — fish stock hidden in nearly every dish — plus a practical guide to eating vegan in Japan: shojin ryori, what to order, and the konbini reality.",
-    "twitter:image": "https://tabemasen.io/assets/og-image.png"
+    "twitter:image": "https://tabemasen.io/assets/og-image-v2.png"
   }
 }

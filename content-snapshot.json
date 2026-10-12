@@ -16,8 +16,40 @@
    "Free Japanese restaurant cards for food allergies, vegetarian, vegan, halal & gluten-free travelers",
    "Allergens",
    "Red dot: Japan's mandatory allergens, always on packaged-food labels",
+   "Shrimp",
+   "Crab",
+   "Wheat",
+   "Buckwheat",
+   "Egg",
+   "Dairy",
+   "Peanut",
+   "Walnut",
+   "Cashew",
+   "Almond",
+   "Pistachio",
+   "Soy",
+   "Sesame",
+   "Fish",
+   "Shellfish",
+   "Chicken",
+   "Beef",
+   "Pork",
+   "Gelatin",
+   "Kiwi",
+   "Peach",
+   "Apple",
+   "Mushrooms",
+   "Garlic",
+   "Onion",
+   "Oats",
    "Diet",
    "Select multiple at once — e.g. gluten-free + pescatarian.",
+   "Vegetarian",
+   "Vegan",
+   "Pescatarian",
+   "Halal",
+   "Kosher",
+   "Gluten-free",
    "Severity",
    "When checked, the card warns that even trace amounts can be life-threatening and asks staff to use separate utensils.",
    "Severe allergy",
@@ -27,6 +59,16 @@
    "Clear all",
    "Your card",
    "Show English",
+   "すみません、お願いがあります。",
+   "以下のものを食べることができません:",
+   "これらが含まれていない料理はありますか?難しい場合は、遠慮なくおっしゃってください。",
+   "ご協力ありがとうございます。",
+   "Excuse me, I have a request.",
+   "I cannot eat the following:",
+   "Are there any dishes that don't contain these? If it's difficult, please just say so.",
+   "Thank you for your help.",
+   "Please confirm ingredients with staff. This card helps you ask; it can't guarantee what's in the food. Carry your medication.",
+   "tabemasen.io",
    "Copy link",
    "Download PNG",
    "Print",
@@ -121,17 +163,47 @@
    "Japan for Kids: food allergies in Japan with kids"
   ],
   "labels": [
-   "tabemasen home",
    "Open menu",
    "Main",
    "Card options",
    "Select allergens",
+   "Shrimp (えび)",
+   "Crab (かに)",
+   "Wheat (小麦)",
+   "Buckwheat (そば)",
+   "Egg (卵)",
+   "Dairy (乳製品(牛乳、チーズ、バター))",
+   "Peanut (落花生(ピーナッツ))",
+   "Walnut (くるみ)",
+   "Cashew (カシューナッツ)",
+   "Almond (アーモンド)",
+   "Pistachio (ピスタチオ)",
+   "Soy (大豆)",
+   "Sesame (ごま)",
+   "Fish (魚(さけ、さば、まぐろなど))",
+   "Shellfish (貝類(あさり、ホタテなど))",
+   "Chicken (鶏肉)",
+   "Beef (牛肉)",
+   "Pork (豚肉)",
+   "Gelatin (ゼラチン)",
+   "Kiwi (キウイフルーツ)",
+   "Peach (もも)",
+   "Apple (りんご)",
+   "Mushrooms (きのこ全般)",
+   "Garlic (にんにく)",
+   "Onion (玉ねぎ)",
+   "Oats (オーツ麦(オートミール))",
    "Select dietary pattern",
+   "Vegetarian",
+   "Vegan",
+   "Pescatarian",
+   "Halal",
+   "Kosher",
+   "Gluten-free",
    "Select severity",
    "Card preview",
    "Japanese restaurant card preview",
-   "Card actions",
-   "tabemasen home"
+   "Card actions"
   ],
   "events": [],
   "jsonld": [
@@ -295,10 +367,8 @@
   ],
   "alts": [],
   "labels": [
-   "tabemasen home",
    "Open menu",
-   "Main",
-   "tabemasen home"
+   "Main"
   ],
   "events": [],
   "jsonld": [
@@ -500,13 +570,11 @@
    "Japan for Kids: food allergies in Japan with kids"
   ],
   "labels": [
-   "tabemasen home",
    "Open menu",
    "Main",
    "Start your card",
    "Allergens",
-   "Card preview",
-   "tabemasen home"
+   "Card preview"
   ],
   "events": [],
   "jsonld": [
@@ -783,11 +851,9 @@
    "Watercolour sketch: at a Japanese bakery counter, a traveller holds up a small card and the shop assistant leans in to read it"
   ],
   "labels": [
-   "tabemasen home",
    "Open menu",
    "Main",
-   "Breadcrumb",
-   "tabemasen home"
+   "Breadcrumb"
   ],
   "events": [],
   "jsonld": [
@@ -796,7 +862,7 @@
     "@type": "Article",
     "headline": "How to say food allergies in Japanese",
     "description": "Japanese allergy phrases, allergen names in kanji with readings, and a free restaurant card generator for travelers with food allergies.",
-    "image": "https://tabemasen.io/assets/og-image.png",
+    "image": "https://tabemasen.io/assets/og-image-v2.png",
     "author": {
      "@type": "Organization",
      "name": "tabemasen",
@@ -1259,12 +1325,10 @@
    "Inside a Japanese tonkotsu ramen shop — the walls are covered in signage for drinks, house rules, and pricing, but no allergen information is displayed anywhere"
   ],
   "labels": [
-   "tabemasen home",
    "Open menu",
    "Main",
    "Breadcrumb",
-   "Table of contents",
-   "tabemasen home"
+   "Table of contents"
   ],
   "events": [],
   "jsonld": [
@@ -1273,7 +1337,7 @@
     "@type": "Article",
     "headline": "Japan's allergen labeling, explained: what's on the packet vs. what's not on the menu",
     "description": "Japan's 9 mandatory food allergens, how to read a Japanese label, why restaurants aren't required to disclose, and what celiac travelers need to watch for.",
-    "image": "https://tabemasen.io/assets/og-image.png",
+    "image": "https://tabemasen.io/assets/og-image-v2.png",
     "author": {
      "@type": "Organization",
      "name": "tabemasen",
@@ -1552,11 +1616,9 @@
    "Watercolour sketch: a traveller in a Japanese supermarket aisle turns over a packet of rice crackers to read the label"
   ],
   "labels": [
-   "tabemasen home",
    "Open menu",
    "Main",
-   "Example gluten-free card in Japanese",
-   "tabemasen home"
+   "Example gluten-free card in Japanese"
   ],
   "events": [],
   "jsonld": [
@@ -1565,7 +1627,7 @@
     "@type": "Article",
     "headline": "Celiac (coeliac) disease in Japan: why \"no wheat\" is not the same as gluten-free",
     "description": "Japan's mandatory allergen labelling covers wheat but not barley, rye or gluten. What a Japanese label guarantees, what \"gluten-free\" legally means in Japan, and how celiac travellers can verify food themselves.",
-    "image": "https://tabemasen.io/assets/og-image.png",
+    "image": "https://tabemasen.io/assets/og-image-v2.png",
     "author": {
      "@type": "Organization",
      "name": "tabemasen",
@@ -1752,10 +1814,8 @@
    "Japan for Kids"
   ],
   "labels": [
-   "tabemasen home",
    "Open menu",
-   "Main",
-   "tabemasen home"
+   "Main"
   ],
   "events": [],
   "jsonld": [
@@ -1993,13 +2053,11 @@
    "Japan for Kids: food allergies in Japan with kids"
   ],
   "labels": [
-   "tabemasen home",
    "Open menu",
    "Main",
    "Start your card",
    "Allergens",
-   "Card preview",
-   "tabemasen home"
+   "Card preview"
   ],
   "events": [],
   "jsonld": [
@@ -2008,7 +2066,7 @@
     "@type": "Article",
     "headline": "Gluten-free in Japan: where gluten hides and what celiacs can actually eat",
     "description": "Everything celiacs need to know about eating gluten-free in Japan — hidden wheat in soy sauce, dashi, and barley tea, safe foods to look for, convenience store tips, and a free Japanese restaurant card.",
-    "image": "https://tabemasen.io/assets/og-image.png",
+    "image": "https://tabemasen.io/assets/og-image-v2.png",
     "author": {
      "@type": "Organization",
      "name": "tabemasen",
@@ -2235,10 +2293,8 @@
   ],
   "alts": [],
   "labels": [
-   "tabemasen home",
    "Open menu",
-   "Main",
-   "tabemasen home"
+   "Main"
   ],
   "events": [],
   "jsonld": [
@@ -2454,13 +2510,11 @@
    "Japan for Kids: food allergies in Japan with kids"
   ],
   "labels": [
-   "tabemasen home",
    "Open menu",
    "Main",
    "Start your card",
    "Allergens",
-   "Card preview",
-   "tabemasen home"
+   "Card preview"
   ],
   "events": [],
   "jsonld": [
@@ -2911,13 +2965,11 @@
    "Watercolour sketch: a hand pulls open a Japanese restaurant's glass door; inside hang a round sign and a small wooden plaque"
   ],
   "labels": [
-   "tabemasen home",
    "Open menu",
    "Main",
    "Breadcrumb",
    "Table of contents",
-   "Certification comparison table",
-   "tabemasen home"
+   "Certification comparison table"
   ],
   "events": [],
   "jsonld": [
@@ -2926,7 +2978,7 @@
     "@type": "Article",
     "headline": "Halal certification in Japan: what the logos actually mean",
     "description": "Japan has no central halal authority — multiple bodies certify restaurants and products with different standards. Here's what each logo means and what 'Muslim-friendly' actually guarantees.",
-    "image": "https://tabemasen.io/assets/og-image.png",
+    "image": "https://tabemasen.io/assets/og-image-v2.png",
     "author": {
      "@type": "Organization",
      "name": "tabemasen",
@@ -3232,13 +3284,11 @@
    "Japan for Kids: food allergies in Japan with kids"
   ],
   "labels": [
-   "tabemasen home",
    "Open menu",
    "Main",
    "Start your card",
    "Allergens",
-   "Card preview",
-   "tabemasen home"
+   "Card preview"
   ],
   "events": [],
   "jsonld": [
