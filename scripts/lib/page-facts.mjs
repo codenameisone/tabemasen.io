@@ -5,7 +5,7 @@ const collapse = (s) => s.replace(/[ \t\n\r\f]+/g, ' ').trim();
 export function pageFacts(html) {
   const facts = {
     title: null, description: null, h1: null, canonical: null, robots: null,
-    jsonLdTypes: [], jsonLdErrors: [], links: [],
+    jsonLdTypes: [], jsonLdErrors: [], links: [], refresh: false,
   };
   visit(parse(html), (el) => {
     const a = Object.fromEntries(el.attrs.map((x) => [x.name, x.value]));
@@ -15,6 +15,7 @@ export function pageFacts(html) {
       case 'meta':
         if (a.name === 'description') facts.description ??= a.content ?? '';
         if (a.name === 'robots') facts.robots ??= a.content ?? '';
+        if ((a['http-equiv'] ?? '').toLowerCase() === 'refresh') facts.refresh = true;
         break;
       case 'link':
         if (a.rel === 'canonical') facts.canonical ??= a.href ?? '';

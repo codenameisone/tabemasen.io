@@ -25,12 +25,34 @@ export function pageProblems(url, facts) {
   return problems;
 }
 
+const safeDecode = (s) => { try { return decodeURIComponent(s); } catch { return s; } };
+
 export function resolveInternal(href, pageUrl, site = SITE) {
   if (/^(mailto:|tel:|javascript:|data:)/i.test(href) || href.startsWith('#')) return null;
   let u;
   try { u = new URL(href, site + pageUrl); } catch { return null; }
   if (u.origin !== site) return null;
-  return decodeURIComponent(u.pathname);
+  return safeDecode(u.pathname);
+}
+
+export function pageBasicsProblems(url, facts) {
+  if (facts.refresh) return [];
+  return ['title', 'description', 'h1', 'canonical']
+    .filter((f) => !facts[f])
+    .map((f) => `${url}: missing ${f}`);
+}
+
+export function allowlistProblems(allowlist) {
+  const problems = [];
+  allowlist.changes.forEach((c, i) => {
+    const id = `seo-allowlist.json changes[${i}] (${c.url} ${c.field})`;
+    if (!c.reason) problems.push(`${id}: missing reason`);
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(c.date ?? '')) problems.push(`${id}: date must be YYYY-MM-DD`);
+  });
+  allowlist.knownBrokenLinks.forEach((k, i) => {
+    if (!k.reason) problems.push(`seo-allowlist.json knownBrokenLinks[${i}] (${k.from} -> ${k.href}): missing reason`);
+  });
+  return problems;
 }
 
 export function linkCandidates(pathname) {

@@ -1,9 +1,10 @@
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { pageFacts } from './lib/page-facts.mjs';
 import { listDistPages } from './lib/dist-pages.mjs';
 import {
   SITE, baselineProblems, pageProblems, resolveInternal, linkCandidates, sitemapProblems,
+  pageBasicsProblems, allowlistProblems,
 } from './lib/seo-checks.mjs';
 
 const dist = 'dist';
@@ -14,16 +15,21 @@ const current = {};
 const problems = [];
 const indexable = [];
 
+problems.push(...allowlistProblems(allowlist));
+
+const isFile = (p) => { try { return statSync(p).isFile(); } catch { return false; } };
+
 for (const { url, file } of listDistPages(dist)) {
   const facts = pageFacts(readFileSync(file, 'utf8'));
   current[url] = facts;
   problems.push(...pageProblems(url, facts));
+  problems.push(...pageBasicsProblems(url, facts));
   if (facts.canonical === SITE + url && !/noindex/i.test(facts.robots ?? '')) indexable.push(url);
 
   for (const href of facts.links) {
     const path = resolveInternal(href, url);
     if (path === null) continue;
-    if (linkCandidates(path).some((c) => existsSync(join(dist, c)))) continue;
+    if (linkCandidates(path).some((c) => isFile(join(dist, c)))) continue;
     if (allowlist.knownBrokenLinks.some((k) => k.from === url && k.href === href)) continue;
     problems.push(`${url}: broken internal reference ${href}`);
   }

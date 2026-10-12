@@ -1,11 +1,12 @@
 import { describe, it, expect } from 'vitest';
 import {
   baselineProblems, pageProblems, resolveInternal, linkCandidates, sitemapProblems,
+  pageBasicsProblems, allowlistProblems,
 } from '../scripts/lib/seo-checks.mjs';
 
 const facts = (over = {}) => ({
   title: 'T', description: 'D', h1: 'H', canonical: 'https://tabemasen.io/a/',
-  robots: null, jsonLdTypes: ['Article'], jsonLdErrors: [], links: [], ...over,
+  robots: null, jsonLdTypes: ['Article'], jsonLdErrors: [], links: [], refresh: false, ...over,
 });
 const noAllow = { changes: [], knownBrokenLinks: [] };
 
@@ -104,5 +105,36 @@ describe('sitemapProblems', () => {
 
   it('reports sitemap URLs that do not exist', () => {
     expect(sitemapProblems(xml, ['/'])).toEqual(['sitemap.xml lists /halal/, which is not an indexable built page']);
+  });
+});
+
+describe('pageBasicsProblems', () => {
+  it('requires title, description, h1 and canonical on normal pages', () => {
+    expect(pageBasicsProblems('/new/', facts({ title: '', description: null, h1: null, canonical: null, refresh: false })))
+      .toEqual(['/new/: missing title', '/new/: missing description', '/new/: missing h1', '/new/: missing canonical']);
+  });
+
+  it('exempts meta-refresh redirect stubs', () => {
+    expect(pageBasicsProblems('/gluten-free/', facts({ description: null, refresh: true }))).toEqual([]);
+  });
+});
+
+describe('allowlistProblems', () => {
+  it('requires a reason everywhere and a YYYY-MM-DD date on changes', () => {
+    const p = allowlistProblems({
+      changes: [{ url: '/a/', field: 'title', reason: '', date: '12/10/2026' }],
+      knownBrokenLinks: [{ from: '/a/', href: '/x' }],
+    });
+    expect(p).toEqual([
+      'seo-allowlist.json changes[0] (/a/ title): missing reason',
+      'seo-allowlist.json changes[0] (/a/ title): date must be YYYY-MM-DD',
+      'seo-allowlist.json knownBrokenLinks[0] (/a/ -> /x): missing reason',
+    ]);
+  });
+});
+
+describe('resolveInternal with malformed encoding', () => {
+  it('returns the raw path instead of throwing', () => {
+    expect(resolveInternal('/a%zz/', '/')).toBe('/a%zz/');
   });
 });

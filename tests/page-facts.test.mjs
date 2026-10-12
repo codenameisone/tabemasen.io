@@ -40,3 +40,10 @@ describe('pageFacts', () => {
     expect(f.links).toEqual(['/styles.css', 'data.js', '/halal/', '/assets/og-image.png']);
   });
 });
+
+describe('pageFacts refresh flag', () => {
+  it('is true only when a meta refresh exists', () => {
+    expect(pageFacts('<html><head><meta http-equiv="refresh" content="0; url=/x/"></head></html>').refresh).toBe(true);
+    expect(pageFacts('<html><head><title>x</title></head></html>').refresh).toBe(false);
+  });
+});
