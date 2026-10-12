@@ -57,7 +57,7 @@ Deploys run from GitHub Actions on every push to `main` (`.github/workflows/site
 
 ## Design system
 
-Design tokens in `src/styles/tokens.css` (prefixed `--tm-*`): colour, type, spacing and radii. Fonts (Shippori Mincho, Zen Kaku Gothic New, Yuji Syuku) via Fontsource, imported in `BaseLayout`. Components in `src/components/` (SiteHeader, SiteFooter, Picker, Breadcrumbs, ExampleCard, and more). The card's styles in `src/styles/card.css` apply to the live card on `/`, the PNG download and print. Guides are a content collection in `src/content/guides/`, written as MDX with validated frontmatter.
+Design tokens in `src/styles/tokens.css` (prefixed `--tm-*`): colour, type, spacing and radii. Fonts (Shippori Mincho, Zen Kaku Gothic New, Yuji Syuku) via Fontsource, imported in `BaseLayout`. Components in `src/components/` (SiteHeader, SiteFooter, Picker, ExampleCard, and more). The card's styles in `src/styles/card.css` apply to the live card on `/`, the PNG download and print. Guides are a content collection in `src/content/guides/`, written as Markdown/MDX files (today all four are `.md`) with validated frontmatter.
 
 ---
 
