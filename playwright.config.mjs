@@ -2,6 +2,7 @@ import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: 'e2e',
+  retries: process.env.CI ? 1 : 0,
   use: { baseURL: 'http://localhost:4322' },
   webServer: { command: 'node scripts/serve-dist.mjs', url: 'http://localhost:4322/', reuseExistingServer: !process.env.CI },
   projects: [
