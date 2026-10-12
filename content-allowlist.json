@@ -10,5 +10,6 @@
   { "url": "/allergies/", "text": "Generate my allergy card →", "reason": "Owner rule: hub CTAs use 'Generate my Japanese [diet] card →'" },
   { "url": "/allergies/labeling-guide/", "text": "Generate my card →", "reason": "Owner rule: CTAs under a diet hub use 'Generate my Japanese [diet] card →'" },
   { "url": "/allergies/food-allergies-in-japanese/", "text": "Generate my allergy card →", "reason": "Owner rule: long-form CTA" },
-  { "url": "/halal/", "text": "Generate my halal card →", "reason": "Owner rule: long-form CTA" }
+  { "url": "/halal/", "text": "Generate my halal card →", "reason": "Owner rule: long-form CTA" },
+  { "url": "/halal/certification-guide/", "text": "Generate my halal card →", "reason": "Owner rule: long-form CTA" }
 ]

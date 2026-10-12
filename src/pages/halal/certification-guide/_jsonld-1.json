@@ -1,0 +1,29 @@
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Halal certification in Japan: what the logos actually mean",
+    "description": "Japan has no central halal authority — multiple bodies certify restaurants and products with different standards. Here's what each logo means and what 'Muslim-friendly' actually guarantees.",
+    "image": "https://tabemasen.io/assets/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "tabemasen",
+      "url": "https://tabemasen.io/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://tabemasen.io/#organization",
+      "name": "tabemasen",
+      "url": "https://tabemasen.io/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://tabemasen.io/assets/android-chrome-512.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://tabemasen.io/halal/certification-guide/"
+    },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-10-08",
+    "inLanguage": "en"
+  }

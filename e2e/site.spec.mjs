@@ -319,3 +319,47 @@ test('halal hub: no horizontal overflow and in-page links resolve', async ({ pag
   const hrefs = await page.locator('a[href^="#"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')).filter((h) => h.length > 1));
   for (const h of hrefs) await expect(page.locator(`[id="${h.slice(1)}"]`)).toHaveCount(1);
 });
+
+test('halal certification guide: tiers, callouts and icons are told apart by more than colour', async ({ page }) => {
+  await page.goto('/halal/certification-guide/');
+  const top = (sel) => page.locator(sel).first().evaluate((el) => getComputedStyle(el).borderTopStyle);
+  expect(await top('.cg-tier-card--halal')).toBe('solid');
+  expect(await top('.cg-tier-card--friendly')).toBe('dashed');
+  expect(await top('.cg-tier-card--porkfree')).toBe('dotted');
+  const left = (sel) => page.locator(sel).first().evaluate((el) => getComputedStyle(el).borderLeftStyle);
+  expect(await left('.cg-callout--warning')).toBe('double');
+  expect(await left('.cg-callout--info')).toBe('dashed');
+  expect(await left('.cg-callout--danger')).toBe('solid');
+  const glyph = (sel) => page.locator(sel).first().innerText();
+  expect(await glyph('.cg-tier-row__icon--yes')).toBe('✓');
+  expect(await glyph('.cg-tier-row__icon--no')).toBe('✗');
+  expect(await glyph('.cg-tier-row__icon--maybe')).toBe('?');
+});
+
+test('halal certification guide: every in-page link resolves and the contents list scrolls', async ({ page }) => {
+  await page.goto('/halal/certification-guide/');
+  const hrefs = await page.locator('main a[href^="#"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
+  expect(hrefs).toHaveLength(11);
+  for (const href of hrefs) await expect(page.locator(href)).toHaveCount(1);
+  await page.locator('.guide-toc__fold').evaluate((d) => d.setAttribute('open', ''));
+  await page.locator('.guide-toc .cg-toc a[href="#kanji-cheat-sheet"]').click();
+  await expect(page.locator('#kanji-cheat-sheet')).toBeInViewport();
+});
+
+test('halal certification guide: disclaimer stays in the hero, inline links and footer CTA keep their events', async ({ page }) => {
+  await page.goto('/halal/certification-guide/');
+  await expect(page.locator('.guide-hero__copy .cg-hero__disclaimer')).toHaveCount(1);
+  await expect(page.locator('a[data-gc-event="cta-halal-cert-inline-verify"]')).toHaveCount(1);
+  await expect(page.locator('a[data-gc-event="cta-halal-cert-inline-faq"]')).toHaveCount(1);
+  const cta = page.locator('.cg-cta a');
+  await expect(cta).toHaveText('Generate my Japanese halal card →');
+  await expect(cta).toHaveAttribute('href', '/#p=halal');
+  await expect(cta).toHaveAttribute('data-gc-event', 'cta-halal-cert-footer');
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+});
+
+test('halal certification guide: Keep reading lists other halal guides, not itself', async ({ page }) => {
+  await page.goto('/halal/certification-guide/');
+  await expect(page.locator('.guide-related a[href="/halal/certification-guide/"]')).toHaveCount(0);
+});
