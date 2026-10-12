@@ -57,3 +57,15 @@ export function missingBlocks(oldBlocks, newBlocks, allowed) {
   const ok = new Set(allowed);
   return oldBlocks.filter((b) => !have.has(b) && !ok.has(b));
 }
+
+export function unmatchedSelectors(html, selectors) {
+  const roots = [];
+  findAll(parse(html), selectors, roots);
+  const matched = new Set(selectors.slice(0, 0)); // empty set
+  for (const sel of selectors) {
+    const found = [];
+    findAll(parse(html), [sel], found);
+    if (found.length > 0) matched.add(sel);
+  }
+  return selectors.filter((sel) => !matched.has(sel));
+}
