@@ -21,6 +21,7 @@ interface Props {
   ctaLabel: string;
   microcopy?: string;
   heroExtra?: string;
+  ogType?: string; ogDescription?: string; twitterDescription?: string; // legacy link-preview meta
   closing: { heading: string; text: string; event: string };
 }
 const p = Astro.props;
@@ -33,7 +34,7 @@ const pickerState: CardState = {
 };
 const guides = guidesForDiet(await getCollection('guides'), p.diet);
 ---
-<BaseLayout title={p.title} description={p.description} canonical={p.canonical} page={p.page} current={DIETS[p.diet].hub ?? undefined} jsonLd={p.jsonLd}>
+<BaseLayout title={p.title} description={p.description} canonical={p.canonical} page={p.page} current={DIETS[p.diet].hub ?? undefined} ogType={p.ogType} ogDescription={p.ogDescription} twitterDescription={p.twitterDescription} jsonLd={p.jsonLd}>
   <section class="tm-container hub-hero">
     <div class="hub-hero__copy">
       <p class="tm-kicker">{p.eyebrow}</p>

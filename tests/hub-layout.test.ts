@@ -24,3 +24,18 @@ describe('HubLayout heroExtra', async () => {
     expect(html).not.toContain('gf-trust-strip');
   });
 });
+
+describe('HubLayout link-preview meta', async () => {
+  const container = await AstroContainer.create();
+  it('defaults to a website preview using the page description', async () => {
+    const html = await container.renderToString(HubLayout, { props: base, slots: { default: '' } });
+    expect(html).toContain('<meta property="og:type" content="website">');
+    expect(html).toContain('<meta property="og:description" content="D">');
+  });
+  it('keeps a hub\'s own og:type and og/twitter descriptions', async () => {
+    const html = await container.renderToString(HubLayout, { props: { ...base, ogType: 'article', ogDescription: 'OG', twitterDescription: 'TW' }, slots: { default: '' } });
+    expect(html).toContain('<meta property="og:type" content="article">');
+    expect(html).toContain('<meta property="og:description" content="OG">');
+    expect(html).toContain('<meta name="twitter:description" content="TW">');
+  });
+});
