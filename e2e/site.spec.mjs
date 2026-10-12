@@ -806,3 +806,24 @@ for (const [path, ev, text, href] of [
     expect(box.height).toBeGreaterThanOrEqual(44);
   });
 }
+
+test("vegan: every Japanese line the 'What's on the card' section quotes is on the vegan card", async ({ page }) => {
+  await page.goto('/vegan/');
+  const section = page.locator('section', { has: page.locator('h2', { hasText: "What's on the tabemasen card" }) });
+  const quoted = ((await section.innerText()).match(/「([^」]+)」/g) ?? []).map((q) => q.slice(1, -1));
+  expect(quoted.length).toBeGreaterThan(0);
+  await page.goto('/#p=vegan');
+  const card = (await page.locator('#card').innerText()).replace(/\s+/g, '');
+  for (const q of quoted) expect(card).toContain(q.replace(/\s+/g, ''));
+});
+
+test("halal: 'What's on the card' names every item the halal card lists, and nothing it doesn't", async ({ page }) => {
+  await page.goto('/halal/');
+  const section = page.locator('section', { has: page.locator('h2', { hasText: "What's on the tabemasen card" }) });
+  const text = (await section.innerText()).toLowerCase();
+  await page.goto('/#p=halal&en=1');
+  const items = await page.locator('#card .card-en-line--item').allInnerTexts();
+  expect(items.length).toBeGreaterThan(0);
+  for (const item of items) expect(text).toContain(item.replace(/^[•・]\s*/, '').trim().toLowerCase());
+  expect(text).not.toMatch(/asks specifically about shared cookware/);
+});
