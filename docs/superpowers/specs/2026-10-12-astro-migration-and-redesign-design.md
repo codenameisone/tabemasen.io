@@ -298,6 +298,7 @@ Decisions taken with the owner after M1 shipped. Where they conflict with §4–
 15. **The hub example card is a live preview.** The picker's chips, the preview card and both links (CTA and "full card builder") are rendered from one state; the page opens empty (no selections, the basic card, links to `/`), so a click without choosing never overwrites a saved card, and every change re-renders the card from `data.js` with the builder's markup (`src/lib/cardRender.ts`, browser-safe). Without JavaScript all three still agree.
 16. **Second `app.js` change.** Besides awaiting web fonts, the html2canvas call has an `onclone` hook that adds `.card--export` to the cloned card so the export has no shadow or rounded corners (the shadow greyed the PNG).
 17. **Mandatory allergens carry a red dot** (CSS circle) as well as the darker outline, on the builder and the hub picker, with a legend — shape as well as colour, for colour-blind users.
+18. **All pages are on the new design; `styles.css` and `nav.js` are retired.** The `/gluten-free/` redirect stub carries a few inline rules instead. `check:seo` also guards og:/twitter:/article: meta against `seo-social-baseline.json` (recorded from `slice1-base`).
 
 ## 9. Slice 2 — labeling guide on the guide template (2026-10-12)
 

@@ -6,7 +6,7 @@ const live = !/localhost|127\.0\.0\.1/.test(origin);
 const pages = ['/', '/about/', '/allergies/', '/allergies/food-allergies-in-japanese/',
   '/allergies/labeling-guide/', '/celiac/', '/featured/', '/gluten-free/', '/gluten-free-japan/',
   '/halal/', '/halal/certification-guide/', '/vegan/'];
-const files = ['/data.js', '/app.js', '/styles.css', '/nav.js', '/analytics.js',
+const files = ['/data.js', '/app.js', '/analytics.js',
   '/sitemap.xml', '/robots.txt', '/llms.txt', '/llms-full.txt', '/assets/og-image.png'];
 const slashless = ['/allergies', '/gluten-free', '/halal', '/vegan'];
 
