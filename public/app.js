@@ -66,7 +66,7 @@
   // ─────────────────────────────────────────────────────────────────────────
   function buildAllergenChips() {
     var grid = document.querySelector('.chip-grid');
-    if (!grid) return;
+    if (!grid || grid.children.length) return;   // already rendered at build time
 
     CARD_DATA.allergens.forEach(function (allergen, index) {
       var chip = document.createElement('button');
@@ -86,7 +86,7 @@
   // ─────────────────────────────────────────────────────────────────────────
   function buildPatternButtons() {
     var list = document.querySelector('.pattern-list');
-    if (!list) return;
+    if (!list || list.children.length) return;   // already rendered at build time
 
     CARD_DATA.patterns.forEach(function (pattern) {
       var btn = document.createElement('button');
