@@ -1,0 +1,26 @@
+import { describe, it, expect } from 'vitest';
+import { experimental_AstroContainer as AstroContainer } from 'astro/container';
+import HubLayout from '../src/layouts/HubLayout.astro';
+import sushi from '../src/assets/illustrations/sushi.jpg';
+
+const base = {
+  title: 'Hub | tabemasen', description: 'D', canonical: 'https://tabemasen.io/gluten-free-japan/', jsonLd: ['{"@type":"Article"}'],
+  page: 'gluten-free', diet: 'gluten-free', eyebrow: 'Eyebrow', h1: 'Hub H1', lede: 'The lede.', reviewed: 'October 2026',
+  illustration: { src: sushi, alt: 'Watercolour sketch: a sushi counter' },
+  picker: { allergenKeys: ['egg', 'soy'], showSeverity: true, event: 'cta-gluten-free-hero' },
+  example: {}, ctaLabel: 'Generate my Japanese gluten-free card →',
+  closing: { heading: 'Ready?', text: 'Text.', event: 'cta-gluten-free-footer' },
+};
+
+describe('HubLayout heroExtra', async () => {
+  const container = await AstroContainer.create();
+  it('renders heroExtra raw HTML in the hero copy, after the lede', async () => {
+    const html = await container.renderToString(HubLayout, { props: { ...base, heroExtra: '<div class="gf-trust-strip">Trust</div>' }, slots: { default: '<p>Body</p>' } });
+    expect(html).toMatch(/hub-hero__lede[\s\S]*The lede\.[\s\S]*gf-trust-strip">Trust<\/div>[\s\S]*<\/section>/);
+    expect(html.indexOf('gf-trust-strip')).toBeLessThan(html.indexOf('hub-pick'));
+  });
+  it('renders nothing extra without heroExtra', async () => {
+    const html = await container.renderToString(HubLayout, { props: base, slots: { default: '<p>Body</p>' } });
+    expect(html).not.toContain('gf-trust-strip');
+  });
+});

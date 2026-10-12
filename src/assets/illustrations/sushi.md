@@ -1,0 +1,2 @@
+Generated with Figma AI (gemini-3.1-flash-image), 2026-10-12, then levelled to pure-white paper.
+Prompt: Loose hand-drawn black ink line illustration with soft watercolour washes, in the style of an urban sketchbook. Palette: muted indigo, soft vermilion red, warm ochre, grey, lots of white paper. Scene: a sushi counter with nigiri, rice, green tea and two small soy sauce bottles, the chef working behind. The illustration fades out into white paper at the edges with a few ink and watercolour splatters. No text anywhere.

@@ -20,6 +20,7 @@ interface Props {
   example: Partial<CardState>;
   ctaLabel: string;
   microcopy?: string;
+  heroExtra?: string;
   closing: { heading: string; text: string; event: string };
 }
 const p = Astro.props;
@@ -39,6 +40,7 @@ const guides = guidesForDiet(await getCollection('guides'), p.diet);
       <h1 class="tm-display hub-hero__h1">{p.h1}</h1>
       <p class="hub-hero__lede">{p.lede}</p>
       <p class="hub-hero__reviewed">Last reviewed {p.reviewed} · <a href="/about/#corrections">Corrections</a></p>
+      {p.heroExtra && <Fragment set:html={p.heroExtra} />}
     </div>
     <Illustration src={p.illustration.src} alt={p.illustration.alt} caption={p.illustration.caption} loading="eager" sizes="(max-width: 900px) 100vw, 50vw" />
   </section>
