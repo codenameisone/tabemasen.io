@@ -1,0 +1,171 @@
+{
+  "/": {
+    "title": "Japan Allergy Card — Free Japanese Restaurant Translation Card | tabemasen",
+    "description": "Free generator for Japanese restaurant cards. Show your food allergies, vegetarian, vegan, halal, or gluten-free needs to staff in polite Japanese. No signup. Mobile-friendly.",
+    "h1": "Generate your Japanese restaurant card",
+    "canonical": "https://tabemasen.io/",
+    "robots": null,
+    "jsonLdTypes": [
+      "Audience",
+      "ImageObject",
+      "Offer",
+      "Organization",
+      "WebApplication",
+      "WebSite"
+    ]
+  },
+  "/about/": {
+    "title": "About & Safety — How the Cards Are Made | tabemasen",
+    "description": "How tabemasen cards are put together, what they can and can't do, how corrections work, your privacy, and what to carry if you have a serious allergy in Japan.",
+    "h1": "How the cards are made, and what they can't do",
+    "canonical": "https://tabemasen.io/about/",
+    "robots": null,
+    "jsonLdTypes": [
+      "AboutPage"
+    ]
+  },
+  "/allergies/": {
+    "title": "Japan Food Allergy Restaurant Card — Free Generator | tabemasen",
+    "description": "Free Japanese food allergy card for travelers. Pick your allergens, show your waiter. Explains cross-contamination and lists each allergen in kanji staff will recognise — peanut, shellfish, egg, dairy, sesame, soy and more.",
+    "h1": "Japan food allergy restaurant card",
+    "canonical": "https://tabemasen.io/allergies/",
+    "robots": null,
+    "jsonLdTypes": [
+      "Answer",
+      "FAQPage",
+      "Question"
+    ]
+  },
+  "/allergies/food-allergies-in-japanese/": {
+    "title": "How to Say \"I Have a Food Allergy\" in Japanese | tabemasen",
+    "description": "「小麦アレルギーがあります」— \"I have a wheat allergy.\" The exact phrase for every major allergen, in kanji with readings, plus a free card for staff.",
+    "h1": "How to say food allergies in Japanese",
+    "canonical": "https://tabemasen.io/allergies/food-allergies-in-japanese/",
+    "robots": null,
+    "jsonLdTypes": [
+      "Answer",
+      "Article",
+      "BreadcrumbList",
+      "FAQPage",
+      "ImageObject",
+      "ListItem",
+      "Organization",
+      "Question",
+      "WebPage"
+    ]
+  },
+  "/allergies/labeling-guide/": {
+    "title": "Japan Food Allergen Labeling Guide: Mandatory Allergens, Labels & Restaurant Risks | tabemasen",
+    "description": "Japan's 9 mandatory food allergens, how to read a Japanese label, why restaurants aren't required to disclose, and what celiac travelers need to watch for.",
+    "h1": "Japan's allergen labeling, explained: what's on the packet vs. what's not on the menu",
+    "canonical": "https://tabemasen.io/allergies/labeling-guide/",
+    "robots": null,
+    "jsonLdTypes": [
+      "Answer",
+      "Article",
+      "BreadcrumbList",
+      "FAQPage",
+      "ImageObject",
+      "ListItem",
+      "Organization",
+      "Question",
+      "WebPage"
+    ]
+  },
+  "/celiac/": {
+    "title": "Celiac / Coeliac in Japan: Why \"No Wheat\" Isn't Gluten-Free | tabemasen",
+    "description": "Japan's allergen law covers wheat — not barley, rye or gluten. What a Japanese label actually guarantees, and how celiacs (coeliacs) can verify food themselves.",
+    "h1": "Celiac (coeliac) disease in Japan",
+    "canonical": "https://tabemasen.io/celiac/",
+    "robots": null,
+    "jsonLdTypes": [
+      "Answer",
+      "Article",
+      "BreadcrumbList",
+      "FAQPage",
+      "ImageObject",
+      "ListItem",
+      "Organization",
+      "Question",
+      "WebPage"
+    ]
+  },
+  "/featured/": {
+    "title": "Featured In — Guides That Recommend tabemasen | tabemasen",
+    "description": "Travel guides and family resources that recommend tabemasen, the free Japanese restaurant card for food allergies and dietary restrictions.",
+    "h1": "Guides that recommend tabemasen",
+    "canonical": "https://tabemasen.io/featured/",
+    "robots": null,
+    "jsonLdTypes": [
+      "CollectionPage"
+    ]
+  },
+  "/gluten-free-japan/": {
+    "title": "Gluten-Free in Japan — Free Celiac & Coeliac Card and Guide | tabemasen",
+    "description": "Everything celiacs and coeliacs need to know about eating gluten-free in Japan — hidden wheat in soy sauce, dashi, and barley tea, safe foods to look for, convenience store tips, and a free Japanese restaurant card to show your waiter.",
+    "h1": "Gluten-free in Japan",
+    "canonical": "https://tabemasen.io/gluten-free-japan/",
+    "robots": null,
+    "jsonLdTypes": [
+      "Answer",
+      "Article",
+      "BreadcrumbList",
+      "FAQPage",
+      "ImageObject",
+      "ListItem",
+      "Organization",
+      "Question",
+      "WebPage"
+    ]
+  },
+  "/gluten-free/": {
+    "title": "Moved — Gluten-Free in Japan | tabemasen",
+    "description": null,
+    "h1": "This page has moved",
+    "canonical": "https://tabemasen.io/gluten-free-japan/",
+    "robots": null,
+    "jsonLdTypes": []
+  },
+  "/halal/": {
+    "title": "Halal in Japan: Free Muslim Restaurant Card + Dining Guide | tabemasen",
+    "description": "Free Japanese restaurant card for Muslim travelers — no pork, no alcohol, no mirin — plus how to find halal-certified restaurants in Japan and read halal labels.",
+    "h1": "Japan halal restaurant card",
+    "canonical": "https://tabemasen.io/halal/",
+    "robots": null,
+    "jsonLdTypes": [
+      "Answer",
+      "FAQPage",
+      "Question"
+    ]
+  },
+  "/halal/certification-guide/": {
+    "title": "Japan Halal Certification & Logos Explained | tabemasen",
+    "description": "Confused by halal logos in Japan? A clear guide to the main certification bodies, what each symbol means, and how to tell if a Japanese restaurant is genuinely halal-certified.",
+    "h1": "Halal certification in Japan: what the logos actually mean",
+    "canonical": "https://tabemasen.io/halal/certification-guide/",
+    "robots": null,
+    "jsonLdTypes": [
+      "Answer",
+      "Article",
+      "BreadcrumbList",
+      "FAQPage",
+      "ImageObject",
+      "ListItem",
+      "Organization",
+      "Question",
+      "WebPage"
+    ]
+  },
+  "/vegan/": {
+    "title": "Japan Vegan Restaurant Card — Free Generator | tabemasen",
+    "description": "Free Japanese vegan restaurant card for travelers. Calls out the dashi problem — fish stock hidden in nearly every dish — plus a practical guide to eating vegan in Japan: shojin ryori, what to order, and the konbini reality.",
+    "h1": "Japan vegan restaurant card",
+    "canonical": "https://tabemasen.io/vegan/",
+    "robots": null,
+    "jsonLdTypes": [
+      "Answer",
+      "FAQPage",
+      "Question"
+    ]
+  }
+}
