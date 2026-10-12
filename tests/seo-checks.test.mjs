@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   baselineProblems, pageProblems, resolveInternal, linkCandidates, sitemapProblems,
   pageBasicsProblems, allowlistProblems,
+  socialMeta, socialProblems,
 } from '../scripts/lib/seo-checks.mjs';
 
 const facts = (over = {}) => ({
@@ -136,5 +137,27 @@ describe('allowlistProblems', () => {
 describe('resolveInternal with malformed encoding', () => {
   it('returns the raw path instead of throwing', () => {
     expect(resolveInternal('/a%zz/', '/')).toBe('/a%zz/');
+  });
+});
+
+describe('social meta', () => {
+  const html = `<head><meta property="og:type" content="article"><meta property="og:description" content="Tom &amp; &quot;Jerry&quot;">
+    <meta name="twitter:description" content="Short"><meta name="description" content="not social"></head>`;
+
+  it('reads og:, twitter: and article: meta with entities decoded', () => {
+    expect(socialMeta(html)).toEqual({ 'og:type': 'article', 'og:description': 'Tom & "Jerry"', 'twitter:description': 'Short' });
+  });
+
+  it('flags a changed or missing legacy value and ignores added tags', () => {
+    const baseline = { '/a/': { 'og:type': 'article', 'twitter:description': 'Short', 'og:title': 'T' } };
+    const current = { '/a/': { 'og:type': 'website', 'twitter:description': 'Short', 'twitter:image': 'x' } };
+    const problems = socialProblems(baseline, current);
+    expect(problems).toHaveLength(2);
+    expect(problems[0]).toContain('/a/: og:type changed');
+    expect(problems[1]).toContain('/a/: og:title changed');
+  });
+
+  it('passes when every legacy value is unchanged', () => {
+    expect(socialProblems({ '/a/': { 'og:type': 'article' } }, { '/a/': { 'og:type': 'article', 'og:url': 'u' } })).toEqual([]);
   });
 });

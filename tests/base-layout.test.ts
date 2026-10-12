@@ -39,3 +39,18 @@ describe('BaseLayout', async () => {
     expect(html).toContain('name="viewport"');
   });
 });
+
+describe('BaseLayout link-preview overrides', async () => {
+  const container = await AstroContainer.create();
+  it('uses the page description for og/twitter by default', async () => {
+    const html = await container.renderToString(BaseLayout, { props, slots: { default: '' } });
+    expect(html).toContain('<meta property="og:description" content="D">');
+    expect(html).toContain('<meta name="twitter:description" content="D">');
+  });
+  it('lets a page keep its own og and twitter descriptions', async () => {
+    const html = await container.renderToString(BaseLayout, { props: { ...props, ogDescription: 'OG', twitterDescription: 'TW' }, slots: { default: '' } });
+    expect(html).toContain('<meta name="description" content="D">');
+    expect(html).toContain('<meta property="og:description" content="OG">');
+    expect(html).toContain('<meta name="twitter:description" content="TW">');
+  });
+});
