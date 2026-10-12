@@ -779,3 +779,15 @@ test('home: h1, builder, action toolbar and guides are inside the single main la
     await expect(page.locator(`main ${sel}`)).toHaveCount(1);
   }
 });
+
+test('guide contents list comes back when a narrow window is widened', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop', 'resizes the viewport itself');
+  await page.setViewportSize({ width: 800, height: 900 });
+  await page.goto('/allergies/labeling-guide/');
+  const link = page.locator('.guide-toc a').first();
+  await expect(link).toBeHidden();
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await expect(link).toBeVisible();
+  await page.setViewportSize({ width: 800, height: 900 });
+  await expect(link).toBeHidden();
+});
