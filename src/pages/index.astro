@@ -157,7 +157,7 @@ const chevron = '<svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stro
   .home-why { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 32px 56px; align-items: center; padding-top: 96px; padding-bottom: 80px; }
   .home-why__copy { display: flex; flex-direction: column; gap: 24px; }
   .home-why__h { margin: 0; font-size: clamp(2rem, 3.4vw, 2.75rem); line-height: 1.1; }
-  .home-why__item { display: grid; grid-template-columns: 120px 1fr; gap: 16px; align-items: start; }
+  .home-why__item { display: grid; grid-template-columns: max-content 1fr; gap: 16px; align-items: start; }
   .home-why__item p { margin: 0; color: var(--tm-ink-muted); }
   .home-guides { background: var(--tm-paper-warm); border-top: 1px solid var(--tm-rule); }
   .home-guides__inner { padding-top: 88px; padding-bottom: 88px; display: flex; flex-direction: column; gap: 40px; }
@@ -168,6 +168,7 @@ const chevron = '<svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stro
   .home-guides__sub { margin: 0; font-size: 20px; }
   @media (max-width: 900px) {
     .home-why, .home-guides__grid { grid-template-columns: 1fr; }
-    .home-why__item { grid-template-columns: 92px 1fr; }
+    .home-why__item { grid-template-columns: max-content 1fr; }
+    .home-why__item :global(.tm-glyph__text) { font-size: 40px !important; }
   }
 </style>

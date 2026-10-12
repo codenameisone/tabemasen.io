@@ -66,3 +66,4 @@
   }
   .card-line--warning, .card-line--note { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
+.card--export { box-shadow: none; border-radius: 0; }

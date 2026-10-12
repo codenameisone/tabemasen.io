@@ -442,6 +442,7 @@
         scale: window.devicePixelRatio || 2,
         useCORS: true,
         backgroundColor: '#FBF8F1',
+        onclone: function (doc) { var c = doc.getElementById('card'); if (c) c.classList.add('card--export'); },
         logging: false,
       }).then(function (canvas) {
         var date = new Date().toISOString().substring(0, 10);
