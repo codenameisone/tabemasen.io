@@ -1,1 +1,10 @@
-[]
+[
+  { "url": "/", "text": "Allergens ▼", "reason": "Chevron emoji replaced by an SVG icon; label unchanged" },
+  { "url": "/", "text": "Diet ▼", "reason": "Chevron emoji replaced by an SVG icon; label unchanged" },
+  { "url": "/", "text": "Severity ▼", "reason": "Chevron emoji replaced by an SVG icon; label unchanged" },
+  { "url": "/", "text": "Name & custom item ▼", "reason": "Chevron emoji replaced by an SVG icon; label unchanged" },
+  { "url": "/", "text": "🚨 Severe allergy", "reason": "Emoji removed from builder chrome; label unchanged" },
+  { "url": "/", "text": "🔗 Copy Link", "reason": "Emoji replaced by SVG icon; sentence case" },
+  { "url": "/", "text": "⬇ Download PNG", "reason": "Emoji replaced by SVG icon; label unchanged" },
+  { "url": "/", "text": "🖨 Print", "reason": "Emoji replaced by SVG icon; label unchanged" }
+]

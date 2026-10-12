@@ -29,7 +29,7 @@
   font-size: 22px; font-weight: 800; transform: rotate(8deg);
 }
 .card > * { grid-column: 1 / -1; margin: 0; }
-.card-line { font-size: 18px; line-height: 1.7; }
+.card-line { font-size: 18px; line-height: 1.7; overflow-wrap: anywhere; min-width: 0; }
 .card-line--greeting, .card-line--statement { font-size: 21px; font-weight: 600; line-height: 1.6; }
 .card-line--list-header { margin-top: 14px; margin-bottom: 4px; font-size: 16px; color: var(--tm-ink-faint); }
 .card-line--item { grid-column: auto; font-size: 20px; font-weight: 700; padding: 6px 0; border-bottom: 1px solid var(--tm-rule); line-height: 1.5; }
@@ -40,7 +40,7 @@
 .card-en { display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; margin-top: 22px; font-family: var(--tm-font-body); }
 .card-en--hidden { display: none; }
 .card-en-divider { grid-column: 1 / -1; border-top: 1px solid var(--tm-rule); margin-bottom: 12px; }
-.card-en-line { grid-column: 1 / -1; margin: 0; font-size: 14px; line-height: 1.6; color: var(--tm-ink-muted); }
+.card-en-line { grid-column: 1 / -1; margin: 0; overflow-wrap: anywhere; min-width: 0; font-size: 14px; line-height: 1.6; color: var(--tm-ink-muted); }
 .card-en-line--greeting, .card-en-line--statement { font-weight: 700; color: var(--tm-ink); }
 .card-en-line--item { grid-column: auto; }
 .card-en-line--blank { height: 6px; font-size: 0; line-height: 0; }

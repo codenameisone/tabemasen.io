@@ -1,0 +1,2 @@
+Generated with Figma AI (gemini-3.1-flash-image), 2026-10-11, then levelled to pure-white paper.
+Prompt: Loose hand-drawn black ink line illustration with soft watercolour washes, in the style of an urban sketchbook. Palette: muted indigo, soft vermilion red, warm ochre, grey, lots of white paper. Scene: a Japanese set meal (miso soup, grilled fish, rice, pickles, soy sauce, green tea) on a wooden table with an open travel notebook and a passport. The illustration fades out into white paper at the edges with a few ink and watercolour splatters. No text anywhere.

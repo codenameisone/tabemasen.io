@@ -1,0 +1,23 @@
+---
+// src/components/FeaturedStrip.astro — "Recommended by", same links as /allergies/ today.
+interface Props { eventSuffix: string }
+const { eventSuffix } = Astro.props;
+---
+<section class="tm-feat" aria-labelledby={`tm-feat-${eventSuffix}`}>
+  <div class="tm-container tm-feat__inner">
+    <h2 class="tm-kicker" id={`tm-feat-${eventSuffix}`}>Recommended by</h2>
+    <ul class="tm-feat__list">
+      <li><a href="https://www.thetokyochapter.com/japan-with-severe-food-allergies/" target="_blank" rel="noopener" data-gc-event={`featured-tokyochapter-${eventSuffix}`}><img src="/assets/featured/the-tokyo-chapter.webp" alt="The Tokyo Chapter: Japan with severe food allergies" width="80" height="40" loading="lazy"></a></li>
+      <li><a href="https://japanforkids.jp/food-allergies-japan-kids/" target="_blank" rel="noopener" data-gc-event={`featured-japanforkids-${eventSuffix}`}><img src="/assets/featured/japan-for-kids.webp" alt="Japan for Kids: food allergies in Japan with kids" width="178" height="40" loading="lazy"></a></li>
+    </ul>
+    <a class="tm-feat__more" href="/featured/">See where tabemasen is featured →</a>
+  </div>
+</section>
+<style>
+  .tm-feat { border-top: 1px solid var(--tm-rule); }
+  .tm-feat__inner { padding-top: 40px; padding-bottom: 40px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 40px; }
+  .tm-feat__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 40px; }
+  .tm-feat__list a { display: inline-flex; align-items: center; min-height: 44px; }
+  .tm-feat__list img { height: 40px; width: auto; display: block; }
+  .tm-feat__more { margin-left: auto; font-weight: 700; color: var(--tm-ink); }
+</style>

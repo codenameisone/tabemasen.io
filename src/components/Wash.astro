@@ -1,0 +1,11 @@
+---
+// src/components/Wash.astro — watercolour highlight behind inline text.
+import wash from '../assets/wash.png';
+interface Props { soft?: boolean }
+const { soft = false } = Astro.props;
+---
+<span class:list={['tm-wash', { 'tm-wash--soft': soft }]} style={`--wash:url(${wash.src})`}><slot /></span>
+<style>
+  .tm-wash { background: var(--wash) no-repeat 0 72% / 100% 58%; padding: 0 .14em; margin: 0 -.06em; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+  .tm-wash--soft { background-size: 100% 46%; background-position: 0 80%; }
+</style>

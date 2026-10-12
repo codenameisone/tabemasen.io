@@ -507,7 +507,7 @@
       });
     }
 
-    doCapture();
+    (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(doCapture);
   }
 
   // ─────────────────────────────────────────────────────────────────────────
