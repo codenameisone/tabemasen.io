@@ -1,0 +1,23 @@
+/* src/styles/halal-body.css — the legacy /halal/ body (hl-*), restyled. Text untouched. */
+/* The body fragment uses no variables from the retired styles.css, so no shims are needed. */
+
+.hl-main { display: flex; flex-direction: column; gap: 56px; }
+.hl-main [id] { scroll-margin-top: 24px; }
+.hl-section h2 { margin: 0 0 16px; font-family: var(--tm-font-display); font-weight: 600; font-size: clamp(1.7rem, 2.8vw, 2.2rem); line-height: 1.15; }
+.hl-section p { margin: 0 0 16px; font-size: 18px; line-height: 1.75; color: var(--tm-ink); }
+.hl-section a { color: var(--tm-ink); text-decoration-color: var(--tm-shu); text-underline-offset: 3px; }
+.hl-section em { font-style: italic; }
+.hl-section strong { font-weight: 700; }
+
+/* ingredient cards: ruled top edge, title + muted text */
+.hl-feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 24px 32px; }
+.hl-feature-card { border-top: 1.5px solid var(--tm-ink); padding-top: 14px; }
+.hl-feature-card__title { margin-bottom: 6px; font-family: var(--tm-font-display); font-weight: 700; font-size: 20px; line-height: 1.3; }
+.hl-feature-card__title em { font-style: normal; font-weight: 600; color: var(--tm-ink-faint); }
+.hl-feature-card__text { font-size: 16px; line-height: 1.65; color: var(--tm-ink-muted); }
+
+/* FAQ disclosures */
+.hl-faq { border-bottom: 1px solid var(--tm-rule); }
+.hl-faq__item { border-top: 1px solid var(--tm-rule); }
+.hl-faq__item summary { min-height: 44px; padding: 16px 0; cursor: pointer; font-weight: 700; font-size: 18px; list-style-position: outside; }
+.hl-faq__item p { margin: 0 0 16px; }

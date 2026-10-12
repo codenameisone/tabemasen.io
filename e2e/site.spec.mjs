@@ -136,7 +136,7 @@ test('mobile menu opens on a legacy page', async ({ page }, info) => {
   await expect(page.locator('.tm-header__toggle')).toHaveAttribute('aria-expanded', 'true');
 });
 
-for (const path of ['/', '/allergies/', '/guides/', '/allergies/labeling-guide/', '/allergies/food-allergies-in-japanese/']) {
+for (const path of ['/', '/allergies/', '/halal/', '/guides/', '/allergies/labeling-guide/', '/allergies/food-allergies-in-japanese/']) {
   test(`${path} has no serious or critical axe violations`, async ({ page }) => {
     await page.goto(path);
     const { violations } = await new AxeBuilder({ page }).analyze();
@@ -251,4 +251,37 @@ test('food allergies guide: in-page links resolve, mandatory cards use the red b
   });
   expect(await color('.fa-allergen-card--mandatory')).toBe(red);
   expect(await color('.fa-allergen-card:not(.fa-allergen-card--mandatory)')).not.toBe(red);
+});
+
+test('halal hub: picker starts empty, hands pattern and choices to the builder, no phone mockup', async ({ page }) => {
+  await page.goto('/halal/');
+  await expect(page.locator('h1')).toHaveText('Japan halal restaurant card');
+  await expect(page.locator('.hl-phone-stage, .hl-phone')).toHaveCount(0);
+  const go = page.locator('.picker__go');
+  await expect(go).toHaveText('Generate my Japanese halal card →');
+  await expect(go).toHaveAttribute('data-gc-event', 'cta-halal-hero');
+  await expect(go).toHaveAttribute('href', '/#p=halal');
+  await expect(page.locator('.picker__builder')).toHaveAttribute('data-gc-event', 'cta-halal-builder');
+  await expect(page.locator('.picker__switch')).toHaveCount(0);
+  await expect(page.locator('.picker__chip[aria-pressed="true"]')).toHaveCount(0);
+  await page.locator('.picker__chip[data-key="shrimp"]').click();
+  await expect(page.locator('#hub-card .card-line', { hasText: '・えび' })).toHaveCount(1);
+  await expect(go).toHaveAttribute('href', '/#a=shrimp&p=halal');
+  await expect(page.locator('.hub-cta a.tm-btn')).toHaveText('Generate my Japanese halal card →');
+  await expect(page.locator('.hub-cta a.tm-btn')).toHaveAttribute('data-gc-event', 'cta-halal-footer');
+  await expect(page.locator('.hub-cta a.tm-btn')).toHaveAttribute('href', '/#p=halal');
+});
+
+test('halal hub: body is styled (ingredient cards, FAQ) and the FAQ opens', async ({ page }) => {
+  await page.goto('/halal/');
+  await expect(page.locator('.hl-feature-card')).toHaveCount(8);
+  const card = page.locator('.hl-feature-card').first();
+  expect(await card.evaluate((e) => getComputedStyle(e).borderTopWidth)).not.toBe('0px');
+  expect(await page.locator('.hl-feature-grid').evaluate((e) => getComputedStyle(e).display)).toBe('grid');
+  expect(await page.locator('.hl-faq__item summary').first().evaluate((e) => e.getBoundingClientRect().height)).toBeGreaterThanOrEqual(44);
+  await expect(page.locator('.hl-faq__item')).toHaveCount(7);
+  await expect(page.locator('.hl-faq__item[open]')).toHaveCount(1);
+  await page.locator('.hl-faq__item summary').nth(1).click();
+  await expect(page.locator('.hl-faq__item').nth(1)).toHaveAttribute('open', '');
+  await expect(page.locator('main, [role="main"]')).toHaveCount(1);
 });
