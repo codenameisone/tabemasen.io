@@ -1,0 +1,71 @@
+---
+// Guide page frame. The hero, notice, contents list, body and CTA come in as slots so
+// legacy guides can pass their existing markup verbatim and MDX guides can pass components.
+import type { ImageMetadata } from 'astro';
+import BaseLayout from './BaseLayout.astro';
+import Illustration from '../components/Illustration.astro';
+import GuideList from '../components/GuideList.astro';
+import type { GuideLike } from '../lib/guides';
+
+interface Props {
+  title: string; description: string; canonical: string; jsonLd: string[];
+  page: string; current?: string;
+  illustration: { src: ImageMetadata; alt: string; caption?: string };
+  related: (GuideLike & { data: GuideLike['data'] & { description: string } })[];
+}
+const p = Astro.props;
+---
+<BaseLayout title={p.title} description={p.description} canonical={p.canonical} page={p.page} current={p.current} ogType="article" jsonLd={p.jsonLd}>
+  <Fragment slot="head"><slot name="head" /></Fragment>
+
+  <main id="main">
+  <section class="tm-container guide-hero">
+    <div class="guide-hero__copy"><slot name="hero" /></div>
+    <Illustration src={p.illustration.src} alt={p.illustration.alt} caption={p.illustration.caption} loading="eager" sizes="(max-width: 900px) 100vw, 44vw" />
+  </section>
+
+  <div class="tm-container guide-notice"><slot name="notice" /></div>
+
+  <div class="tm-container guide-main">
+    <div class="guide-toc">
+      <details class="guide-toc__fold" open>
+        <summary class="guide-toc__summary">In this article</summary>
+        <slot name="toc" />
+      </details>
+      <script is:inline>
+        if (window.matchMedia('(max-width: 900px)').matches) document.querySelector('.guide-toc__fold')?.removeAttribute('open');
+      </script>
+    </div>
+    <div class="guide-body"><slot /></div>
+  </div>
+
+  <slot name="cta" />
+
+  {p.related.length > 0 && (
+    <section class="guide-related" aria-labelledby="guide-related-h">
+      <div class="tm-container guide-related__inner">
+        <h2 class="tm-display guide-related__h" id="guide-related-h">Keep reading</h2>
+        <GuideList guides={p.related} />
+      </div>
+    </section>
+  )}
+  </main>
+</BaseLayout>
+
+<style>
+  .guide-hero { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px 56px; align-items: center; padding-top: 32px; padding-bottom: 32px; }
+  .guide-notice { padding-bottom: 32px; }
+  .guide-main { display: grid; grid-template-columns: 260px minmax(0, 760px); justify-content: space-between; gap: 48px 64px; align-items: start; padding-bottom: 88px; }
+  .guide-toc { position: sticky; top: 24px; max-height: calc(100vh - 48px); overflow-y: auto; }
+  .guide-related { background: var(--tm-paper-warm); border-top: 1px solid var(--tm-rule); }
+  .guide-related__inner { padding-top: 64px; padding-bottom: 64px; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 24px 56px; }
+  .guide-related__h { margin: 0; font-size: clamp(1.8rem, 3vw, 2.4rem); }
+  .guide-toc__summary { display: none; }
+  @media (max-width: 900px) {
+    .guide-toc__summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; font-weight: 700; font-size: 18px; border-top: 1px solid var(--tm-rule); border-bottom: 1px solid var(--tm-rule); }
+    .guide-toc__fold[open] .guide-toc__summary { margin-bottom: 8px; }
+    .guide-toc__fold :global(.lg-toc__title) { display: none; }
+    .guide-hero, .guide-main, .guide-related__inner { grid-template-columns: 1fr; }
+    .guide-toc { position: static; max-height: none; overflow: visible; }
+  }
+</style>

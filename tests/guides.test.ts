@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { guideUrl, guidesForDiet, groupGuides } from '../src/lib/guides';
+import { guideUrl, guidesForDiet, groupGuides, relatedGuides } from '../src/lib/guides';
 import { DIETS, DIET_KEYS } from '../src/data/diets';
 
 const g = (id: string, diets: string[], reviewed: string, extra: Record<string, unknown> = {}) =>
@@ -25,6 +25,19 @@ describe('groupGuides', () => {
     const groups = groupGuides([g('h', ['halal'], '2026-10-01'), g('a', ['allergies'], '2026-10-01'), g('k', [], '2026-10-01')]);
     expect(groups.map((x) => x.key)).toEqual(['allergies', 'halal', 'general']);
     expect(groups[2]).toMatchObject({ name: 'Eating in Japan', glyph: '旅' });
+  });
+});
+
+describe('relatedGuides', () => {
+  const list = [g('labeling-guide', ['allergies'], '2026-10-08'), g('phrases', ['allergies'], '2026-10-08'),
+    g('halal-cert', ['halal'], '2026-10-08'), g('draft-one', ['allergies'], '2026-10-09', { draft: true })];
+
+  it('lists other guides for the diet, never the current one', () => {
+    expect(relatedGuides(list, 'allergies', 'labeling-guide').map((x) => x.id)).toEqual(['phrases']);
+  });
+
+  it('returns an empty list when the page is the only guide for the diet', () => {
+    expect(relatedGuides(list, 'halal', 'halal-cert')).toEqual([]);
   });
 });
 

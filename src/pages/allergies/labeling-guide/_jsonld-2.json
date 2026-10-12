@@ -1,0 +1,24 @@
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "tabemasen",
+        "item": "https://tabemasen.io/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Allergies",
+        "item": "https://tabemasen.io/allergies/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Labeling guide",
+        "item": "https://tabemasen.io/allergies/labeling-guide/"
+      }
+    ]
+  }

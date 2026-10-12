@@ -136,7 +136,7 @@ test('mobile menu opens on a legacy page', async ({ page }, info) => {
   await expect(page.locator('.tm-header__toggle')).toHaveAttribute('aria-expanded', 'true');
 });
 
-for (const path of ['/', '/allergies/', '/guides/']) {
+for (const path of ['/', '/allergies/', '/guides/', '/allergies/labeling-guide/']) {
   test(`${path} has no serious or critical axe violations`, async ({ page }) => {
     await page.goto(path);
     const { violations } = await new AxeBuilder({ page }).analyze();
@@ -144,3 +144,72 @@ for (const path of ['/', '/allergies/', '/guides/']) {
     expect(bad.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`)).toEqual([]);
   });
 }
+
+test('labeling guide: kanji cards are marked by shape, not colour alone', async ({ page }) => {
+  await page.goto('/allergies/labeling-guide/');
+  const before = (sel) => page.locator(sel).first().evaluate((el) => getComputedStyle(el, '::before').content);
+  const borderStyle = (sel) => page.locator(sel).first().evaluate((el) => getComputedStyle(el).borderTopStyle);
+  expect(await before('.lg-kanji-card--mandatory')).not.toBe('none');
+  expect(await before('.lg-kanji-card--recommended')).toBe('none');
+  expect(await borderStyle('.lg-kanji-card--recommended')).toBe('solid');
+  expect(await borderStyle('.lg-kanji-card--unlisted')).toBe('dashed');
+  expect(await borderStyle('.lg-kanji-legend__swatch--unlisted')).toBe('dashed');
+  const underline = (sel) => page.locator(sel).evaluate((el) => getComputedStyle(el).textDecorationStyle);
+  expect(await underline('.hl--individual')).not.toBe(await underline('.hl--collective'));
+});
+
+test('labeling guide: inline styles that use retired variables still render', async ({ page }) => {
+  await page.goto('/allergies/labeling-guide/');
+  const bg = await page.locator('.hl--collective').evaluate((el) => getComputedStyle(el.parentElement).backgroundColor);
+  expect(bg).not.toBe('rgba(0, 0, 0, 0)');
+});
+
+test('labeling guide: every contents link targets a section and scrolls to it', async ({ page }) => {
+  await page.goto('/allergies/labeling-guide/');
+  const hrefs = await page.locator('.guide-toc .lg-toc a').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
+  expect(hrefs).toHaveLength(12);
+  await page.locator('.guide-toc__fold').evaluate((d) => d.setAttribute('open', ''));
+  for (const href of hrefs) await expect(page.locator(href)).toHaveCount(1);
+  await page.locator('.guide-toc .lg-toc a[href="#kanji-cheat-sheet"]').click();
+  await expect(page.locator('#kanji-cheat-sheet')).toBeInViewport();
+});
+
+test('labeling guide: contents list is sticky on desktop and above the body on phones', async ({ page }, info) => {
+  await page.goto('/allergies/labeling-guide/');
+  const position = await page.locator('.guide-toc').evaluate((el) => getComputedStyle(el).position);
+  if (info.project.name === 'desktop') {
+    expect(position).toBe('sticky');
+    await expect(page.locator('.guide-toc__summary')).toBeHidden();
+    await expect(page.locator('.guide-toc .lg-toc a').first()).toBeVisible();
+  }
+  else {
+    expect(position).toBe('static');
+    const fold = page.locator('details.guide-toc__fold');
+    const first = page.locator('.guide-toc .lg-toc a').first();
+    await expect(fold).not.toHaveAttribute('open', '');
+    await expect(first).toBeHidden();
+    await page.locator('.guide-toc__summary').click();
+    await expect(fold).toHaveAttribute('open', '');
+    await expect(first).toBeVisible();
+    const tocBottom = await page.locator('.guide-toc').evaluate((el) => el.getBoundingClientRect().bottom + window.scrollY);
+    const bodyTop = await page.locator('.guide-body').evaluate((el) => el.getBoundingClientRect().top + window.scrollY);
+    expect(tocBottom).toBeLessThanOrEqual(bodyTop);
+  }
+});
+
+test('labeling guide: no horizontal overflow and the CTA goes to the builder', async ({ page }) => {
+  await page.goto('/allergies/labeling-guide/');
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+  const cta = page.locator('.lg-cta a');
+  await expect(cta).toHaveText('Generate my Japanese allergy card →');
+  await expect(cta).toHaveAttribute('href', '/');
+  await expect(cta).toHaveAttribute('data-gc-event', 'cta-allergies-labeling-footer');
+});
+
+test('labeling guide: Keep reading lists the other allergy guide, not itself', async ({ page }) => {
+  await page.goto('/allergies/labeling-guide/');
+  const links = page.locator('.guide-related a');
+  await expect(links.filter({ hasText: 'Food allergies in Japanese' })).toHaveCount(1);
+  await expect(page.locator('.guide-related a[href="/allergies/labeling-guide/"]')).toHaveCount(0);
+});

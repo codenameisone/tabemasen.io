@@ -26,3 +26,7 @@ export function groupGuides<T extends GuideLike>(entries: T[]) {
   if (general.length) groups.push({ key: 'general', name: 'Eating in Japan', glyph: '旅', guides: general });
   return groups;
 }
+
+export function relatedGuides<T extends GuideLike>(entries: T[], diet: DietKey, excludeId: string): T[] {
+  return guidesForDiet(entries, diet).filter((g) => g.id !== excludeId);
+}

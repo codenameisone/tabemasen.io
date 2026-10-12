@@ -1,0 +1,46 @@
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does Japan require allergen labeling at restaurants?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Japan's Food Labeling Act applies to packaged, processed food. It does not impose equivalent requirements on restaurants, izakayas, food stalls, or food sold unpackaged. Some chain restaurants publish allergen information voluntarily, but most independent restaurants don't. This contrasts with the EU, where restaurants must communicate allergen information under Regulation 1169/2011."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are Japan's mandatory food allergens?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "As of April 2026, there are nine: egg (卵), milk (乳), wheat (小麦), buckwheat (そば), peanut (落花生), shrimp (えび), crab (かに), walnut (くるみ), and cashew nut (カシューナッツ). Cashew was added in April 2026. A further 21 allergens — including soy, sesame, and almonds — are recommended but not legally required."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Japan use 'may contain' labels?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not in the Western sense. If an allergen is present above 10 ppm — including through cross-contamination — it's declared as a labeled ingredient. However, many manufacturers include production-line statements (e.g., 'This product is manufactured in a factory that also produces products containing egg') — these read as regular prose, not a separate warning box. They're easy to overlook if you're only scanning the allergen summary line."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is soy a mandatory allergen in Japan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No — and this catches many travelers off guard. Soy (大豆, daizu) is on Japan's recommended list, not the mandatory list. That's the opposite of the US and EU, where soy is mandatory. Most large manufacturers label soy voluntarily, but smaller brands might not. If you have a soy allergy, check every label."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What changed in Japan's allergen labeling in 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Two changes took effect in April 2026: cashew nut was moved from the recommended list to mandatory (making it the ninth mandatory allergen), and pistachio was added to the recommended list for the first time. Both changes followed Japan's national food allergy survey, which found tree nut allergies had become the second most common food allergy in the country. There is a two-year transition period for cashew labeling (full compliance required by March 2028)."
+        }
+      }
+    ]
+  }
