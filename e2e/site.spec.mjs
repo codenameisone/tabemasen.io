@@ -144,3 +144,22 @@ for (const path of ['/', '/allergies/', '/guides/']) {
     expect(bad.map((v) => `${v.id}: ${v.nodes.map((n) => n.target.join(' ')).join(', ')}`)).toEqual([]);
   });
 }
+
+test('labeling guide: kanji cards are marked by shape, not colour alone', async ({ page }) => {
+  await page.goto('/allergies/labeling-guide/');
+  const before = (sel) => page.locator(sel).first().evaluate((el) => getComputedStyle(el, '::before').content);
+  const borderStyle = (sel) => page.locator(sel).first().evaluate((el) => getComputedStyle(el).borderTopStyle);
+  expect(await before('.lg-kanji-card--mandatory')).not.toBe('none');
+  expect(await before('.lg-kanji-card--recommended')).toBe('none');
+  expect(await borderStyle('.lg-kanji-card--recommended')).toBe('solid');
+  expect(await borderStyle('.lg-kanji-card--unlisted')).toBe('dashed');
+  expect(await borderStyle('.lg-kanji-legend__swatch--unlisted')).toBe('dashed');
+  const underline = (sel) => page.locator(sel).evaluate((el) => getComputedStyle(el).textDecorationStyle);
+  expect(await underline('.hl--individual')).not.toBe(await underline('.hl--collective'));
+});
+
+test('labeling guide: inline styles that use retired variables still render', async ({ page }) => {
+  await page.goto('/allergies/labeling-guide/');
+  const bg = await page.locator('.hl--collective').evaluate((el) => getComputedStyle(el.parentElement).backgroundColor);
+  expect(bg).not.toBe('rgba(0, 0, 0, 0)');
+});
