@@ -1,0 +1,60 @@
+---
+// src/pages/guides/index.astro
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BrushGlyph from '../../components/BrushGlyph.astro';
+import GuideList from '../../components/GuideList.astro';
+import { groupGuides } from '../../lib/guides';
+import { DIETS } from '../../data/diets';
+
+const groups = groupGuides(await getCollection('guides'));
+const title = 'Guides: Eating in Japan with Allergies and Dietary Restrictions | tabemasen';
+const description = 'Practical guides for eating in Japan with food allergies, coeliac disease, a vegan diet or halal requirements: labels, phrases, restaurants and what to ask.';
+const jsonLd = [JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'tabemasen guides',
+  url: 'https://tabemasen.io/guides/',
+  description,
+  publisher: { '@id': 'https://tabemasen.io/#organization' },
+})];
+---
+<BaseLayout title={title} description={description} canonical="https://tabemasen.io/guides/" page="guides" current="/guides/" jsonLd={jsonLd}>
+  <main class="tm-container gi">
+    <header class="gi__head">
+      <BrushGlyph text="旅" size={120} />
+      <div class="gi__titles">
+        <p class="tm-kicker">Guides</p>
+        <h1 class="tm-display gi__h1">Read before you fly.</h1>
+      </div>
+      <p class="gi__lede">What the card can't do on its own: reading packets, choosing places that already cater for you, and the questions worth asking. Grouped by what you can't eat.</p>
+    </header>
+    <div class="gi__groups">
+      {groups.map((group) => (
+        <section class="gi__group" id={group.key} aria-labelledby={`gi-${group.key}`}>
+          <h2 class="gi__group-title" id={`gi-${group.key}`}>
+            <span class="gi__group-glyph" lang="ja" aria-hidden="true">{group.glyph}</span>
+            {group.name}
+          </h2>
+          <GuideList guides={group.guides} />
+          {group.key !== 'general' && DIETS[group.key].hub && (
+            <a class="tm-link gi__hub" href={DIETS[group.key].hub}>{group.name} card and overview</a>
+          )}
+        </section>
+      ))}
+    </div>
+  </main>
+</BaseLayout>
+<style>
+  .gi { padding-top: 48px; padding-bottom: 96px; }
+  .gi__head { display: grid; grid-template-columns: auto 1fr; gap: 16px 24px; align-items: end; margin-bottom: 56px; }
+  .gi__titles { display: flex; flex-direction: column; gap: 6px; padding-bottom: 6px; }
+  .gi__h1 { margin: 0; font-size: clamp(2.2rem, 4vw, 3rem); line-height: 1.08; }
+  .gi__lede { grid-column: 1 / -1; margin: 0; max-width: 640px; color: var(--tm-ink-muted); font-size: 19px; }
+  .gi__groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 48px 56px; }
+  .gi__group { display: flex; flex-direction: column; gap: 14px; }
+  .gi__group-title { margin: 0; display: flex; align-items: baseline; gap: 12px; font-size: 22px; }
+  .gi__group-glyph { font-family: var(--tm-font-brush); font-weight: 400; font-size: 44px; line-height: 1; }
+  .gi__hub { align-self: flex-start; }
+  @media (max-width: 760px) { .gi { padding-top: 24px; } .gi__head { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,24 @@
+---
+// src/components/GuideList.astro
+import { guideUrl, type GuideLike } from '../lib/guides';
+interface Props { guides: (GuideLike & { data: GuideLike['data'] & { description: string } })[] }
+const { guides } = Astro.props;
+---
+<ul class="tm-guides">
+  {guides.map((g) => (
+    <li class="tm-guides__item">
+      <a class="tm-guides__link" href={guideUrl(g)}>
+        <span class="tm-guides__title">{g.data.title}</span>
+        <span class="tm-guides__dek">{g.data.description}</span>
+      </a>
+    </li>
+  ))}
+</ul>
+<style>
+  .tm-guides { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--tm-rule); }
+  .tm-guides__item { margin: 0; border-top: 1px solid var(--tm-rule); }
+  .tm-guides__link { display: flex; flex-direction: column; gap: 4px; padding: 16px 0; min-height: 44px; text-decoration: none; color: var(--tm-ink); }
+  .tm-guides__title { font-family: var(--tm-font-display); font-size: 21px; font-weight: 600; line-height: 1.3; }
+  .tm-guides__link:hover .tm-guides__title { color: var(--tm-shu); }
+  .tm-guides__dek { font-size: 15px; color: var(--tm-ink-muted); line-height: 1.55; }
+</style>

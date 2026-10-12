@@ -2,6 +2,9 @@
 
 ## 2026-10-12
 
+- design: new site header and footer on every page (Draft 5 "sumi ink": seal mark, serif wordmark, self-hosted fonts). Page bodies unchanged.
+- guides: new /guides/ index listing every guide by diet; guides are now a content collection, so hub pages and the index list them automatically.
+- build: sitemap.xml is generated (same URLs plus /guides/); new npm run check:content guards every text block of restyled pages; check:seo also requires title, description, H1 and canonical on new pages.
 - fix(allergens): cashew is one of Japan's 9 mandatory allergens (since April 2026) but its chip wasn't marked; `app.js` marked the first 8 chips by position. Mandatory allergens are now flagged in `data.js` (`mandatory: true`) and cashew moves into the mandatory group, after walnut. CI no longer runs the Milestone 1 identical-output comparison.
 - Build: the site is now built with Astro and deployed by GitHub Actions. Every page's output is unchanged (verified by `npm run compare` against the `pre-astro` tag). New guard: `npm run check:seo`.
 - Known change: GitHub Pages no longer runs Jekyll, so the Markdown renders it used to publish (`/CHANGELOG.html`, `/REQUIREMENTS.html`) are gone. Neither was linked from the site or listed in the sitemap; the footer's changelog link points to GitHub.

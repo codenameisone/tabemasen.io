@@ -1,3 +1,7 @@
+---
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -418,35 +422,7 @@
   <!-- ═══════════════════════════════════════════════════════════
        HEADER (identical to /index.html)
   ═══════════════════════════════════════════════════════════ -->
-  <header class="site-header">
-    <nav class="site-nav" aria-label="Main">
-      <a class="site-nav__brand" href="/" aria-label="tabemasen home">
-        <img src="/assets/favicon.svg" alt="" class="site-nav__brand-mark">
-        <span>tabemasen</span>
-      </a>
-
-      <button class="site-nav__toggle" type="button"
-              aria-label="Open menu"
-              aria-expanded="false"
-              aria-controls="site-nav-panel">
-        <svg class="site-nav__toggle-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <line x1="4" y1="7" x2="20" y2="7" />
-          <line x1="4" y1="12" x2="20" y2="12" />
-          <line x1="4" y1="17" x2="20" y2="17" />
-        </svg>
-      </button>
-
-      <div class="site-nav__panel" id="site-nav-panel" aria-hidden="true">
-        <ul class="site-nav__list">
-          <li><a data-gc-event="cta-halal-nav" class="site-nav__link site-nav__link--cta" href="/">Generate card</a></li>
-          <li><a class="site-nav__link" href="/allergies/">Allergies</a></li>
-          <li><a class="site-nav__link" href="/gluten-free-japan/">Gluten-free</a></li>
-          <li><a class="site-nav__link" href="/vegan/">Vegan</a></li>
-          <li><a class="site-nav__link site-nav__link--active" href="/halal/" aria-current="page">Halal</a></li>
-        </ul>
-      </div>
-    </nav>
-  </header>
+  <SiteHeader page="halal" current="/halal/" />
 
   <!-- ═══════════════════════════════════════════════════════════
        HERO
@@ -629,59 +605,8 @@
        FOOTER (structure identical to /index.html; Resources column
        adapted to halal-relevant links)
   ═══════════════════════════════════════════════════════════ -->
-  <footer class="site-footer">
-    <div class="site-footer__inner">
+  <SiteFooter page="halal" />
 
-      <div class="site-footer__col site-footer__col--brand">
-        <a class="site-footer__brand" href="/" aria-label="tabemasen home">
-          <img src="/assets/favicon.svg" alt="" class="site-footer__brand-mark">
-          <span>tabemasen</span>
-        </a>
-        <p class="site-footer__tagline">Free Japanese restaurant cards for travelers with food allergies and dietary restrictions.</p>
-        <a data-gc-event="coffee-halal" class="bmc-link bmc-link--footer" href="https://buymeacoffee.com/iwakuranik" target="_blank" rel="noopener noreferrer" aria-label="Buy me a coffee"><span class="bmc-icon" aria-hidden="true">☕</span> Buy me a coffee</a>
-      </div>
-
-      <div class="site-footer__col">
-        <h3 class="site-footer__heading">Cards by</h3>
-        <ul class="site-footer__list">
-          <li><a href="/allergies/">Allergies</a></li>
-          <li><a href="/gluten-free-japan/">Gluten-free</a></li>
-          <li><a href="/vegan/">Vegan</a></li>
-          <li><a href="/halal/">Halal</a></li>
-        </ul>
-      </div>
-
-      <div class="site-footer__col">
-        <h3 class="site-footer__heading">Resources</h3>
-        <ul class="site-footer__list">
-          <li><a href="/halal/certification-guide/">Halal certification guide</a></li>
-          <li><a href="https://www.halalgourmet.jp/" target="_blank" rel="noopener">Halal Gourmet Japan</a></li>
-          <li><a href="https://halalnavi.com/" target="_blank" rel="noopener">Halal Navi</a></li>
-          <li><a href="https://tokyocamii.org/en/" target="_blank" rel="noopener">Tokyo Camii (mosque)</a></li>
-          <li><a href="https://www.jhalal.com/" target="_blank" rel="noopener">Japan Halal Association</a></li>
-        </ul>
-      </div>
-
-      <div class="site-footer__col">
-        <h3 class="site-footer__heading">About</h3>
-        <ul class="site-footer__list">
-          <li><a href="/about/">About &amp; safety</a></li>
-          <li><a href="/featured/">Featured in</a></li>
-          <li><a href="https://github.com/codenameisone/tabemasen.io" target="_blank" rel="noopener">GitHub</a></li>
-          <li><a href="https://github.com/codenameisone/tabemasen.io/blob/main/CHANGELOG.md" target="_blank" rel="noopener">Changelog</a></li>
-          <li><a href="mailto:hello@tabemasen.io">Feedback</a></li>
-        </ul>
-      </div>
-
-    </div>
-
-    <div class="site-footer__bottom">
-      <p class="site-footer__disclaimer">Not medical advice. A card helps you ask, but it can't guarantee what's in your food, so always confirm with staff. If you have a serious allergy, carry your prescribed medication and a doctor's letter. Emergency in Japan: 119. Wording last reviewed October 2026. <a href="/about/">How the cards are made</a></p>
-      <p class="site-footer__credit">Built by a fellow traveller &nbsp;·&nbsp; v1.3</p>
-    </div>
-  </footer>
-
-  <script is:inline src="/nav.js" defer></script>
   <script is:inline src="/analytics.js"></script>
   <script is:inline data-goatcounter="https://nqtn.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>

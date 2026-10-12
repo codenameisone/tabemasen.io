@@ -1,0 +1,18 @@
+---
+// src/components/SealMark.astro — the 食 hanko. Decorative.
+interface Props { size?: number; color?: string }
+const { size = 34, color = 'var(--tm-shu)' } = Astro.props;
+---
+<span class="tm-seal" lang="ja" aria-hidden="true"
+  style={`--seal-size:${size}px;--seal-color:${color}`}>食</span>
+<style>
+  .tm-seal {
+    box-sizing: border-box;
+    width: var(--seal-size); height: var(--seal-size); flex: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 2px solid var(--seal-color); color: var(--seal-color);
+    font-family: var(--tm-font-display); font-weight: 800;
+    font-size: calc(var(--seal-size) * 0.56); line-height: 1;
+    transform: rotate(-4deg);
+  }
+</style>

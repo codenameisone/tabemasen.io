@@ -1,0 +1,33 @@
+/* Draft 5 "sumi ink". Prefixed --tm- so legacy styles.css variables never collide. */
+:root {
+  --tm-paper: #ffffff;
+  --tm-paper-warm: #f6f1e7;
+  --tm-paper-sunk: #ece5d7;
+  --tm-ink: #1d1d1f;
+  --tm-ink-card: #1e1b18;
+  --tm-ink-muted: #45474d;
+  --tm-ink-faint: #5c5348;       /* 7.1:1 on white, 6.3:1 on paper-warm */
+  --tm-rule: #ddd4c3;
+  --tm-rule-strong: #c9c0b0;
+  --tm-shu: #c4412b;             /* 4.9:1 on white */
+  --tm-shu-dark: #a8361f;
+  --tm-shu-text: #b83a2a;
+  --tm-shu-soft: #f7e7e0;
+  --tm-warning-ink: #9b2f18;
+  --tm-ai: #2c3a57;
+
+  --tm-font-display: "Shippori Mincho", "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --tm-font-body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic UI", system-ui, sans-serif;
+  --tm-font-brush: "Yuji Syuku", "Shippori Mincho", serif;
+
+  --tm-space-1: 4px;  --tm-space-2: 8px;  --tm-space-3: 12px; --tm-space-4: 16px;
+  --tm-space-5: 24px; --tm-space-6: 32px; --tm-space-7: 48px; --tm-space-8: 64px; --tm-space-9: 96px;
+  --tm-radius: 4px;
+  --tm-radius-pill: 999px;
+  --tm-max: 1440px;
+  --tm-gutter: 64px;
+  --tm-shadow-card: 0 1px 0 rgba(30, 27, 24, .06), 0 18px 40px rgba(30, 27, 24, .14);
+}
+@media (max-width: 760px) {
+  :root { --tm-gutter: 16px; }
+}

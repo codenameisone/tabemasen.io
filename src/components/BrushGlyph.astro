@@ -1,0 +1,14 @@
+---
+// src/components/BrushGlyph.astro — large brush-written kanji, decorative.
+interface Props { text: string; size?: number; gloss?: string }
+const { text, size = 120, gloss } = Astro.props;
+---
+<span class="tm-glyph">
+  <span class="tm-glyph__text" lang="ja" aria-hidden="true" style={`font-size:${size}px`}>{text}</span>
+  {gloss && <span class="tm-glyph__gloss">{gloss}</span>}
+</span>
+<style>
+  .tm-glyph { display: inline-flex; align-items: flex-end; gap: 14px; }
+  .tm-glyph__text { font-family: var(--tm-font-brush); line-height: .9; color: var(--tm-ink); }
+  .tm-glyph__gloss { font-family: var(--tm-font-display); font-weight: 600; font-size: 16px; color: var(--tm-shu); padding-bottom: 8px; }
+</style>

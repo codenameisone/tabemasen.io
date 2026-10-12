@@ -1,0 +1,70 @@
+---
+// src/components/SiteHeader.astro
+import '../styles/fonts.css';
+import '../styles/tokens.css';
+import SealMark from './SealMark.astro';
+import { NAV } from '../lib/site';
+interface Props { page: string; current?: string }
+const { page, current } = Astro.props;
+---
+<header class="tm-header">
+  <div class="tm-header__inner">
+    <a class="tm-header__brand" href="/" aria-label="tabemasen home">
+      <SealMark size={34} />
+      <span class="tm-header__word">tabemasen</span>
+    </a>
+    <button class="tm-header__toggle" type="button" aria-expanded="false" aria-controls="tm-nav" aria-label="Open menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="8" x2="20" y2="8"></line><line x1="4" y1="16" x2="20" y2="16"></line></svg>
+    </button>
+    <nav id="tm-nav" class="tm-header__nav" aria-label="Main">
+      <ul class="tm-header__list">
+        {NAV.map((item) => (
+          <li><a class="tm-header__link" href={item.href} aria-current={item.href === current ? 'page' : undefined}>{item.label}</a></li>
+        ))}
+        <li><a class="tm-header__cta" href="/" data-gc-event={`cta-${page}-nav`}>Make my card</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  for (const toggle of document.querySelectorAll<HTMLButtonElement>('.tm-header__toggle')) {
+    const nav = document.getElementById(toggle.getAttribute('aria-controls') ?? '');
+    if (!nav) continue;
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') !== 'true';
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      nav.toggleAttribute('data-open', open);
+      if (open) nav.querySelector<HTMLAnchorElement>('a')?.focus();
+    });
+  }
+</script>
+
+<style>
+  /* legacy styles.css has `a:hover { text-decoration: underline }` */
+  .tm-header a:hover { text-decoration: none; }
+  /* Explicit resets: on legacy pages styles.css and inline styles are present. */
+  .tm-header, .tm-header * { box-sizing: border-box; }
+  .tm-header { background: var(--tm-paper); color: var(--tm-ink); font-family: var(--tm-font-body); font-size: 15px; line-height: 1.4; border-bottom: 1px solid var(--tm-rule); position: relative; z-index: 50; }
+  .tm-header__inner { max-width: var(--tm-max); margin: 0 auto; padding: 14px var(--tm-gutter); display: flex; align-items: center; justify-content: space-between; gap: 12px 32px; flex-wrap: wrap; }
+  .tm-header__brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--tm-ink); min-height: 44px; }
+  .tm-header__word { font-family: var(--tm-font-display); font-size: 24px; font-weight: 700; letter-spacing: 0; }
+  .tm-header__toggle { display: none; width: 44px; height: 44px; margin: 0; padding: 0; border: 0; background: transparent; color: var(--tm-ink); align-items: center; justify-content: center; cursor: pointer; }
+  .tm-header__list { list-style: none; margin: 0; padding: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 0 26px; }
+  .tm-header__list li { margin: 0; padding: 0; }
+  .tm-header__link { display: inline-flex; align-items: center; min-height: 44px; color: var(--tm-ink); text-decoration: none; font-weight: 500; border-bottom: 2px solid transparent; }
+  .tm-header__link[aria-current="page"] { border-bottom-color: var(--tm-ink); }
+  .tm-header__link:hover { color: var(--tm-shu); }
+  .tm-header__cta { display: inline-flex; align-items: center; min-height: 44px; color: var(--tm-ink); text-decoration: none; font-weight: 700; border-bottom: 2px solid var(--tm-shu); margin-left: 8px; }
+  @media (max-width: 760px) {
+    .tm-header__inner { padding: 6px 8px 6px 16px; }
+    .tm-header__word { font-size: 19px; }
+    .tm-header__toggle { display: inline-flex; }
+    .tm-header__nav { display: none; width: 100%; }
+    .tm-header__nav[data-open] { display: block; }
+    .tm-header__list { flex-direction: column; align-items: stretch; padding: 4px 8px 12px; }
+    .tm-header__link, .tm-header__cta { width: 100%; margin: 0; border-bottom: 1px solid var(--tm-rule); }
+    .tm-header__link[aria-current="page"] { border-bottom-color: var(--tm-rule); font-weight: 700; }
+  }
+</style>

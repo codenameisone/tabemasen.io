@@ -13,9 +13,13 @@
     "compare": "node scripts/compare-build.mjs",
     "seo:baseline": "node scripts/seo-baseline.mjs",
     "check:seo": "node scripts/check-seo.mjs",
+    "check:content": "node scripts/check-content.mjs",
     "smoke:live": "node scripts/smoke-live.mjs"
   },
   "dependencies": {
+    "@fontsource/shippori-mincho": "^5.3.0",
+    "@fontsource/yuji-syuku": "^5.3.1",
+    "@fontsource/zen-kaku-gothic-new": "^5.3.1",
     "astro": "^7.3.8"
   },
   "devDependencies": {
