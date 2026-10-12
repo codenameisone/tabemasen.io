@@ -44,7 +44,7 @@ npm run dev              # http://localhost:4321 with live reload
 npm run build           # static site in dist/
 npm run preview         # serve dist/ locally
 npm test                # unit tests for the build scripts
-npm run check:seo       # titles, H1s, canonicals, JSON-LD, links and sitemap vs seo-baseline.json
+npm run check:seo       # titles, H1s, canonicals, JSON-LD, links and sitemap vs seo-baseline.json; og/twitter meta vs seo-social-baseline.json
 npm run check:content   # preserved text blocks vs content-manifest.json
 npm run test:e2e        # Playwright smoke test (375px + 1280px), builder, picker, print, axe
 ```

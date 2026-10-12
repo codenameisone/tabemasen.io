@@ -136,7 +136,7 @@ test('mobile menu opens on a legacy page', async ({ page }, info) => {
   await expect(page.locator('.tm-header__toggle')).toHaveAttribute('aria-expanded', 'true');
 });
 
-for (const path of ['/', '/allergies/', '/guides/', '/allergies/labeling-guide/']) {
+for (const path of ['/', '/allergies/', '/guides/', '/allergies/labeling-guide/', '/allergies/food-allergies-in-japanese/']) {
   test(`${path} has no serious or critical axe violations`, async ({ page }) => {
     await page.goto(path);
     const { violations } = await new AxeBuilder({ page }).analyze();
@@ -212,4 +212,43 @@ test('labeling guide: Keep reading lists the other allergy guide, not itself', a
   const links = page.locator('.guide-related a');
   await expect(links.filter({ hasText: 'Food allergies in Japanese' })).toHaveCount(1);
   await expect(page.locator('.guide-related a[href="/allergies/labeling-guide/"]')).toHaveCount(0);
+});
+
+test('food allergies guide: no contents column, one main landmark, mandatory cards marked by shape', async ({ page }) => {
+  await page.goto('/allergies/food-allergies-in-japanese/');
+  await expect(page.locator('.guide-toc')).toHaveCount(0);
+  await expect(page.locator('aside')).toHaveCount(0);
+  await expect(page.locator('main')).toHaveCount(1);
+  const before = (sel) => page.locator(sel).first().evaluate((el) => getComputedStyle(el, '::before').content);
+  const border = (sel) => page.locator(sel).first().evaluate((el) => getComputedStyle(el).borderTopWidth);
+  expect(await before('.fa-allergen-card--mandatory')).not.toBe('none');
+  expect(await before('.fa-allergen-card:not(.fa-allergen-card--mandatory)')).toBe('none');
+  expect(await border('.fa-allergen-card--mandatory')).toBe('2px');
+  expect(await border('.fa-allergen-card:not(.fa-allergen-card--mandatory)')).toBe('1px');
+});
+
+test('food allergies guide: no overflow, CTAs keep events and go to the builder, related excludes itself', async ({ page }) => {
+  await page.goto('/allergies/food-allergies-in-japanese/');
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+  for (const ev of ['hero', 'mid', 'footer']) {
+    const cta = page.locator(`a[data-gc-event="cta-allergies-phrases-${ev}"]`);
+    await expect(cta).toHaveText('Generate my Japanese allergy card →');
+    await expect(cta).toHaveAttribute('href', '/');
+  }
+  await expect(page.locator('.guide-related a[href="/allergies/food-allergies-in-japanese/"]')).toHaveCount(0);
+  await expect(page.locator('.guide-related a[href="/allergies/labeling-guide/"]')).toHaveCount(1);
+});
+
+test('food allergies guide: in-page links resolve, mandatory cards use the red border, others stay neutral', async ({ page }) => {
+  await page.goto('/allergies/food-allergies-in-japanese/');
+  const ids = await page.$$eval('a[href^="#"]', (as) => as.map((a) => a.getAttribute('href').slice(1)).filter(Boolean));
+  for (const id of ids) await expect(page.locator(`[id="${id}"]`)).toHaveCount(1);
+  const color = (sel) => page.locator(sel).first().evaluate((el) => getComputedStyle(el).borderTopColor);
+  const red = await page.evaluate(() => {
+    const d = document.createElement('i'); d.style.color = 'var(--tm-shu)'; document.body.append(d);
+    const c = getComputedStyle(d).color; d.remove(); return c;
+  });
+  expect(await color('.fa-allergen-card--mandatory')).toBe(red);
+  expect(await color('.fa-allergen-card:not(.fa-allergen-card--mandatory)')).not.toBe(red);
 });
