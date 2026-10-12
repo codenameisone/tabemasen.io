@@ -38,11 +38,16 @@ const guides = guidesForDiet(await getCollection('guides'), p.diet);
 
   <section class="tm-container hub-pick" aria-label="Start your card">
     <div class="hub-pick__panel">
-      <Picker diet={p.diet} allergenKeys={p.picker.allergenKeys} showSeverity={p.picker.showSeverity} ctaLabel={p.ctaLabel} event={p.picker.event} />
+      <Picker diet={p.diet} allergenKeys={p.picker.allergenKeys} showSeverity={p.picker.showSeverity} ctaLabel={p.ctaLabel} event={p.picker.event}
+        preset={{ allergens: p.example.allergens ?? [], severe: p.example.severity === 'severe' }} previewId="hub-card" />
       {p.microcopy && <p class="hub-pick__micro">{p.microcopy}</p>}
     </div>
-    <div class="hub-pick__card"><ExampleCard state={p.example} /></div>
+    <div class="hub-pick__card">
+      <p class="tm-kicker hub-pick__label">Your card preview</p>
+      <ExampleCard id="hub-card" live state={p.example} />
+    </div>
   </section>
+  <script is:inline src="/data.js"></script>
 
   <div class="tm-container hub-body"><slot /></div>
 
@@ -75,6 +80,7 @@ const guides = guidesForDiet(await getCollection('guides'), p.diet);
   .hub-pick { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 48px 64px; align-items: start; padding-bottom: 88px; }
   .hub-pick__panel { background: var(--tm-paper-warm); border-radius: var(--tm-radius); padding: 32px; }
   .hub-pick__micro { margin: 12px 0 0; font-size: 13px; color: var(--tm-ink-faint); }
+  .hub-pick__label { margin: 0 0 12px; font-size: 13px; }
   .hub-body { max-width: 860px; padding-bottom: 72px; }
   .hub-guides { background: var(--tm-paper-warm); border-top: 1px solid var(--tm-rule); }
   .hub-guides__inner { padding-top: 72px; padding-bottom: 72px; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 32px 56px; }

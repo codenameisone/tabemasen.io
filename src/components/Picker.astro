@@ -10,26 +10,33 @@ interface Props {
   showSeverity?: boolean;
   ctaLabel: string;
   event: string;
+  preset?: { allergens: string[]; severe: boolean };
+  previewId?: string;
 }
 
-const { diet, allergenKeys, showSeverity = false, ctaLabel, event } = Astro.props;
+const { diet, allergenKeys, showSeverity = false, ctaLabel, event, preset, previewId } = Astro.props;
 const byKey = new Map(loadCardData().allergens.map((a) => [a.key, a]));
 const chips = allergenKeys.map((k) => {
   const a = byKey.get(k);
   if (!a) throw new Error(`Picker: unknown allergen key "${k}"`);
   return a;
 });
+for (const k of preset?.allergens ?? []) {
+  if (!byKey.has(k)) throw new Error(`Picker: unknown preset allergen key "${k}"`);
+}
+const pressed = new Set(preset?.allergens ?? []);
+const severe = !!preset?.severe;
 const pattern = DIETS[diet].pattern;
-const href = buildPickerHref({ pattern, allergens: [], severe: false });
+const href = buildPickerHref({ pattern, allergens: allergenKeys.filter((k) => pressed.has(k)), severe });
 const hasMandatory = chips.some((a) => a.mandatory);
 const sevId = `picker-sev-${event}`;
 ---
 
-<div class="picker" data-pattern={pattern ?? ''}>
+<div class="picker" data-pattern={pattern ?? ''} data-preview={previewId}>
   {hasMandatory && <p class="picker__legend"><i aria-hidden="true"></i>Red dot: Japan's mandatory allergens</p>}
   <div class="picker__group" role="group" aria-label="Allergens">
     {chips.map((a) => (
-      <button type="button" class="picker__chip" data-key={a.key} data-mandatory={a.mandatory ? '' : undefined} aria-pressed="false">
+      <button type="button" class="picker__chip" data-key={a.key} data-mandatory={a.mandatory ? '' : undefined} aria-pressed={String(pressed.has(a.key))}>
         {a.english} <small lang="ja">{a.japanese.replace(/[(（].*$/, '')}</small>
       </button>
     ))}
@@ -37,7 +44,7 @@ const sevId = `picker-sev-${event}`;
   {showSeverity && (
     <div class="picker__severity">
       <span class="picker__sev-text" id={sevId}><strong>Severe allergy</strong> Adds a warning that trace amounts are dangerous</span>
-      <button type="button" class="picker__switch" role="switch" aria-checked="false" aria-labelledby={sevId}></button>
+      <button type="button" class="picker__switch" role="switch" aria-checked={String(severe)} aria-labelledby={sevId}></button>
     </div>
   )}
   <a class="tm-btn picker__go" href={href} data-gc-event={event}>{ctaLabel}</a>
@@ -46,13 +53,21 @@ const sevId = `picker-sev-${event}`;
 
 <script>
   import { buildPickerHref } from '../lib/picker';
+  import { renderCardHtml } from '../lib/cardRender';
   for (const root of document.querySelectorAll<HTMLElement>('.picker')) {
     const go = root.querySelector<HTMLAnchorElement>('.picker__go');
     const sw = root.querySelector<HTMLButtonElement>('.picker__switch');
     const pattern = root.dataset.pattern || null;
     const update = () => {
       const allergens = [...root.querySelectorAll<HTMLButtonElement>('.picker__chip[aria-pressed="true"]')].map((b) => b.dataset.key!);
-      if (go) go.href = buildPickerHref({ pattern, allergens, severe: sw?.getAttribute('aria-checked') === 'true' });
+      const severe = sw?.getAttribute('aria-checked') === 'true';
+      if (go) go.href = buildPickerHref({ pattern, allergens, severe });
+      const target = root.dataset.preview ? document.getElementById(root.dataset.preview) : null;
+      const data = (window as any).CARD_DATA;
+      if (target && data) {
+        const state = { allergens, patterns: pattern ? [pattern] : [], severity: severe ? 'severe' : 'allergy', name: '', customText: '', showEnglish: true } as const;
+        target.innerHTML = renderCardHtml(data.buildCard(state), true);
+      }
     };
     for (const chip of root.querySelectorAll<HTMLButtonElement>('.picker__chip')) {
       chip.addEventListener('click', () => { chip.setAttribute('aria-pressed', String(chip.getAttribute('aria-pressed') !== 'true')); update(); });

@@ -85,3 +85,23 @@ describe('Picker duplicate id avoidance', async () => {
     expect(combined.indexOf('aria-labelledby="picker-sev-cta-vegan-hero"')).toBeGreaterThan(-1);
   });
 });
+
+describe('Picker preset and preview', async () => {
+  const container = await AstroContainer.create();
+  const base = { diet: 'allergies', allergenKeys: ['egg', 'cashew', 'peanut'], showSeverity: true, ctaLabel: 'x', event: 'cta-x' };
+  const html = await container.renderToString(Picker, { props: { ...base, preset: { allergens: ['peanut', 'egg'], severe: true }, previewId: 'x' } });
+
+  it('presses preset chips, checks the switch, and encodes the href in DOM order', () => {
+    expect(html).toMatch(/data-key="egg"[^>]*aria-pressed="true"/);
+    expect(html).toMatch(/data-key="peanut"[^>]*aria-pressed="true"/);
+    expect(html).toMatch(/data-key="cashew"[^>]*aria-pressed="false"/);
+    expect(html).toMatch(/role="switch" aria-checked="true"/);
+    expect(html).toMatch(/href="\/#a=egg,peanut&(amp;)?s=severe"/);
+  });
+  it('exposes the preview id', () => {
+    expect(html).toContain('data-preview="x"');
+  });
+  it('throws on an unknown preset key', async () => {
+    await expect(container.renderToString(Picker, { props: { ...base, preset: { allergens: ['nope'], severe: false } } })).rejects.toThrow();
+  });
+});
