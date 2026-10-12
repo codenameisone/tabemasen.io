@@ -1,9 +1,10 @@
-// Renders public/assets/og-image.png (1200x630 social preview) from the built site:
+// Renders public/assets/og-image-v2.png (1200x630 social preview) from the built site:
 // the real card renderer, fonts and tokens. Usage: npm run build; PORT=4390 node scripts/serve-dist.mjs &; node scripts/og-image.mjs
 import { chromium } from 'playwright';
 import { readFileSync } from 'node:fs';
 const ill = process.argv[2] || 'noren';
-const out = process.argv[3] || 'public/assets/og-image.png';
+// New filename whenever the design changes, so link-preview caches (Telegram, Slack) refetch.
+const out = process.argv[3] || 'public/assets/og-image-v2.png';
 const img = 'data:image/jpeg;base64,' + readFileSync(`src/assets/illustrations/${ill}.jpg`).toString('base64');
 const b = await chromium.launch();
 const p = await b.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });
