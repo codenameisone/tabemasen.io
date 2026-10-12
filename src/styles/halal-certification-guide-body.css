@@ -154,3 +154,6 @@
 .cg-cta p { margin: 0; max-width: 640px; color: var(--tm-rule); }
 .cg-cta .btn { display: inline-flex; align-items: center; min-height: 56px; padding: 0 26px; border-radius: var(--tm-radius); background: var(--tm-shu); color: #fff; font-weight: 700; font-size: 17px; text-decoration: none; }
 .cg-cta .btn:hover { background: var(--tm-shu-dark); color: #fff; }
+
+/* Hero CTA (added after the review: the first card button was ~17,000px down on phones). */
+.cg-hero__actions { margin: 24px 0 0; }

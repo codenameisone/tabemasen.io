@@ -791,3 +791,18 @@ test('guide contents list comes back when a narrow window is widened', async ({ 
   await page.setViewportSize({ width: 800, height: 900 });
   await expect(link).toBeHidden();
 });
+
+for (const [path, ev, text, href] of [
+  ['/allergies/labeling-guide/', 'cta-allergies-labeling-hero', 'Generate my Japanese allergy card →', '/'],
+  ['/halal/certification-guide/', 'cta-halal-cert-hero', 'Generate my Japanese halal card →', '/#p=halal'],
+]) {
+  test(`${path} offers the card in its header`, async ({ page }) => {
+    await page.goto(path);
+    const cta = page.locator(`a[data-gc-event="${ev}"]`);
+    await expect(cta).toHaveText(text);
+    await expect(cta).toHaveAttribute('href', href);
+    const box = await cta.boundingBox();
+    expect(box.y).toBeLessThan(1400);
+    expect(box.height).toBeGreaterThanOrEqual(44);
+  });
+}

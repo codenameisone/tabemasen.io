@@ -841,6 +841,7 @@
    "Last reviewed October 2026 · Corrections",
    "·",
    "~12 min read",
+   "Generate my Japanese allergy card →",
    "Japan's allergen labels list what's inside packaged food. Restaurants have no such rule.",
    "This article is a practical travel guide, not medical advice. If you have a severe or life-threatening allergy, consult your allergist before traveling and confirm current regulations directly with manufacturers and restaurants.",
    "In this article",
@@ -1173,6 +1174,7 @@
   "events": [
    "coffee-allergies-labeling",
    "cta-allergies-labeling-footer",
+   "cta-allergies-labeling-hero",
    "cta-allergies-labeling-nav"
   ],
   "jsonld": [
@@ -2353,6 +2355,7 @@
    "Japan has no central halal authority — multiple bodies certify restaurants and products with different standards. Here's what each logo means and what \"Muslim-friendly\" actually guarantees.",
    "Last reviewed October 2026 · Corrections",
    "This article explains how halal certification works in Japan from a practical standpoint. It is not a religious ruling. Individual Muslims hold different views on what constitutes an acceptable standard — especially around soy sauce fermentation, cooking alcohol, and shared kitchens. We present what each certification tier covers; whether it meets your personal threshold is your decision.",
+   "Generate my Japanese halal card →",
    "In this article",
    "In this article",
    "Key takeaways",
@@ -2703,6 +2706,7 @@
   "events": [
    "coffee-halal-cert",
    "cta-halal-cert-footer",
+   "cta-halal-cert-hero",
    "cta-halal-cert-inline-faq",
    "cta-halal-cert-inline-verify",
    "cta-halal-cert-nav"
