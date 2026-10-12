@@ -15,7 +15,7 @@
         "name": "Do Japanese restaurants understand food allergies?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Awareness varies. Chain and family restaurants often have allergen menus (アレルギー表) listing the mandatory 8 allergens. Small independent restaurants may not have formal protocols but are usually willing to help if you can communicate clearly. A written card in Japanese helps bridge the gap, especially at smaller places."
+          "text": "Awareness varies. Chain and family restaurants often have allergen menus (アレルギー表) listing the mandatory 9 allergens. Small independent restaurants may not have formal protocols but are usually willing to help if you can communicate clearly. A written card in Japanese helps bridge the gap, especially at smaller places."
         }
       },
       {
@@ -39,7 +39,7 @@
         "name": "Does Japan's allergen labeling cover restaurants?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No — only packaged food. Japan mandates disclosure of 8 specific allergens (wheat, milk, eggs, peanuts, shrimp, crab, buckwheat, walnuts) on packaged products, and recommends disclosure of 20 more. Restaurants have no legal obligation to disclose allergens, though many chains voluntarily provide allergen menus on request."
+          "text": "No — only packaged food. Japan mandates disclosure of 9 specific allergens (wheat, milk, eggs, peanuts, shrimp, crab, buckwheat, walnuts, cashew nuts) on packaged products, and recommends disclosure of 20 more. Restaurants have no legal obligation to disclose allergens, though many chains voluntarily provide allergen menus on request."
         }
       }
     ]

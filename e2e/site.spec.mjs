@@ -679,3 +679,15 @@ test('hub pages: h1 and picker are inside the single main landmark', async ({ pa
     await expect(page.locator('main .hub-cta')).toHaveCount(1);
   }
 });
+
+test('food allergies guide: nine mandatory allergens, cashew included, marked in text as well as colour', async ({ page }) => {
+  await page.goto('/allergies/food-allergies-in-japanese/');
+  const cards = page.locator('.fa-allergen-card--mandatory');
+  await expect(cards).toHaveCount(9);
+  await expect(cards.filter({ hasText: 'Cashew' })).toHaveCount(1);
+  for (const card of await cards.all()) await expect(card).toContainText('mandatory allergen');
+  const body = await page.locator('main').innerText();
+  expect(body).not.toMatch(/mandatory 8|8 specific allergens/);
+  const ld = await page.$$eval('script[type="application/ld+json"]', (s) => s.map((x) => x.textContent).join(' '));
+  expect(ld).not.toMatch(/mandatory 8|8 specific allergens/);
+});
