@@ -2,6 +2,7 @@
 
 ## 2026-10-12
 
+- design(seo): the link-preview image (og:image, shared by every page) redrawn in the new design with a real card from the builder; 1200×630 and 120 KB, same URL. Regenerate with scripts/og-image.mjs.
 - chore: the legacy stylesheet (styles.css) and nav script (nav.js) are retired; every page is on the new design.
 - design(about): /about/ and /featured/ in the new design. Every word unchanged.
 - design(celiac): the celiac guide in the new design with a new illustration. Every word, heading and FAQ unchanged.
