@@ -68,49 +68,52 @@ test('print shows only the card', async ({ page }) => {
   }
 });
 
-const PRESET_HREF = '/#a=shrimp,egg,peanut&s=severe';
-
 test('allergies picker hands its choices to the builder', async ({ page }) => {
   await page.goto('/allergies/');
   const go = page.locator('.picker__go');
-  await expect(go).toHaveAttribute('href', PRESET_HREF);
+  await expect(go).toHaveAttribute('href', '/');
+  await expect(page.locator('.picker__builder')).toHaveAttribute('href', '/');
   await page.locator('.picker__chip[data-key="egg"]').click();
   await page.locator('.picker__chip[data-key="cashew"]').click();
   await page.locator('.picker__switch').click();
-  await expect(go).toHaveAttribute('href', '/#a=shrimp,peanut,cashew');
+  await expect(go).toHaveAttribute('href', '/#a=egg,cashew&s=severe');
   await go.click();
   await expect(page.locator('.chip[data-key="cashew"]')).toHaveAttribute('aria-pressed', 'true');
-  await expect(page.locator('.chip[data-key="egg"]')).toHaveAttribute('aria-pressed', 'false');
-  await expect(page.locator('#severity-toggle')).not.toBeChecked();
+  await expect(page.locator('.chip[data-key="egg"]')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#severity-toggle')).toBeChecked();
 });
 
 test('allergies picker still links to the builder without JavaScript', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto('http://localhost:4322/allergies/');
-  await expect(page.locator('.picker__go')).toHaveAttribute('href', PRESET_HREF);
-  await expect(page.locator('#hub-card')).toContainText('落花生');
+  await expect(page.locator('.picker__go')).toHaveAttribute('href', '/');
+  await expect(page.locator('#hub-card')).toContainText('すみません、お願いがあります。');
   await context.close();
 });
 
-test('allergies preview updates as you pick', async ({ page }) => {
+test('allergies picker starts empty and the preview fills in as you pick', async ({ page }) => {
   await page.goto('/allergies/');
   const card = page.locator('#hub-card');
-  await expect(card).toContainText('落花生(ピーナッツ)');
-  await expect(card.locator('.card-line--warning').first()).toBeVisible();
-  const order = ['・えび', '・卵', '・落花生(ピーナッツ)'];
-  await expect(card.locator('.card-line--item')).toHaveText(order);
+  await expect(card).toContainText('すみません、お願いがあります。');
+  await expect(card.locator('.card-line--item')).toHaveCount(0);
+  await expect(card.locator('.card-line--warning')).toHaveCount(0);
+  await expect(page.locator('.picker__chip[aria-pressed="true"]')).toHaveCount(0);
+  await expect(page.locator('.hub-pick__hint')).toBeVisible();
   await page.locator('.picker__chip[data-key="egg"]').click();
-  await page.locator('.picker__chip[data-key="egg"]').click();
-  await expect(card.locator('.card-line--item')).toHaveText(order);
-  await page.locator('.picker__chip[data-key="egg"]').click();
-  await expect(card.locator('.card-line', { hasText: '・卵' })).toHaveCount(0);
+  await expect(card.locator('.card-line', { hasText: '・卵' })).toHaveCount(1);
   await page.locator('.picker__chip[data-key="cashew"]').click();
   await expect(card.locator('.card-line', { hasText: '・カシューナッツ' })).toHaveCount(1);
+  await page.locator('.picker__chip[data-key="shrimp"]').click();
+  await expect(card.locator('.card-line--item')).toHaveText(['・えび', '・卵', '・カシューナッツ']);
+  await page.locator('.picker__switch').click();
+  await expect(card.locator('.card-line--warning').first()).toBeVisible();
+  await page.locator('.picker__chip[data-key="egg"]').click();
+  await expect(card.locator('.card-line', { hasText: '・卵' })).toHaveCount(0);
   await page.locator('.picker__switch').click();
   await expect(card.locator('.card-line--warning')).toHaveCount(0);
-  await expect(page.locator('.picker__go')).toHaveAttribute('href', '/#a=shrimp,peanut,cashew');
-  await expect(page.locator('.picker__builder')).toHaveAttribute('href', '/#a=shrimp,peanut,cashew');
+  await expect(page.locator('.picker__go')).toHaveAttribute('href', '/#a=shrimp,cashew');
+  await expect(page.locator('.picker__builder')).toHaveAttribute('href', '/#a=shrimp,cashew');
 });
 
 test('allergies preview matches the builder after hand-off', async ({ page }) => {
