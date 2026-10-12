@@ -28,6 +28,7 @@ const chevron = '<svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stro
   jsonLd={[homeJsonLd.trim()]}
   bodyClass="tm-home"
 >
+  <main id="main">
   <section class="app-intro tm-container tm-intro">
     <div class="tm-intro__copy">
       <p class="tm-intro__display" aria-hidden="true">Tell the kitchen what you <Wash>can't eat.</Wash></p>
@@ -40,7 +41,7 @@ const chevron = '<svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stro
       alt="Watercolour sketch: a traveller at a small ramen counter holds up a phone, and the chef leans in to read it" />
   </section>
 
-  <main class="main-content tm-container" id="builder">
+  <div class="main-content tm-container" id="builder">
     <div class="app-grid">
       <section class="selection-panel" aria-label="Card options">
         <div class="panel-section" id="panel-allergens">
@@ -92,7 +93,7 @@ const chevron = '<svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stro
         <div class="card" id="card" tabindex="0" aria-label="Japanese restaurant card preview" lang="ja"></div>
       </section>
     </div>
-  </main>
+  </div>
 
   <div class="action-bar" role="toolbar" aria-label="Card actions">
     <button type="button" class="btn btn--ghost btn--action" id="copy-btn">
@@ -147,6 +148,7 @@ const chevron = '<svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stro
 
     <FeaturedStrip eventSuffix="home" />
   </div>
+  </main>
 
   <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
   <script is:inline src="/data.js"></script>

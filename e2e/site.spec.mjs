@@ -771,3 +771,11 @@ test('halal certification table says it scrolls when it is wider than the screen
     await expect(hint).toBeHidden();
   }
 });
+
+test('home: h1, builder, action toolbar and guides are inside the single main landmark', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('main')).toHaveCount(1);
+  for (const sel of ['h1', '#builder', '[role="toolbar"]', '#home-guides-h']) {
+    await expect(page.locator(`main ${sel}`)).toHaveCount(1);
+  }
+});
