@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { textBlocks, missingBlocks, unmatchedSelectors } from '../scripts/lib/text-blocks.mjs';
+import { textBlocks } from '../scripts/lib/text-blocks.mjs';
 
 const page = (body) => `<!DOCTYPE html><html><head><title>t</title><style>p{}</style></head><body>${body}</body></html>`;
 
@@ -29,28 +29,5 @@ describe('textBlocks', () => {
 
   it('matches #id selectors and returns unique blocks', () => {
     expect(textBlocks(page('<section id="x"><p>a</p><p>a</p></section><p>b</p>'), { include: ['#x'] })).toEqual(['a']);
-  });
-});
-
-describe('missingBlocks', () => {
-  it('lists old blocks absent from the new page and not allowed', () => {
-    expect(missingBlocks(['a', 'b', 'c'], ['a', 'x'], ['c'])).toEqual(['b']);
-  });
-});
-
-describe('unmatchedSelectors', () => {
-  it('returns selectors that match no element', () => {
-    const html = page('<main><p>text</p></main>');
-    expect(unmatchedSelectors(html, ['main', '.nope'])).toEqual(['.nope']);
-  });
-
-  it('returns empty array when all selectors match', () => {
-    const html = page('<main><p>text</p></main>');
-    expect(unmatchedSelectors(html, ['main', 'p'])).toEqual([]);
-  });
-
-  it('matches tag, class and id selectors', () => {
-    const html = page('<div class="card" id="x"><p>text</p></div>');
-    expect(unmatchedSelectors(html, ['.card', '#x', 'span'])).toEqual(['span']);
   });
 });

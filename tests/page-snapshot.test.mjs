@@ -10,10 +10,10 @@ describe('pageSnapshot', () => {
   });
 
   it('records link targets, image alts and analytics events', () => {
-    const s = pageSnapshot(page('<a href="https://b.example/" data-gc-event="x">B</a><a href="/a/">A</a><img src="/i.png" alt="An inn">'));
-    expect(s.links).toEqual(['/a/', 'https://b.example/']);
+    const s = pageSnapshot(page('<a href="https://b.example/" data-gc-event="x">B</a><a href="/a/">A</a><img src="/i.png" alt="An inn"><button data-gc-event="y">B</button>'));
+    expect(s.links).toEqual(['https://b.example/ [x]', '/a/']);
     expect(s.alts).toEqual(['An inn']);
-    expect(s.events).toEqual(['x']);
+    expect(s.events).toEqual(['y']);
   });
 
   it('parses JSON-LD', () => {
@@ -40,5 +40,24 @@ describe('snapshotDiff', () => {
     const two = pageSnapshot(page('<a href="/">Go</a><a href="/">Go</a>'));
     const one = pageSnapshot(page('<a href="/">Go</a>'));
     expect(snapshotDiff(two, one)).toContain('- block: Go');
+  });
+});
+
+describe('snapshotDiff catches what a set comparison misses', () => {
+  const diff = (a, b) => snapshotDiff(pageSnapshot(page(a)), pageSnapshot(page(b))).join('\n');
+  it('reports swapped paragraphs as a move', () => {
+    expect(diff('<p>One</p><p>Two</p>', '<p>Two</p><p>One</p>')).toMatch(/moved: (One|Two)/);
+  });
+  it('reports a CTA whose target changed even though its text did not', () => {
+    const d = diff('<a href="/#p=halal" data-gc-event="cta">Go</a>', '<a href="/" data-gc-event="cta">Go</a>');
+    expect(d).toContain('- link: /#p=halal [cta]');
+    expect(d).toContain('+ link: / [cta]');
+  });
+  it('reports a removed duplicate link and a dropped target=_blank', () => {
+    expect(diff('<a href="/a/">x</a><a href="/a/">y</a>', '<a href="/a/">x</a>')).toContain('- link: /a/');
+    expect(diff('<a href="https://e.x/" target="_blank">e</a>', '<a href="https://e.x/">e</a>')).toContain('- link: https://e.x/ (new tab)');
+  });
+  it('reports a changed aria-label', () => {
+    expect(diff('<div role="region" aria-label="Table A">t</div>', '<div role="region" aria-label="Table B">t</div>')).toContain('+ label: Table B');
   });
 });
