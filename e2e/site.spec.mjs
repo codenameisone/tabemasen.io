@@ -110,6 +110,7 @@ test('allergies preview updates as you pick', async ({ page }) => {
   await page.locator('.picker__switch').click();
   await expect(card.locator('.card-line--warning')).toHaveCount(0);
   await expect(page.locator('.picker__go')).toHaveAttribute('href', '/#a=shrimp,peanut,cashew');
+  await expect(page.locator('.picker__builder')).toHaveAttribute('href', '/#a=shrimp,peanut,cashew');
 });
 
 test('allergies preview matches the builder after hand-off', async ({ page }) => {

@@ -108,3 +108,25 @@ describe('Picker preset and preview', async () => {
     await expect(container.renderToString(Picker, { props: { ...base, allergenKeys: ['egg', 'cashew'], preset: { allergens: ['soy'], severe: false } } })).rejects.toThrow(/soy/);
   });
 });
+
+describe('Picker builder link', async () => {
+  const container = await AstroContainer.create();
+
+  it('renders the builder link with preset allergens and severity', async () => {
+    const html = await container.renderToString(Picker, {
+      props: { diet: 'allergies', allergenKeys: ['egg', 'cashew'], showSeverity: true,
+        ctaLabel: 'x', event: 'cta-x', preset: { allergens: ['egg'], severe: true } },
+    });
+    expect(html).toContain('class="picker__builder"');
+    expect(html).toMatch(/class="picker__builder"[^>]*href="\/#a=egg&(amp;)?s=severe"/);
+  });
+
+  it('renders the builder link to / when no preset', async () => {
+    const html = await container.renderToString(Picker, {
+      props: { diet: 'allergies', allergenKeys: ['egg', 'cashew'],
+        ctaLabel: 'x', event: 'cta-x' },
+    });
+    expect(html).toContain('class="picker__builder"');
+    expect(html).toMatch(/class="picker__builder"[^>]*href="\/"/);
+  });
+});

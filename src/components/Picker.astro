@@ -49,7 +49,7 @@ const sevId = `picker-sev-${event}`;
     </div>
   )}
   <a class="tm-btn picker__go" href={href} data-gc-event={event}>{ctaLabel}</a>
-  <p class="picker__more">More allergens, diets, your name and a custom line on the <a href="/">full card builder</a>.</p>
+  <p class="picker__more">More allergens, diets, your name and a custom line on the <a class="picker__builder" href={href}>full card builder</a>.</p>
 </div>
 
 <script>
@@ -57,12 +57,15 @@ const sevId = `picker-sev-${event}`;
   import { renderCardHtml } from '../lib/cardRender';
   for (const root of document.querySelectorAll<HTMLElement>('.picker')) {
     const go = root.querySelector<HTMLAnchorElement>('.picker__go');
+    const builder = root.querySelector<HTMLAnchorElement>('.picker__builder');
     const sw = root.querySelector<HTMLButtonElement>('.picker__switch');
     const pattern = root.dataset.pattern || null;
     const update = () => {
       const allergens = [...root.querySelectorAll<HTMLButtonElement>('.picker__chip[aria-pressed="true"]')].map((b) => b.dataset.key!);
       const severe = sw?.getAttribute('aria-checked') === 'true';
-      if (go) go.href = buildPickerHref({ pattern, allergens, severe });
+      const newHref = buildPickerHref({ pattern, allergens, severe });
+      if (go) go.href = newHref;
+      if (builder) builder.href = newHref;
       const target = root.dataset.preview ? document.getElementById(root.dataset.preview) : null;
       const data = (window as any).CARD_DATA;
       if (target && data) {
