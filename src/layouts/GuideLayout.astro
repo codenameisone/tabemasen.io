@@ -10,12 +10,14 @@ import type { GuideLike } from '../lib/guides';
 interface Props {
   title: string; description: string; canonical: string; jsonLd: string[];
   page: string; current?: string;
+  ogDescription?: string; twitterDescription?: string;
   illustration: { src: ImageMetadata; alt: string; caption?: string };
   related: (GuideLike & { data: GuideLike['data'] & { description: string } })[];
 }
 const p = Astro.props;
+const hasToc = Astro.slots.has('toc');
 ---
-<BaseLayout title={p.title} description={p.description} canonical={p.canonical} page={p.page} current={p.current} ogType="article" jsonLd={p.jsonLd}>
+<BaseLayout title={p.title} description={p.description} canonical={p.canonical} page={p.page} current={p.current} ogType="article" ogDescription={p.ogDescription} twitterDescription={p.twitterDescription} jsonLd={p.jsonLd}>
   <Fragment slot="head"><slot name="head" /></Fragment>
 
   <main id="main">
@@ -26,7 +28,8 @@ const p = Astro.props;
 
   <div class="tm-container guide-notice"><slot name="notice" /></div>
 
-  <div class="tm-container guide-main">
+  <div class:list={['tm-container guide-main', !hasToc && 'guide-main--solo']}>
+    {hasToc && (
     <div class="guide-toc">
       <details class="guide-toc__fold" open>
         <summary class="guide-toc__summary">In this article</summary>
@@ -36,6 +39,7 @@ const p = Astro.props;
         if (window.matchMedia('(max-width: 900px)').matches) document.querySelector('.guide-toc__fold')?.removeAttribute('open');
       </script>
     </div>
+    )}
     <div class="guide-body"><slot /></div>
   </div>
 
@@ -56,6 +60,7 @@ const p = Astro.props;
   .guide-hero { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 24px 56px; align-items: center; padding-top: 32px; padding-bottom: 32px; }
   .guide-notice { padding-bottom: 32px; }
   .guide-main { display: grid; grid-template-columns: 260px minmax(0, 760px); justify-content: space-between; gap: 48px 64px; align-items: start; padding-bottom: 88px; }
+  .guide-main--solo { grid-template-columns: minmax(0, 760px); justify-content: start; }
   .guide-toc { position: sticky; top: 24px; max-height: calc(100vh - 48px); overflow-y: auto; }
   .guide-related { background: var(--tm-paper-warm); border-top: 1px solid var(--tm-rule); }
   .guide-related__inner { padding-top: 64px; padding-bottom: 64px; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 24px 56px; }
@@ -65,7 +70,7 @@ const p = Astro.props;
     .guide-toc__summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; font-weight: 700; font-size: 18px; border-top: 1px solid var(--tm-rule); border-bottom: 1px solid var(--tm-rule); }
     .guide-toc__fold[open] .guide-toc__summary { margin-bottom: 8px; }
     .guide-toc__fold :global(.lg-toc__title) { display: none; }
-    .guide-hero, .guide-main, .guide-related__inner { grid-template-columns: 1fr; }
+    .guide-hero, .guide-main, .guide-main--solo, .guide-related__inner { grid-template-columns: minmax(0, 1fr); }
     .guide-toc { position: static; max-height: none; overflow: visible; }
   }
 </style>

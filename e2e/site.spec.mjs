@@ -136,7 +136,7 @@ test('mobile menu opens on a legacy page', async ({ page }, info) => {
   await expect(page.locator('.tm-header__toggle')).toHaveAttribute('aria-expanded', 'true');
 });
 
-for (const path of ['/', '/allergies/', '/guides/', '/allergies/labeling-guide/']) {
+for (const path of ['/', '/allergies/', '/halal/', '/guides/', '/allergies/labeling-guide/', '/allergies/food-allergies-in-japanese/']) {
   test(`${path} has no serious or critical axe violations`, async ({ page }) => {
     await page.goto(path);
     const { violations } = await new AxeBuilder({ page }).analyze();
@@ -212,4 +212,110 @@ test('labeling guide: Keep reading lists the other allergy guide, not itself', a
   const links = page.locator('.guide-related a');
   await expect(links.filter({ hasText: 'Food allergies in Japanese' })).toHaveCount(1);
   await expect(page.locator('.guide-related a[href="/allergies/labeling-guide/"]')).toHaveCount(0);
+});
+
+test('food allergies guide: no contents column, one main landmark, mandatory cards marked by shape', async ({ page }) => {
+  await page.goto('/allergies/food-allergies-in-japanese/');
+  await expect(page.locator('.guide-toc')).toHaveCount(0);
+  await expect(page.locator('aside')).toHaveCount(0);
+  await expect(page.locator('main')).toHaveCount(1);
+  const before = (sel) => page.locator(sel).first().evaluate((el) => getComputedStyle(el, '::before').content);
+  const border = (sel) => page.locator(sel).first().evaluate((el) => getComputedStyle(el).borderTopWidth);
+  expect(await before('.fa-allergen-card--mandatory')).not.toBe('none');
+  expect(await before('.fa-allergen-card:not(.fa-allergen-card--mandatory)')).toBe('none');
+  expect(await border('.fa-allergen-card--mandatory')).toBe('2px');
+  expect(await border('.fa-allergen-card:not(.fa-allergen-card--mandatory)')).toBe('1px');
+});
+
+test('food allergies guide: no overflow, CTAs keep events and go to the builder, related excludes itself', async ({ page }) => {
+  await page.goto('/allergies/food-allergies-in-japanese/');
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+  for (const ev of ['hero', 'mid', 'footer']) {
+    const cta = page.locator(`a[data-gc-event="cta-allergies-phrases-${ev}"]`);
+    await expect(cta).toHaveText('Generate my Japanese allergy card →');
+    await expect(cta).toHaveAttribute('href', '/');
+  }
+  await expect(page.locator('.guide-related a[href="/allergies/food-allergies-in-japanese/"]')).toHaveCount(0);
+  await expect(page.locator('.guide-related a[href="/allergies/labeling-guide/"]')).toHaveCount(1);
+});
+
+test('food allergies guide: in-page links resolve, mandatory cards use the red border, others stay neutral', async ({ page }) => {
+  await page.goto('/allergies/food-allergies-in-japanese/');
+  const ids = await page.$$eval('a[href^="#"]', (as) => as.map((a) => a.getAttribute('href').slice(1)).filter(Boolean));
+  for (const id of ids) await expect(page.locator(`[id="${id}"]`)).toHaveCount(1);
+  const color = (sel) => page.locator(sel).first().evaluate((el) => getComputedStyle(el).borderTopColor);
+  const red = await page.evaluate(() => {
+    const d = document.createElement('i'); d.style.color = 'var(--tm-shu)'; document.body.append(d);
+    const c = getComputedStyle(d).color; d.remove(); return c;
+  });
+  expect(await color('.fa-allergen-card--mandatory')).toBe(red);
+  expect(await color('.fa-allergen-card:not(.fa-allergen-card--mandatory)')).not.toBe(red);
+});
+
+test('halal hub: picker starts empty, hands pattern and choices to the builder, no phone mockup', async ({ page }) => {
+  await page.goto('/halal/');
+  await expect(page.locator('h1')).toHaveText('Japan halal restaurant card');
+  await expect(page.locator('.hl-phone-stage, .hl-phone')).toHaveCount(0);
+  const go = page.locator('.picker__go');
+  await expect(go).toHaveText('Generate my Japanese halal card →');
+  await expect(go).toHaveAttribute('data-gc-event', 'cta-halal-hero');
+  await expect(go).toHaveAttribute('href', '/#p=halal');
+  await expect(page.locator('.picker__builder')).toHaveAttribute('data-gc-event', 'cta-halal-builder');
+  await expect(page.locator('.picker__switch')).toHaveCount(0);
+  await expect(page.locator('.picker__chip[aria-pressed="true"]')).toHaveCount(0);
+  await page.locator('.picker__chip[data-key="shrimp"]').click();
+  await expect(page.locator('#hub-card .card-line', { hasText: '・えび' })).toHaveCount(1);
+  await expect(go).toHaveAttribute('href', '/#a=shrimp&p=halal');
+  await expect(page.locator('.hub-cta a.tm-btn')).toHaveText('Generate my Japanese halal card →');
+  await expect(page.locator('.hub-cta a.tm-btn')).toHaveAttribute('data-gc-event', 'cta-halal-footer');
+  await expect(page.locator('.hub-cta a.tm-btn')).toHaveAttribute('href', '/#p=halal');
+});
+
+test('halal hub: body is styled (ingredient cards, FAQ) and the FAQ opens', async ({ page }) => {
+  await page.goto('/halal/');
+  await expect(page.locator('.hl-feature-card')).toHaveCount(8);
+  const card = page.locator('.hl-feature-card').first();
+  expect(await card.evaluate((e) => getComputedStyle(e).borderTopWidth)).not.toBe('0px');
+  expect(await page.locator('.hl-feature-grid').evaluate((e) => getComputedStyle(e).display)).toBe('grid');
+  expect(await page.locator('.hl-faq__item summary').first().evaluate((e) => e.getBoundingClientRect().height)).toBeGreaterThanOrEqual(44);
+  await expect(page.locator('.hl-faq__item')).toHaveCount(7);
+  await expect(page.locator('.hl-faq__item[open]')).toHaveCount(1);
+  await page.locator('.hl-faq__item summary').nth(1).click();
+  await expect(page.locator('.hl-faq__item').nth(1)).toHaveAttribute('open', '');
+  await expect(page.locator('main, [role="main"]')).toHaveCount(1);
+});
+
+test('halal hub: tapping chips updates the card and both links open the builder with it', async ({ page }) => {
+  await page.goto('/halal/');
+  const card = page.locator('#hub-card');
+  await expect(card.locator('.card-line', { hasText: '・卵' })).toHaveCount(0);
+  await page.locator('.picker__chip[data-key="shrimp"]').click();
+  await page.locator('.picker__chip[data-key="egg"]').click();
+  await expect(card.locator('.card-line', { hasText: '・卵' })).toHaveCount(1);
+  await expect(card.locator('.card-line', { hasText: '・えび' })).toHaveCount(1);
+  const go = await page.locator('.picker__go').getAttribute('href');
+  expect(go).toBe('/#a=shrimp,egg&p=halal');
+  await expect(page.locator('.picker__builder')).toHaveAttribute('href', go);
+});
+
+test('halal preview matches the builder after hand-off, with the halal pattern selected', async ({ page }) => {
+  await page.goto('/halal/');
+  await page.locator('.picker__chip[data-key="shrimp"]').click();
+  await page.locator('.picker__chip[data-key="wheat"]').click();
+  await expect(page.locator('#hub-card .card-line', { hasText: '・小麦' })).toHaveCount(1);
+  const hub = await page.locator('#hub-card .card-line').allTextContents();
+  await page.locator('.picker__go').click();
+  await expect(page.locator('#card .card-line').first()).toBeVisible();
+  expect(await page.locator('#card .card-line').allTextContents()).toEqual(hub);
+  await expect(page.locator('.pattern-btn[data-key="halal"]')).toHaveClass(/pattern-btn--selected/);
+  await expect(page.locator('.chip[data-key="shrimp"]')).toHaveAttribute('aria-pressed', 'true');
+});
+
+test('halal hub: no horizontal overflow and in-page links resolve', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 800 });
+  await page.goto('/halal/');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+  const hrefs = await page.locator('a[href^="#"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')).filter((h) => h.length > 1));
+  for (const h of hrefs) await expect(page.locator(`[id="${h.slice(1)}"]`)).toHaveCount(1);
 });

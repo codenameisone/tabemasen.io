@@ -1,0 +1,29 @@
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to say food allergies in Japanese",
+    "description": "Japanese allergy phrases, allergen names in kanji with readings, and a free restaurant card generator for travelers with food allergies.",
+    "image": "https://tabemasen.io/assets/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "tabemasen",
+      "url": "https://tabemasen.io/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://tabemasen.io/#organization",
+      "name": "tabemasen",
+      "url": "https://tabemasen.io/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://tabemasen.io/assets/android-chrome-512.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://tabemasen.io/allergies/food-allergies-in-japanese/"
+    },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-10-08",
+    "inLanguage": "en"
+  }

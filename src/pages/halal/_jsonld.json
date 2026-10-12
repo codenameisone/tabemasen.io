@@ -1,0 +1,62 @@
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What's the difference between halal-certified and Muslim-friendly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Halal-certified means an external body has audited the kitchen — separate cookware, separate prep, verified ingredients. Muslim-friendly is informal: the restaurant avoids pork and often alcohol, but no audit happened. Pork-free means no pork but possibly mirin or sake in the cooking. If certainty matters, look for an explicit certification logo from JHA, NAHA, or the Kyoto Halal Council on the menu or website."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What about trace alcohol in soy sauce and miso?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Standard soy sauce produces a small amount of alcohol during natural fermentation. Strict halal interpretations avoid it; many Japanese halal authorities and Muslim travelers treat the trace amount as below the threshold of concern. The position varies by school of thought and personal practice. Halal-certified soy sauces (Kikkoman's halal-certified line is the most widely available) and additive-free mu-ten-ka (無添加) miso exist if you prefer to avoid the question."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where can I find prayer rooms?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Major airports — Narita, Kansai, increasingly Haneda — have dedicated rooms with wudu facilities. Kyoto Tower (third floor), Shisui Premium Outlets near Narita, and several Tokyo department stores have them. Many halal restaurants include prayer space on the premises (Yosiya in Arashiyama, Sekai Cafe in Asakusa, Ninja Yakiniku, Naritaya). Carry a prayer mat and Qibla compass for in-between situations; staff will usually offer a quiet first-aid room or multipurpose room if asked politely."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is dashi halal?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Standard dashi is made from kombu (kelp) and katsuobushi (bonito flakes) — both halal in mainstream interpretations. The complication is that some commercial dashi powders include pork extract or alcohol-based flavorings. Restaurant-made or homemade kombu-and-bonito dashi is fine; instant dashi packets need a label check."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What about Ramadan in Japan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The major mosques in Tokyo (Tokyo Camii, Otsuka Masjid), Kyoto (Kyoto Mosque), and Osaka (Osaka Mosque) host iftar gatherings during Ramadan. Several halal restaurants run Ramadan specials and extended hours. Outside the big cities, plan ahead — convenience stores will be your sahur and iftar resource, and the strict-halal options there are limited."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I find halal food in rural areas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Sparingly. The strategy is to plan meals around city stops, carry halal-certified instant meals and snacks (online halal grocers ship across Japan), and consider self-catering at AirBnBs with kitchens. Some ryokans in tourist regions have started offering halal kaiseki on advance request — book at least two weeks ahead with full disclosure of what you do and don't eat."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are there halal-certified hotels?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A small but growing number, mostly mid- to high-end. Some Tokyo and Kyoto hotels offer halal breakfast, prayer mats on request, and Qibla direction marked in rooms. Search Halal Navi or Halal Gourmet Japan for current listings — the scene is moving quickly and any specific recommendation goes out of date fast."
+        }
+      }
+    ]
+  }

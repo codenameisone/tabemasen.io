@@ -1,0 +1,78 @@
+/* src/styles/food-allergies-body.css — the legacy food-allergies-in-japanese body (fa-*), restyled. Text untouched. */
+/* The body fragments use no variables from the retired styles.css, so no shims are needed. */
+
+/* ── hero (inside GuideLayout .guide-hero__copy) ── */
+.fa-hero__inner { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+.fa-breadcrumb { font-size: 14px; color: var(--tm-ink-faint); }
+.fa-breadcrumb a { color: var(--tm-ink-faint); }
+.fa-breadcrumb .sep { margin: 0 6px; }
+.fa-hero__eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--tm-ink-muted); }
+.fa-hero__title { margin: 0; font-family: var(--tm-font-display); font-weight: 600; letter-spacing: -0.02em; font-size: clamp(2.1rem, 4.2vw, 3.3rem); line-height: 1.08; }
+.fa-hero__lede { margin: 0; font-size: 19px; line-height: 1.6; color: var(--tm-ink-muted); max-width: 620px; }
+.fa-hero__inner .reviewed-note { margin: 0; font-size: 14px; color: var(--tm-ink-faint); }
+.fa-hero__inner .reviewed-note a { color: var(--tm-ink-faint); }
+.fa-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.fa-hero__actions .btn, .fa-mid-cta .btn { display: inline-flex; align-items: center; min-height: 56px; padding: 0 26px; border-radius: var(--tm-radius); background: var(--tm-shu); color: #fff; font-weight: 700; font-size: 17px; text-decoration: none; }
+.fa-hero__actions .btn:hover, .fa-mid-cta .btn:hover { background: var(--tm-shu-dark); color: #fff; }
+.fa-microcopy { font-size: 14px; color: var(--tm-ink-muted); }
+.fa-trust-strip { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 14px; color: var(--tm-ink-muted); }
+.fa-trust-strip__item { display: inline-flex; align-items: center; gap: 6px; }
+.fa-trust-strip__icon { color: var(--tm-shu-text); font-weight: 700; }
+
+/* ── article prose ── */
+.fa-main { display: flex; flex-direction: column; gap: 56px; }
+.fa-main [id] { scroll-margin-top: 24px; }
+.fa-section h2 { margin: 0 0 16px; font-family: var(--tm-font-display); font-weight: 600; font-size: clamp(1.7rem, 2.8vw, 2.2rem); line-height: 1.15; }
+.fa-section p, .fa-section li { font-size: 18px; line-height: 1.75; color: var(--tm-ink); }
+.fa-section p { margin: 0 0 16px; }
+.fa-section a { color: var(--tm-ink); text-decoration-color: var(--tm-shu); text-underline-offset: 3px; }
+.fa-section em { font-style: italic; }
+
+/* ── grammar formulas ── */
+.fa-formula { background: var(--tm-paper-warm); border-radius: var(--tm-radius); border-left: 3px solid var(--tm-ink); padding: 16px 20px; margin: 8px 0 20px; display: flex; flex-direction: column; gap: 4px; }
+.fa-formula__label { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--tm-ink-muted); }
+.fa-formula__japanese { font-family: var(--tm-font-display); font-weight: 700; font-size: clamp(1.4rem, 2.6vw, 1.8rem); line-height: 1.35; }
+.fa-formula__reading { font-size: 15px; font-style: italic; color: var(--tm-ink-muted); }
+.fa-formula__english { font-size: 17px; }
+
+/* ── allergen cards: mandatory 8 marked by a thick red border (the body text says so) and a dot, others by a thin neutral border ── */
+.fa-allergen-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 14px; margin: 12px 0 20px; }
+.fa-allergen-card { position: relative; background: #fff; border: 1px solid var(--tm-rule-strong); border-radius: var(--tm-radius); padding: 16px; display: flex; flex-direction: column; gap: 8px; }
+.fa-allergen-card--mandatory { border: 2px solid var(--tm-shu); }
+.fa-allergen-card--mandatory::before { content: ""; position: absolute; top: 12px; right: 12px; width: 9px; height: 9px; border-radius: 50%; background: var(--tm-shu); }
+.fa-allergen-card__kanji { font-family: var(--tm-font-display); font-weight: 700; font-size: 40px; line-height: 1.2; }
+.fa-allergen-card__furigana { margin-left: 8px; font-size: 14px; font-weight: 400; color: var(--tm-ink-muted); }
+.fa-allergen-card__header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.fa-allergen-card__english { font-weight: 700; font-size: 17px; }
+.fa-allergen-card__reading { font-size: 14px; font-style: italic; color: var(--tm-ink-muted); }
+.fa-allergen-card__note { font-size: 14px; line-height: 1.55; color: var(--tm-ink-muted); }
+.fa-allergen-card__note a { color: var(--tm-ink); }
+.fa-mandatory-note { background: var(--tm-shu-soft); border-radius: var(--tm-radius); padding: 16px 18px; font-size: 16px; line-height: 1.65; }
+.fa-mandatory-note a { color: var(--tm-ink); text-decoration-color: var(--tm-shu); text-underline-offset: 3px; }
+
+/* ── phrases ── */
+.fa-phrase-list { display: flex; flex-direction: column; gap: 10px; margin: 12px 0 20px; }
+.fa-phrase { background: var(--tm-paper-warm); border-radius: var(--tm-radius); padding: 14px 16px; }
+.fa-phrase__japanese { font-family: var(--tm-font-display); font-weight: 700; font-size: 22px; line-height: 1.4; }
+.fa-phrase__reading { font-size: 14px; font-style: italic; color: var(--tm-ink-muted); }
+.fa-phrase__english { font-size: 16px; line-height: 1.55; }
+
+/* ── mid-page CTA ── */
+.fa-mid-cta { margin: 24px 0 8px; background: var(--tm-paper-warm); border: 1.5px solid var(--tm-ink); border-radius: var(--tm-radius); padding: 22px 24px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.fa-mid-cta__text { font-size: 17px; line-height: 1.6; }
+
+/* ── FAQ ── */
+.fa-faq { border-bottom: 1px solid var(--tm-rule); }
+.fa-faq__item { border-top: 1px solid var(--tm-rule); }
+.fa-faq__item summary { min-height: 44px; padding: 16px 0; cursor: pointer; font-weight: 700; font-size: 18px; }
+.fa-faq__item p { margin: 0 0 16px; }
+
+/* ── closing CTA ── */
+.fa-cta { background: var(--tm-ink); color: #f6f1e7; }
+.fa-cta__inner { max-width: var(--tm-max); margin: 0 auto; padding: 64px var(--tm-gutter); display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.fa-cta h2 { margin: 0; font-family: var(--tm-font-display); font-weight: 600; font-size: clamp(1.9rem, 3vw, 2.5rem); color: #fff; }
+.fa-cta p { margin: 0; max-width: 640px; color: #c9c1b5; }
+.fa-cta .btn { display: inline-flex; align-items: center; min-height: 56px; padding: 0 26px; border-radius: var(--tm-radius); background: var(--tm-shu); color: #fff; font-weight: 700; font-size: 17px; text-decoration: none; }
+.fa-cta .btn:hover { background: var(--tm-shu-dark); color: #fff; }
+
+@media (max-width: 640px) { .fa-allergen-card__kanji { font-size: 34px; } }
