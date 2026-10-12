@@ -92,3 +92,14 @@ describe('SiteFooter name meaning', () => {
     expect(vegan).not.toContain('食べません');
   });
 });
+
+describe('logo links', () => {
+  // Lighthouse label-content-name-mismatch: the accessible name must contain the visible
+  // text, so the logo links use their visible "tabemasen" rather than an aria-label.
+  it('have no aria-label overriding the visible name', async () => {
+    const header = await container.renderToString(SiteHeader, { props: { page: 'home' } });
+    const footer = await container.renderToString(SiteFooter, { props: { page: 'home' } });
+    expect(header).not.toMatch(/class="tm-header__brand"[^>]*aria-label/);
+    expect(footer).not.toMatch(/class="tm-footer__home"[^>]*aria-label/);
+  });
+});
