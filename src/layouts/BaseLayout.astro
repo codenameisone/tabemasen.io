@@ -9,7 +9,8 @@ import SiteFooter from '../components/SiteFooter.astro';
 interface Props {
   title: string;
   description: string;
-  canonical: string;
+  canonical?: string;   // omitted on the 404 page
+  robots?: string;
   page: string;          // analytics page name, e.g. "allergies"
   current?: string;      // nav href to mark aria-current
   ogType?: string;
@@ -20,7 +21,7 @@ interface Props {
   bodyClass?: string;
 }
 const {
-  title, description, canonical, page, current,
+  title, description, canonical, robots, page, current,
   ogType = 'website', ogImage = 'https://tabemasen.io/assets/og-image.png',
   jsonLd = [], bodyClass,
   ogDescription = description, twitterDescription = description,
@@ -34,9 +35,10 @@ const {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
   <meta name="description" content={description}>
-  <link rel="canonical" href={canonical}>
+  {robots && <meta name="robots" content={robots}>}
+  {canonical && <link rel="canonical" href={canonical}>}
   <meta property="og:type" content={ogType}>
-  <meta property="og:url" content={canonical}>
+  {canonical && <meta property="og:url" content={canonical}>}
   <meta property="og:title" content={title}>
   <meta property="og:description" content={ogDescription}>
   <meta property="og:image" content={ogImage}>

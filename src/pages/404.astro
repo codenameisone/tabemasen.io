@@ -1,0 +1,36 @@
+---
+// src/pages/404.astro — GitHub Pages serves dist/404.html for any unknown path.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BrushGlyph from '../components/BrushGlyph.astro';
+import { FOOTER } from '../lib/site';
+
+const title = 'Page not found | tabemasen';
+const description = 'This page does not exist. Make a Japanese restaurant card for your allergies or diet, or read the guides.';
+---
+<BaseLayout title={title} description={description} robots="noindex" page="404">
+  <main id="main" class="tm-container nf">
+    <BrushGlyph text="迷" size={120} />
+    <div class="nf__copy">
+      <p class="tm-kicker">Page not found</p>
+      <h1 class="tm-display nf__h1">This page has wandered off.</h1>
+      <p class="nf__lede">The link may be old, or the address mistyped. Everything on tabemasen is one of these:</p>
+      <a class="tm-btn nf__cta" href="/" data-gc-event="cta-404">Generate my Japanese restaurant card&nbsp;→</a>
+      <ul class="nf__links">
+        {FOOTER.cards.map((l) => <li><a href={l.href}>{l.label} card</a></li>)}
+        <li><a href="/guides/">Guides for eating in Japan</a></li>
+      </ul>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .nf { display: grid; grid-template-columns: auto 1fr; gap: 32px 48px; align-items: start; padding-top: 72px; padding-bottom: 96px; }
+  .nf__h1 { margin: 8px 0 16px; font-size: clamp(36px, 6vw, 60px); line-height: 1.1; }
+  .nf__lede { margin: 0 0 24px; max-width: 34em; color: var(--tm-ink-muted); font-size: 19px; }
+  .nf__links { list-style: none; margin: 28px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 28px; }
+  .nf__links a { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--tm-shu); }
+  @media (max-width: 760px) {
+    .nf { grid-template-columns: 1fr; padding-top: 40px; padding-bottom: 64px; }
+    .nf__cta { padding: 12px 16px; text-align: center; }
+  }
+</style>

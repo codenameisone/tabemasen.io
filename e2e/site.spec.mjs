@@ -738,3 +738,20 @@ test('mobile menu: close icon while open, Escape closes and returns focus', asyn
   await expect(page.locator('#tm-nav a[href="/halal/"]')).toBeHidden();
   await expect(toggle).toBeFocused();
 });
+
+test('unknown paths get the branded, noindexed 404 page', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  const res = await page.goto('/no-such-page/');
+  expect(res.status()).toBe(404);
+  await expect(page).toHaveTitle(/tabemasen/);
+  await expect(page.locator('h1')).toHaveCount(1);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+  await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
+  for (const href of ['/', '/allergies/', '/halal/', '/vegan/', '/gluten-free-japan/', '/guides/']) {
+    await expect(page.locator(`main a[href="${href}"]`).first()).toBeVisible();
+  }
+  const { violations } = await new AxeBuilder({ page }).analyze();
+  expect(violations.filter((v) => ['serious', 'critical'].includes(v.impact))).toEqual([]);
+  expect(errors).toEqual([]);
+});
