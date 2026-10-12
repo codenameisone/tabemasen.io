@@ -32,6 +32,9 @@ const p = Astro.props;
         <summary class="guide-toc__summary">In this article</summary>
         <slot name="toc" />
       </details>
+      <script is:inline>
+        if (window.matchMedia('(max-width: 900px)').matches) document.querySelector('.guide-toc__fold')?.removeAttribute('open');
+      </script>
     </div>
     <div class="guide-body"><slot /></div>
   </div>
@@ -47,9 +50,6 @@ const p = Astro.props;
     </section>
   )}
   </main>
-  <script is:inline>
-    if (window.matchMedia('(max-width: 900px)').matches) document.querySelector('.guide-toc__fold')?.removeAttribute('open');
-  </script>
 </BaseLayout>
 
 <style>
