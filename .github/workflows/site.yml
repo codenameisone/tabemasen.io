@@ -30,6 +30,8 @@ jobs:
       - run: npm run build
       - run: npm run check:seo
       - run: npm run check:content
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
       - if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
         uses: actions/upload-pages-artifact@v5
         with:

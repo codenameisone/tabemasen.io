@@ -10,6 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "vitest run",
+    "test:e2e": "playwright test",
     "compare": "node scripts/compare-build.mjs",
     "seo:baseline": "node scripts/seo-baseline.mjs",
     "check:seo": "node scripts/check-seo.mjs",
@@ -23,6 +24,8 @@
     "astro": "^7.3.8"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "^1.64.0",
     "parse5": "^8.0.1",
     "vitest": "^5.0.3"
   }

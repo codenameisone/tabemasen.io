@@ -3,3 +3,5 @@ CHANGE_REQUESTS_V1.md
 node_modules/
 dist/
 .astro/
+test-results/
+playwright-report/
