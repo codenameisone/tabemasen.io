@@ -13,6 +13,8 @@ interface Props {
   page: string;          // analytics page name, e.g. "allergies"
   current?: string;      // nav href to mark aria-current
   ogType?: string;
+  ogDescription?: string;      // legacy pages with their own link-preview text
+  twitterDescription?: string;
   ogImage?: string;
   jsonLd?: string[];     // raw JSON strings, emitted verbatim
   bodyClass?: string;
@@ -21,6 +23,7 @@ const {
   title, description, canonical, page, current,
   ogType = 'website', ogImage = 'https://tabemasen.io/assets/og-image.png',
   jsonLd = [], bodyClass,
+  ogDescription = description, twitterDescription = description,
 } = Astro.props;
 ---
 <!DOCTYPE html>
@@ -35,11 +38,11 @@ const {
   <meta property="og:type" content={ogType}>
   <meta property="og:url" content={canonical}>
   <meta property="og:title" content={title}>
-  <meta property="og:description" content={description}>
+  <meta property="og:description" content={ogDescription}>
   <meta property="og:image" content={ogImage}>
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content={title}>
-  <meta name="twitter:description" content={description}>
+  <meta name="twitter:description" content={twitterDescription}>
   <meta name="twitter:image" content={ogImage}>
   {jsonLd.map((json) => <script type="application/ld+json" set:html={json} />)}
   <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
