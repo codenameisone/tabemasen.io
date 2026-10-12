@@ -1,4 +1,4 @@
-/* src/styles/halal-body.css — the legacy /vegan/ body (vg-*), restyled. Text untouched. */
+/* src/styles/vegan-body.css — the legacy /vegan/ body (vg-*), restyled. Text untouched. */
 /* The body fragment uses no variables from the retired styles.css, so no shims are needed. */
 
 .vg-main { display: flex; flex-direction: column; gap: 56px; }

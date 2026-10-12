@@ -430,3 +430,28 @@ test('halal certification guide: contents list is sticky on desktop and above th
     expect(tocBottom).toBeLessThanOrEqual(bodyTop);
   }
 });
+
+test('vegan hub: tapping chips updates the card and both links open the builder with it', async ({ page }) => {
+  await page.goto('/vegan/');
+  const card = page.locator('#hub-card');
+  await expect(card.locator('.card-line', { hasText: '・小麦' })).toHaveCount(0);
+  await page.locator('.picker__chip[data-key="wheat"]').click();
+  await page.locator('.picker__chip[data-key="sesame"]').click();
+  await expect(card.locator('.card-line', { hasText: '・小麦' })).toHaveCount(1);
+  await expect(card.locator('.card-line', { hasText: '・ごま' })).toHaveCount(1);
+  const go = await page.locator('.picker__go').getAttribute('href');
+  expect(go).toBe('/#a=wheat,sesame&p=vegan');
+  await expect(page.locator('.picker__builder')).toHaveAttribute('href', go);
+});
+
+test('vegan preview matches the builder after hand-off, with the vegan pattern selected', async ({ page }) => {
+  await page.goto('/vegan/');
+  await page.locator('.picker__chip[data-key="peanut"]').click();
+  await expect(page.locator('#hub-card .card-line', { hasText: '・落花生' })).toHaveCount(1);
+  const hub = await page.locator('#hub-card .card-line').allTextContents();
+  await page.locator('.picker__go').click();
+  await expect(page.locator('#card .card-line').first()).toBeVisible();
+  expect(await page.locator('#card .card-line').allTextContents()).toEqual(hub);
+  await expect(page.locator('.pattern-btn[data-key="vegan"]')).toHaveClass(/pattern-btn--selected/);
+  await expect(page.locator('.chip[data-key="peanut"]')).toHaveAttribute('aria-pressed', 'true');
+});
