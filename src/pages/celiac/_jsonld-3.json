@@ -1,0 +1,54 @@
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does \"no wheat\" on a Japanese label mean the food is gluten-free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Japan's mandatory allergen list covers nine items — shrimp, cashew nut, crab, walnut, wheat, buckwheat, egg, milk and peanut. Barley and rye are on neither the mandatory list nor the 21-item recommended list, so barley malt or roasted barley can be present in a product whose allergen box shows no wheat. Read the full ingredients list, not only the allergen declaration."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is \"gluten-free\" legally defined in Japan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not in the general way it is in the EU or the US, where a 20 ppm threshold applies. Japan's only formal scheme is narrower and stricter: MAFF's rice flour labelling guidelines permit rice flour containing 1 ppm or less of gluten to be labelled \"Non-Gluten\". It is voluntary, requires third-party certification, and covers only rice flour made from Japanese rice. Outside that scheme, グルテンフリー on a package or menu is a marketing claim rather than a regulated one."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the Japanese \"Non-Gluten\" certification mark?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A voluntary mark for rice flour certified at 1 ppm gluten or below, administered through third-party certification set up by the Japan Rice Flour Association. The threshold is stricter than the US FDA's less than 20 ppm and the European Commission's 20 ppm or lower. Its scope is the limitation: it applies to rice flour from Japanese rice, not to food in general."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Will restaurant staff in Japan know what celiac disease is?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Often not. Celiac disease is genuinely rare in Japan — one screening study found two biopsy-confirmed cases among 2,055 adults, and the HLA-DQ2 carrier rate is around 0.3 to 0.6 percent against 20 to 30 percent in Western Europe. Saying セリアック病 may not communicate anything at all. Naming the grains does: 小麦 (wheat), 大麦 (barley) and ライ麦 (rye) are concrete and recognisable in a way the diagnosis is not."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do Japanese doctors test for celiac disease?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It is not routine. A 2023 review notes that celiac serology is often not covered by Japanese health insurance, that samples are frequently sent overseas for evaluation, and that few physicians and nutritionists have celiac expertise. If you have a confirmed diagnosis, carry your own documentation rather than expecting to be re-diagnosed locally."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is soba safe if I have celiac disease?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Only if it is juwari soba (十割そば), made from 100% buckwheat with no wheat binder — and even then, not automatically. Most soba blends wheat flour in, because buckwheat has no gluten and is hard to bind without it. Two further checks matter for coeliac disease specifically. First, the boiling water: shops serving udon or nihachi soba alongside juwari commonly use one pot, reused through service, and Coeliac Australia is explicit that water used for wheat pasta must be discarded before gluten-free pasta goes in. Ask whether the noodles are boiled separately. Second, the dipping sauce: tsuyu is soy-sauce based, and standard Japanese soy sauce is brewed with wheat."
+        }
+      }
+    ]
+  }

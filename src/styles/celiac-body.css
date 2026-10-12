@@ -1,0 +1,65 @@
+/* src/styles/celiac-body.css — the legacy celiac guide body (ce-*), restyled. Text untouched. */
+/* The body fragments use no variables from the retired styles.css, so no shims are needed. */
+
+/* ── hero (inside GuideLayout .guide-hero__copy) ── */
+.ce-hero__copy { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+.ce-hero__eyebrow { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--tm-ink-muted); }
+.ce-hero__title { margin: 0; font-family: var(--tm-font-display); font-weight: 600; letter-spacing: -0.02em; font-size: clamp(2.1rem, 4.2vw, 3.3rem); line-height: 1.08; }
+.ce-hero__lede { margin: 0; font-size: 19px; line-height: 1.6; color: var(--tm-ink-muted); max-width: 620px; }
+.ce-hero__copy .reviewed-note { margin: 0; font-size: 14px; color: var(--tm-ink-faint); }
+.ce-hero__copy .reviewed-note a { color: var(--tm-ink-faint); }
+.ce-hero__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.ce-hero__actions .btn, .ce-mid-cta .btn { display: inline-flex; align-items: center; min-height: 56px; padding: 0 26px; border-radius: var(--tm-radius); background: var(--tm-shu); color: #fff; font-weight: 700; font-size: 17px; text-decoration: none; }
+.ce-hero__actions .btn:hover, .ce-mid-cta .btn:hover { background: var(--tm-shu-dark); color: #fff; }
+.ce-microcopy { font-size: 14px; color: var(--tm-ink-muted); }
+.ce-trust-strip { display: flex; flex-wrap: wrap; gap: 6px 20px; font-size: 14px; color: var(--tm-ink-muted); }
+.ce-trust-strip__item { display: inline-flex; align-items: center; gap: 6px; }
+.ce-trust-strip__icon { color: var(--tm-shu-text); font-weight: 700; }
+
+/* ── article prose ── */
+.ce-main { display: flex; flex-direction: column; gap: 56px; }
+.ce-section h2 { margin: 0 0 16px; font-family: var(--tm-font-display); font-weight: 600; font-size: clamp(1.7rem, 2.8vw, 2.2rem); line-height: 1.15; }
+.ce-section p, .ce-section li { font-size: 18px; line-height: 1.75; color: var(--tm-ink); }
+.ce-section p { margin: 0 0 16px; }
+.ce-section a { color: var(--tm-ink); text-decoration-color: var(--tm-shu); text-underline-offset: 3px; }
+.ce-section em { font-style: italic; }
+.ce-section--first { margin-top: 0; }
+
+/* ── side note: dashed left rule + smaller type (shape, not colour) ── */
+.ce-section p.ce-note { font-size: 16px; line-height: 1.65; color: var(--tm-ink-muted); border-left: 3px dashed var(--tm-rule-strong); padding-left: 16px; }
+
+/* ── kanji callout ── */
+.ce-kanji-callout { display: flex; align-items: flex-start; gap: 20px; background: var(--tm-paper-warm); border-left: 3px solid var(--tm-ink); border-radius: var(--tm-radius); padding: 18px 22px; margin: 8px 0 20px; }
+.ce-kanji-callout__chars { flex: none; font-family: var(--tm-font-display); font-weight: 700; font-size: 64px; line-height: 1; }
+.ce-kanji-callout__text { font-size: 17px; line-height: 1.65; }
+
+/* ── feature rows: "!" limitation or check mark, in a ringed badge ── */
+.ce-card-features { display: flex; flex-direction: column; gap: 10px; margin: 12px 0 20px; }
+.ce-card-feature { display: flex; align-items: flex-start; gap: 14px; background: #fff; border: 1px solid var(--tm-rule-strong); border-radius: var(--tm-radius); padding: 14px 16px; font-size: 17px; line-height: 1.6; }
+.ce-card-feature__icon { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--tm-shu); color: var(--tm-shu-text); font-weight: 700; font-size: 16px; line-height: 1; }
+
+/* ── evidence stat cards ── */
+.ce-safe-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 14px; margin: 12px 0 20px; }
+.ce-safe-card { background: var(--tm-paper-warm); border-radius: var(--tm-radius); border-top: 3px solid var(--tm-ink); padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
+.ce-safe-card__title { font-family: var(--tm-font-display); font-weight: 700; font-size: 20px; line-height: 1.25; }
+.ce-safe-card__text { font-size: 15px; line-height: 1.6; color: var(--tm-ink-muted); }
+
+/* ── mid-page CTA ── */
+.ce-mid-cta { margin: 24px 0 8px; background: var(--tm-paper-warm); border: 1.5px solid var(--tm-ink); border-radius: var(--tm-radius); padding: 22px 24px; display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.ce-mid-cta__text { font-size: 17px; line-height: 1.6; }
+
+/* ── FAQ ── */
+.ce-faq { border-bottom: 1px solid var(--tm-rule); }
+.ce-faq__item { border-top: 1px solid var(--tm-rule); }
+.ce-faq__item summary { min-height: 44px; padding: 16px 0; cursor: pointer; font-weight: 700; font-size: 18px; }
+.ce-faq__item p { margin: 0 0 16px; }
+
+/* ── closing CTA ── */
+.ce-cta { background: var(--tm-ink); color: #f6f1e7; }
+.ce-cta__inner { max-width: var(--tm-max); margin: 0 auto; padding: 64px var(--tm-gutter); display: flex; flex-direction: column; align-items: flex-start; gap: 14px; }
+.ce-cta h2 { margin: 0; font-family: var(--tm-font-display); font-weight: 600; font-size: clamp(1.9rem, 3vw, 2.5rem); color: #fff; }
+.ce-cta p { margin: 0; max-width: 640px; color: #c9c1b5; }
+.ce-cta .btn { display: inline-flex; align-items: center; min-height: 56px; padding: 0 26px; border-radius: var(--tm-radius); background: var(--tm-shu); color: #fff; font-weight: 700; font-size: 17px; text-decoration: none; }
+.ce-cta .btn:hover { background: var(--tm-shu-dark); color: #fff; }
+
+@media (max-width: 640px) { .ce-kanji-callout { flex-direction: column; gap: 8px; } .ce-kanji-callout__chars { font-size: 48px; } }

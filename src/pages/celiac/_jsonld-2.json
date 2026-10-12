@@ -1,0 +1,18 @@
+{
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "tabemasen",
+        "item": "https://tabemasen.io/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Celiac disease in Japan",
+        "item": "https://tabemasen.io/celiac/"
+      }
+    ]
+  }

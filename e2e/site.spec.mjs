@@ -136,7 +136,7 @@ test('mobile menu opens on a legacy page', async ({ page }, info) => {
   await expect(page.locator('.tm-header__toggle')).toHaveAttribute('aria-expanded', 'true');
 });
 
-for (const path of ['/', '/allergies/', '/halal/', '/guides/', '/allergies/labeling-guide/', '/allergies/food-allergies-in-japanese/', '/halal/certification-guide/', '/vegan/', '/gluten-free-japan/']) {
+for (const path of ['/', '/allergies/', '/halal/', '/guides/', '/allergies/labeling-guide/', '/allergies/food-allergies-in-japanese/', '/halal/certification-guide/', '/vegan/', '/gluten-free-japan/', '/celiac/']) {
   test(`${path} has no serious or critical axe violations`, async ({ page }) => {
     await page.goto(path);
     const { violations } = await new AxeBuilder({ page }).analyze();
@@ -545,4 +545,42 @@ test('gluten-free hub: no horizontal overflow and in-page links resolve', async 
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
   const hrefs = await page.locator('a[href^="#"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')).filter((h) => h.length > 1));
   for (const h of hrefs) await expect(page.locator(`[id="${h.slice(1)}"]`)).toHaveCount(1);
+});
+
+test('celiac guide: no contents column, one main landmark, no phone mockup, notes and rows marked by shape', async ({ page }) => {
+  await page.goto('/celiac/');
+  await expect(page.locator('.guide-toc')).toHaveCount(0);
+  await expect(page.locator('aside')).toHaveCount(0);
+  await expect(page.locator('main')).toHaveCount(1);
+  await expect(page.locator('.ce-phone-stage, .ce-phone')).toHaveCount(0);
+  const css = (sel, prop) => page.locator(sel).first().evaluate((el, p) => getComputedStyle(el)[p], prop);
+  expect(await css('.ce-note', 'borderLeftStyle')).toBe('dashed');
+  expect(await css('.ce-kanji-callout', 'borderLeftStyle')).toBe('solid');
+  expect(await css('.ce-card-feature__icon', 'borderTopWidth')).toBe('2px');
+  expect(await css('.ce-card-feature__icon', 'borderTopStyle')).toBe('solid');
+});
+
+test('celiac guide: no overflow, CTAs keep events and go to the gluten-free builder, related excludes itself', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 800 });
+  await page.goto('/celiac/');
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+  for (const ev of ['hero', 'mid', 'footer']) {
+    const cta = page.locator(`a[data-gc-event="cta-celiac-${ev}"]`);
+    await expect(cta).toHaveCount(1);
+    await expect(cta).toHaveText('Generate my Japanese celiac card →');
+    await expect(cta).toHaveAttribute('href', '/#p=gluten-free');
+  }
+  await expect(page.locator('.guide-related a[href="/celiac/"]')).toHaveCount(0);
+  // celiac is the only gluten-free guide, so there is nothing to list and no empty Keep reading block
+  await expect(page.locator('.guide-related')).toHaveCount(0);
+});
+
+test('celiac guide: in-page links resolve and the FAQ opens', async ({ page }) => {
+  await page.goto('/celiac/');
+  const ids = await page.$$eval('a[href^="#"]', (as) => as.map((a) => a.getAttribute('href').slice(1)).filter(Boolean));
+  for (const id of ids) await expect(page.locator(`[id="${id}"]`)).toHaveCount(1);
+  const second = page.locator('.ce-faq__item').nth(1);
+  await second.locator('summary').click();
+  await expect(second).toHaveAttribute('open', '');
 });
