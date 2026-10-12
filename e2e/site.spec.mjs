@@ -168,6 +168,7 @@ test('labeling guide: every contents link targets a section and scrolls to it', 
   await page.goto('/allergies/labeling-guide/');
   const hrefs = await page.locator('.guide-toc .lg-toc a').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
   expect(hrefs).toHaveLength(12);
+  await page.locator('.guide-toc__fold').evaluate((d) => d.setAttribute('open', ''));
   for (const href of hrefs) await expect(page.locator(href)).toHaveCount(1);
   await page.locator('.guide-toc .lg-toc a[href="#kanji-cheat-sheet"]').click();
   await expect(page.locator('#kanji-cheat-sheet')).toBeInViewport();
@@ -176,9 +177,20 @@ test('labeling guide: every contents link targets a section and scrolls to it', 
 test('labeling guide: contents list is sticky on desktop and above the body on phones', async ({ page }, info) => {
   await page.goto('/allergies/labeling-guide/');
   const position = await page.locator('.guide-toc').evaluate((el) => getComputedStyle(el).position);
-  if (info.project.name === 'desktop') expect(position).toBe('sticky');
+  if (info.project.name === 'desktop') {
+    expect(position).toBe('sticky');
+    await expect(page.locator('.guide-toc__summary')).toBeHidden();
+    await expect(page.locator('.guide-toc .lg-toc a').first()).toBeVisible();
+  }
   else {
     expect(position).toBe('static');
+    const fold = page.locator('details.guide-toc__fold');
+    const first = page.locator('.guide-toc .lg-toc a').first();
+    await expect(fold).not.toHaveAttribute('open', '');
+    await expect(first).toBeHidden();
+    await page.locator('.guide-toc__summary').click();
+    await expect(fold).toHaveAttribute('open', '');
+    await expect(first).toBeVisible();
     const tocBottom = await page.locator('.guide-toc').evaluate((el) => el.getBoundingClientRect().bottom + window.scrollY);
     const bodyTop = await page.locator('.guide-body').evaluate((el) => el.getBoundingClientRect().top + window.scrollY);
     expect(tocBottom).toBeLessThanOrEqual(bodyTop);

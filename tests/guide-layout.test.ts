@@ -30,6 +30,17 @@ describe('GuideLayout', async () => {
     expect(html).toMatch(/class="[^"]*guide-hero[\s\S]*<h1>Title<\/h1>[\s\S]*class="[^"]*guide-notice[\s\S]*Not advice\.[\s\S]*class="[^"]*guide-toc[\s\S]*lg-toc[\s\S]*class="[^"]*guide-body[\s\S]*lg-article[\s\S]*lg-cta/);
   });
 
+  it('wraps every region in exactly one main landmark and uses no aside', () => {
+    expect(html.match(/<main[\s>]/g)).toHaveLength(1);
+    const main = html.slice(html.indexOf('<main'), html.indexOf('</main>'));
+    for (const marker of ['guide-hero', 'guide-notice', 'guide-main', 'lg-cta', 'guide-related']) expect(main).toContain(marker);
+    expect(html).not.toContain('<aside');
+  });
+
+  it('folds the contents list in an open details with an In this article summary', () => {
+    expect(html).toMatch(/<details[^>]*class="[^"]*guide-toc__fold[^"]*"[^>]* open[\s\S]*<summary[^>]*guide-toc__summary[^>]*>In this article<\/summary>[\s\S]*lg-toc/);
+  });
+
   it('shows the illustration with its alt text and caption', () => {
     expect(html).toContain('alt="Watercolour sketch: a hand turns over an onigiri"');
     expect(html).toContain('Cap.');

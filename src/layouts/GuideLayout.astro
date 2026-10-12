@@ -18,6 +18,7 @@ const p = Astro.props;
 <BaseLayout title={p.title} description={p.description} canonical={p.canonical} page={p.page} current={p.current} ogType="article" jsonLd={p.jsonLd}>
   <Fragment slot="head"><slot name="head" /></Fragment>
 
+  <main id="main">
   <section class="tm-container guide-hero">
     <div class="guide-hero__copy"><slot name="hero" /></div>
     <Illustration src={p.illustration.src} alt={p.illustration.alt} caption={p.illustration.caption} loading="eager" sizes="(max-width: 900px) 100vw, 44vw" />
@@ -26,7 +27,12 @@ const p = Astro.props;
   <div class="tm-container guide-notice"><slot name="notice" /></div>
 
   <div class="tm-container guide-main">
-    <aside class="guide-toc"><slot name="toc" /></aside>
+    <div class="guide-toc">
+      <details class="guide-toc__fold" open>
+        <summary class="guide-toc__summary">In this article</summary>
+        <slot name="toc" />
+      </details>
+    </div>
     <div class="guide-body"><slot /></div>
   </div>
 
@@ -40,6 +46,10 @@ const p = Astro.props;
       </div>
     </section>
   )}
+  </main>
+  <script is:inline>
+    if (window.matchMedia('(max-width: 900px)').matches) document.querySelector('.guide-toc__fold')?.removeAttribute('open');
+  </script>
 </BaseLayout>
 
 <style>
@@ -50,7 +60,11 @@ const p = Astro.props;
   .guide-related { background: var(--tm-paper-warm); border-top: 1px solid var(--tm-rule); }
   .guide-related__inner { padding-top: 64px; padding-bottom: 64px; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 24px 56px; }
   .guide-related__h { margin: 0; font-size: clamp(1.8rem, 3vw, 2.4rem); }
+  .guide-toc__summary { display: none; }
   @media (max-width: 900px) {
+    .guide-toc__summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; font-weight: 700; font-size: 18px; border-top: 1px solid var(--tm-rule); border-bottom: 1px solid var(--tm-rule); }
+    .guide-toc__fold[open] .guide-toc__summary { margin-bottom: 8px; }
+    .guide-toc__fold :global(.lg-toc__title) { display: none; }
     .guide-hero, .guide-main, .guide-related__inner { grid-template-columns: 1fr; }
     .guide-toc { position: static; max-height: none; overflow: visible; }
   }
