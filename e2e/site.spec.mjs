@@ -285,3 +285,37 @@ test('halal hub: body is styled (ingredient cards, FAQ) and the FAQ opens', asyn
   await expect(page.locator('.hl-faq__item').nth(1)).toHaveAttribute('open', '');
   await expect(page.locator('main, [role="main"]')).toHaveCount(1);
 });
+
+test('halal hub: tapping chips updates the card and both links open the builder with it', async ({ page }) => {
+  await page.goto('/halal/');
+  const card = page.locator('#hub-card');
+  await expect(card.locator('.card-line', { hasText: '・卵' })).toHaveCount(0);
+  await page.locator('.picker__chip[data-key="shrimp"]').click();
+  await page.locator('.picker__chip[data-key="egg"]').click();
+  await expect(card.locator('.card-line', { hasText: '・卵' })).toHaveCount(1);
+  await expect(card.locator('.card-line', { hasText: '・えび' })).toHaveCount(1);
+  const go = await page.locator('.picker__go').getAttribute('href');
+  expect(go).toBe('/#a=shrimp,egg&p=halal');
+  await expect(page.locator('.picker__builder')).toHaveAttribute('href', go);
+});
+
+test('halal preview matches the builder after hand-off, with the halal pattern selected', async ({ page }) => {
+  await page.goto('/halal/');
+  await page.locator('.picker__chip[data-key="shrimp"]').click();
+  await page.locator('.picker__chip[data-key="wheat"]').click();
+  await expect(page.locator('#hub-card .card-line', { hasText: '・小麦' })).toHaveCount(1);
+  const hub = await page.locator('#hub-card .card-line').allTextContents();
+  await page.locator('.picker__go').click();
+  await expect(page.locator('#card .card-line').first()).toBeVisible();
+  expect(await page.locator('#card .card-line').allTextContents()).toEqual(hub);
+  await expect(page.locator('.pattern-btn[data-key="halal"]')).toHaveClass(/pattern-btn--selected/);
+  await expect(page.locator('.chip[data-key="shrimp"]')).toHaveAttribute('aria-pressed', 'true');
+});
+
+test('halal hub: no horizontal overflow and in-page links resolve', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 800 });
+  await page.goto('/halal/');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+  const hrefs = await page.locator('a[href^="#"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')).filter((h) => h.length > 1));
+  for (const h of hrefs) await expect(page.locator(`[id="${h.slice(1)}"]`)).toHaveCount(1);
+});
