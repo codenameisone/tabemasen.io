@@ -4,12 +4,14 @@ import { pageFacts } from './lib/page-facts.mjs';
 import { listDistPages } from './lib/dist-pages.mjs';
 import {
   SITE, baselineProblems, pageProblems, resolveInternal, linkCandidates, sitemapProblems,
-  pageBasicsProblems, allowlistProblems,
+  pageBasicsProblems, allowlistProblems, socialMeta, socialProblems,
 } from './lib/seo-checks.mjs';
 
 const dist = 'dist';
 const baseline = JSON.parse(readFileSync('seo-baseline.json', 'utf8'));
 const allowlist = JSON.parse(readFileSync('seo-allowlist.json', 'utf8'));
+const socialBaseline = JSON.parse(readFileSync('seo-social-baseline.json', 'utf8'));
+const social = {};
 
 const current = {};
 const problems = [];
@@ -20,7 +22,9 @@ problems.push(...allowlistProblems(allowlist));
 const isFile = (p) => { try { return statSync(p).isFile(); } catch { return false; } };
 
 for (const { url, file } of listDistPages(dist)) {
-  const facts = pageFacts(readFileSync(file, 'utf8'));
+  const html = readFileSync(file, 'utf8');
+  const facts = pageFacts(html);
+  social[url] = socialMeta(html);
   current[url] = facts;
   problems.push(...pageProblems(url, facts));
   problems.push(...pageBasicsProblems(url, facts));
@@ -36,6 +40,7 @@ for (const { url, file } of listDistPages(dist)) {
 }
 
 problems.push(...baselineProblems(baseline, current, allowlist));
+problems.push(...socialProblems(socialBaseline, social));
 const sitemapPath = join(dist, 'sitemap.xml');
 if (existsSync(sitemapPath)) problems.push(...sitemapProblems(readFileSync(sitemapPath, 'utf8'), indexable));
 else problems.push('dist/sitemap.xml is missing');

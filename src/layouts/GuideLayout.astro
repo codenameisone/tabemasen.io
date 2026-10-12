@@ -10,13 +10,14 @@ import type { GuideLike } from '../lib/guides';
 interface Props {
   title: string; description: string; canonical: string; jsonLd: string[];
   page: string; current?: string;
+  ogDescription?: string; twitterDescription?: string;
   illustration: { src: ImageMetadata; alt: string; caption?: string };
   related: (GuideLike & { data: GuideLike['data'] & { description: string } })[];
 }
 const p = Astro.props;
 const hasToc = Astro.slots.has('toc');
 ---
-<BaseLayout title={p.title} description={p.description} canonical={p.canonical} page={p.page} current={p.current} ogType="article" jsonLd={p.jsonLd}>
+<BaseLayout title={p.title} description={p.description} canonical={p.canonical} page={p.page} current={p.current} ogType="article" ogDescription={p.ogDescription} twitterDescription={p.twitterDescription} jsonLd={p.jsonLd}>
   <Fragment slot="head"><slot name="head" /></Fragment>
 
   <main id="main">
