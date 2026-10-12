@@ -1,0 +1,29 @@
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Gluten-free in Japan: where gluten hides and what celiacs can actually eat",
+    "description": "Everything celiacs need to know about eating gluten-free in Japan — hidden wheat in soy sauce, dashi, and barley tea, safe foods to look for, convenience store tips, and a free Japanese restaurant card.",
+    "image": "https://tabemasen.io/assets/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "tabemasen",
+      "url": "https://tabemasen.io/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://tabemasen.io/#organization",
+      "name": "tabemasen",
+      "url": "https://tabemasen.io/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://tabemasen.io/assets/android-chrome-512.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://tabemasen.io/gluten-free-japan/"
+    },
+    "datePublished": "2026-05-25",
+    "dateModified": "2026-10-10",
+    "inLanguage": "en"
+  }

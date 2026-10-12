@@ -20,6 +20,8 @@ interface Props {
   example: Partial<CardState>;
   ctaLabel: string;
   microcopy?: string;
+  heroExtra?: string;
+  ogType?: string; ogDescription?: string; twitterDescription?: string; // legacy link-preview meta
   closing: { heading: string; text: string; event: string };
 }
 const p = Astro.props;
@@ -32,13 +34,14 @@ const pickerState: CardState = {
 };
 const guides = guidesForDiet(await getCollection('guides'), p.diet);
 ---
-<BaseLayout title={p.title} description={p.description} canonical={p.canonical} page={p.page} current={DIETS[p.diet].hub ?? undefined} jsonLd={p.jsonLd}>
+<BaseLayout title={p.title} description={p.description} canonical={p.canonical} page={p.page} current={DIETS[p.diet].hub ?? undefined} ogType={p.ogType} ogDescription={p.ogDescription} twitterDescription={p.twitterDescription} jsonLd={p.jsonLd}>
   <section class="tm-container hub-hero">
     <div class="hub-hero__copy">
       <p class="tm-kicker">{p.eyebrow}</p>
       <h1 class="tm-display hub-hero__h1">{p.h1}</h1>
       <p class="hub-hero__lede">{p.lede}</p>
       <p class="hub-hero__reviewed">Last reviewed {p.reviewed} · <a href="/about/#corrections">Corrections</a></p>
+      {p.heroExtra && <Fragment set:html={p.heroExtra} />}
     </div>
     <Illustration src={p.illustration.src} alt={p.illustration.alt} caption={p.illustration.caption} loading="eager" sizes="(max-width: 900px) 100vw, 50vw" />
   </section>

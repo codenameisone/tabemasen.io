@@ -12,5 +12,6 @@
   { "url": "/allergies/food-allergies-in-japanese/", "text": "Generate my allergy card →", "reason": "Owner rule: long-form CTA" },
   { "url": "/halal/", "text": "Generate my halal card →", "reason": "Owner rule: long-form CTA" },
   { "url": "/halal/certification-guide/", "text": "Generate my halal card →", "reason": "Owner rule: long-form CTA" },
-  { "url": "/vegan/", "text": "Generate my vegan card →", "reason": "Owner rule: long-form CTA" }
+  { "url": "/vegan/", "text": "Generate my vegan card →", "reason": "Owner rule: long-form CTA" },
+  { "url": "/gluten-free-japan/", "text": "Generate my gluten-free card →", "reason": "Owner rule: long-form CTA" }
 ]
