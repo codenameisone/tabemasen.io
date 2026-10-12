@@ -70,3 +70,13 @@ describe('GuideLayout', async () => {
     expect(solo).toContain('lg-article');
   });
 });
+
+describe('GuideLayout link-preview text', async () => {
+  const container = await AstroContainer.create();
+  it('passes a guide\'s own og and twitter descriptions through', async () => {
+    const html = await container.renderToString(GuideLayout, { props: { ...base, related: [], ogDescription: 'OG', twitterDescription: 'TW' }, slots });
+    expect(html).toContain('<meta property="og:description" content="OG">');
+    expect(html).toContain('<meta name="twitter:description" content="TW">');
+    expect(html).toContain('<meta property="og:type" content="article">');
+  });
+});
