@@ -4,7 +4,7 @@ import { pageFacts } from './lib/page-facts.mjs';
 import { listDistPages } from './lib/dist-pages.mjs';
 import {
   SITE, baselineProblems, pageProblems, resolveInternal, linkCandidates, sitemapProblems,
-  pageBasicsProblems, allowlistProblems, socialMeta, socialProblems,
+  pageBasicsProblems, allowlistProblems, socialMeta, socialProblems, faqProblems,
 } from './lib/seo-checks.mjs';
 
 const dist = 'dist';
@@ -28,6 +28,7 @@ for (const { url, file } of listDistPages(dist)) {
   current[url] = facts;
   problems.push(...pageProblems(url, facts));
   problems.push(...pageBasicsProblems(url, facts));
+  problems.push(...faqProblems(url, html));
   if (facts.canonical === SITE + url && !/noindex/i.test(facts.robots ?? '')) indexable.push(url);
 
   for (const href of facts.links) {

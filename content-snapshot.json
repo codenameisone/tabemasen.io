@@ -780,10 +780,10 @@
     "mainEntity": [
      {
       "@type": "Question",
-      "name": "How do you say I have multiple food allergies in Japanese?",
+      "name": "How do you say \"I have multiple food allergies\" in Japanese?",
       "acceptedAnswer": {
        "@type": "Answer",
-       "text": "List each allergen connected with と (to, meaning 'and'): 小麦と卵と乳のアレルギーがあります (komugi to tamago to nyuu no arerugi ga arimasu) — I have wheat, egg, and dairy allergies. Listing each allergen individually is more useful to kitchen staff than saying you have 'multiple allergies' in the abstract."
+       "text": "List each allergen connected with と (to, meaning \"and\"): 小麦と卵と乳のアレルギーがあります (komugi to tamago to nyuu no arerugi ga arimasu). Listing each allergen individually is more useful to kitchen staff than saying you have \"multiple allergies\" in the abstract — they need to know exactly which ones."
       }
      },
      {
@@ -791,15 +791,15 @@
       "name": "Do Japanese restaurants understand food allergies?",
       "acceptedAnswer": {
        "@type": "Answer",
-       "text": "Awareness varies. Chain and family restaurants often have allergen menus (アレルギー表) listing the mandatory 9 allergens. Small independent restaurants may not have formal protocols but are usually willing to help if you can communicate clearly. A written card in Japanese helps bridge the gap, especially at smaller places."
+       "text": "Awareness varies. Chain and family restaurants often have allergen menus (アレルギー表) listing the mandatory 9 allergens. Small independent restaurants may not have formal protocols but are usually willing to help if you can communicate clearly. A written card in Japanese helps bridge the gap, especially at smaller places where staff may not speak English."
       }
      },
      {
       "@type": "Question",
-      "name": "What is the difference between an allergy card and a chef card?",
+      "name": "What's the difference between an allergy card and a chef card?",
       "acceptedAnswer": {
        "@type": "Answer",
-       "text": "Same thing, different names. Chef card is the term used by allergists and dietitians. Allergy card or allergy translation card is more common among travelers. Both refer to a written explanation of your dietary restriction in the local language that you show restaurant staff."
+       "text": "Same thing, different names. \"Chef card\" is the term used by allergists and dietitians. \"Allergy card\" or \"allergy translation card\" is more common among travelers. Both refer to a written explanation of your dietary restriction in the local language that you show restaurant staff."
       }
      },
      {
@@ -807,7 +807,7 @@
       "name": "Can I use Google Translate for food allergies in Japan?",
       "acceptedAnswer": {
        "@type": "Answer",
-       "text": "For simple phrases it can work, but allergy communication requires precision that machine translation often misses. For example, translating 'I am allergic to milk' may produce phrasing that sounds like you simply dislike drinking milk, rather than flagging hidden dairy in sauces, breading, or stock. Kitchen staff need concise, actionable instructions — not a literal translation of conversational English."
+       "text": "For simple phrases it can work, but allergy communication requires precision that machine translation often misses. For example, translating \"I am allergic to milk\" may produce phrasing that sounds like you dislike drinking milk, rather than flagging hidden dairy in sauces, breading, or stock. Kitchen staff need concise, actionable instructions — not a literal translation of conversational English."
       }
      },
      {
@@ -815,7 +815,7 @@
       "name": "Does Japan's allergen labeling cover restaurants?",
       "acceptedAnswer": {
        "@type": "Answer",
-       "text": "No — only packaged food. Japan mandates disclosure of 9 specific allergens (wheat, milk, eggs, peanuts, shrimp, crab, buckwheat, walnuts, cashew nuts) on packaged products, and recommends disclosure of 20 more. Restaurants have no legal obligation to disclose allergens, though many chains voluntarily provide allergen menus on request."
+       "text": "No — only packaged food. Japan mandates disclosure of 9 specific allergens on packaged products, and recommends disclosure of 20 more. Restaurants have no legal obligation to disclose allergens, though many chains voluntarily provide allergen menus on request. For details on reading Japanese food labels, see the labeling guide."
       }
      }
     ]
@@ -1251,10 +1251,10 @@
      },
      {
       "@type": "Question",
-      "name": "Does Japan use 'may contain' labels?",
+      "name": "Does Japan use \"may contain\" labels?",
       "acceptedAnswer": {
        "@type": "Answer",
-       "text": "Not in the Western sense. If an allergen is present above 10 ppm — including through cross-contamination — it's declared as a labeled ingredient. However, many manufacturers include production-line statements (e.g., 'This product is manufactured in a factory that also produces products containing egg') — these read as regular prose, not a separate warning box. They're easy to overlook if you're only scanning the allergen summary line."
+       "text": "Not in the Western sense. If an allergen is present above 10 ppm — including through cross-contamination — it's declared as a labeled ingredient. However, many manufacturers include production-line statements (e.g., \"This product is manufactured in a factory that also produces products containing egg\") — these read as regular prose, not a separate warning box. They're easy to overlook if you're only scanning the allergen summary line."
       }
      },
      {
@@ -1477,7 +1477,7 @@
     "mainEntity": [
      {
       "@type": "Question",
-      "name": "Does \"no wheat\" on a Japanese label mean the food is gluten-free?",
+      "name": "Does “no wheat” on a Japanese label mean the food is gluten-free?",
       "acceptedAnswer": {
        "@type": "Answer",
        "text": "No. Japan's mandatory allergen list covers nine items — shrimp, cashew nut, crab, walnut, wheat, buckwheat, egg, milk and peanut. Barley and rye are on neither the mandatory list nor the 21-item recommended list, so barley malt or roasted barley can be present in a product whose allergen box shows no wheat. Read the full ingredients list, not only the allergen declaration."
@@ -1485,15 +1485,15 @@
      },
      {
       "@type": "Question",
-      "name": "Is \"gluten-free\" legally defined in Japan?",
+      "name": "Is “gluten-free” legally defined in Japan?",
       "acceptedAnswer": {
        "@type": "Answer",
-       "text": "Not in the general way it is in the EU or the US, where a 20 ppm threshold applies. Japan's only formal scheme is narrower and stricter: MAFF's rice flour labelling guidelines permit rice flour containing 1 ppm or less of gluten to be labelled \"Non-Gluten\". It is voluntary, requires third-party certification, and covers only rice flour made from Japanese rice. Outside that scheme, グルテンフリー on a package or menu is a marketing claim rather than a regulated one."
+       "text": "Not in the general way it is in the EU or the US, where a 20 ppm threshold applies. Japan's only formal scheme is narrower and stricter: MAFF's rice flour labelling guidelines permit rice flour containing 1 ppm or less of gluten to be labelled “Non-Gluten”. It is voluntary, requires third-party certification, and covers only rice flour made from Japanese rice. Outside that scheme, グルテンフリー on a package or menu is a marketing claim rather than a regulated one."
       }
      },
      {
       "@type": "Question",
-      "name": "What is the Japanese \"Non-Gluten\" certification mark?",
+      "name": "What is the Japanese “Non-Gluten” certification mark?",
       "acceptedAnswer": {
        "@type": "Answer",
        "text": "A voluntary mark for rice flour certified at 1 ppm gluten or below, administered through third-party certification set up by the Japan Rice Flour Association. The threshold is stricter than the US FDA's less than 20 ppm and the European Commission's 20 ppm or lower. Its scope is the limitation: it applies to rice flour from Japanese rice, not to food in general."
@@ -1925,7 +1925,7 @@
       "name": "Is ramen gluten free in Japan?",
       "acceptedAnswer": {
        "@type": "Answer",
-       "text": "No. Ramen noodles are made from wheat flour, and the broth almost always contains soy sauce. A few specialty shops offer rice noodle or konjac noodle substitutes, but they are rare. If you want noodles, look for 100% buckwheat soba (called juwari soba or 十割そば) at a dedicated soba restaurant — not at a ramen shop."
+       "text": "No. Ramen noodles are made from wheat flour, and the broth almost always contains soy sauce. A few specialty shops offer rice noodle or konjac noodle substitutes, but they're rare. If you want noodles, look for 100% buckwheat soba (called juwari soba, or 十割そば) at a dedicated soba restaurant — not a ramen shop."
       }
      },
      {
@@ -1933,7 +1933,7 @@
       "name": "Can I find gluten-free beer in Japan?",
       "acceptedAnswer": {
        "@type": "Answer",
-       "text": "It's tricky. Regular Japanese beers (Asahi, Sapporo, Kirin Ichiban) contain barley and are not safe. Happoshu (low-malt beer) still contains barley, so it's also not safe for celiacs. Some third-category beers (第3のビール) are brewed from pea protein, soy, or corn and may avoid barley entirely, but always check labels for 小麦 and 大麦 — formulations vary by brand. The safest widely-available options: chuhai (shochu-based fruit cocktails) and highballs (whisky and soda) are naturally grain-free and sold at every convenience store."
+       "text": "It's tricky. Regular Japanese beers (Asahi, Sapporo, Kirin Ichiban) contain barley and are not safe. Happoshu (low-malt beer) still contains barley — just less of it — so it's also not safe for celiacs. Some \"third-category\" beers (第3のビール) are brewed from pea protein, soy, or corn instead of grain and may avoid barley entirely, but always check labels for 小麦 and 大麦 (wheat and barley) — formulations vary by brand. The safest widely-available options: chuhai (チューハイ, shochu-based fruit cocktails) and highballs (ハイボール, whisky and soda) are naturally grain-free and sold at every convenience store."
       }
      },
      {
@@ -1941,20 +1941,20 @@
       "name": "Are Japanese convenience stores good for gluten-free food?",
       "acceptedAnswer": {
        "@type": "Answer",
-       "text": "Excellent. Japan's allergen labeling law requires all packaged food to clearly list wheat (小麦) as an allergen. Plain salt and umeboshi onigiri are usually safe, but check the label even for simple-looking fish flavours — salmon flake is often pre-seasoned with soy sauce. Edamame, hard-boiled eggs, plain rice, fruit, and yogurt are widely available. Watch out for mitarashi dango (soy-sauce-glazed rice balls) and rice crackers with wheat-derived processing aids. 7-Eleven, Lawson, and FamilyMart all carry safe options."
+       "text": "Excellent. Japan's allergen labeling law requires all packaged food to clearly list wheat (小麦) as an allergen. Plain salt and umeboshi onigiri are usually safe, but check the label even for simple-looking fish flavours — salmon flake is often pre-seasoned with soy sauce. Edamame, hard-boiled eggs, plain rice, fruit, and yogurt are widely available. Watch out for mitarashi dango (the soy-sauce-glazed rice balls) and rice crackers that may contain wheat-derived processing aids. 7-Eleven, Lawson, and FamilyMart all carry safe options — the mandatory labeling makes convenience stores one of the safest places to eat gluten-free in Japan."
       }
      },
      {
       "@type": "Question",
-      "name": "How do you say gluten-free in Japanese?",
+      "name": "How do you say \"gluten-free\" in Japanese?",
       "acceptedAnswer": {
        "@type": "Answer",
-       "text": "The phrase is グルテンフリー (guruten furii) — a direct loan from English. For wheat specifically, the word is 小麦 (komugi). In practice, though, saying the words isn't enough. Restaurant staff may not connect gluten with the wheat in their soy sauce. A written card with the specific ingredients listed in kanji is far more reliable than a verbal explanation."
+       "text": "The phrase is グルテンフリー (guruten furii) — a direct loan from English. For wheat specifically, the word is 小麦 (komugi). In practice, though, saying the words isn't enough. Restaurant staff may not connect \"gluten\" with the wheat in their soy sauce. A written card with the specific ingredients listed in kanji is far more reliable than a verbal explanation — which is exactly what this generator creates."
       }
      },
      {
       "@type": "Question",
-      "name": "Does the restaurant card warn about cross-contamination?",
+      "name": "Does the card warn about cross-contamination?",
       "acceptedAnswer": {
        "@type": "Answer",
        "text": "Yes — by default. The gluten-free card specifically asks staff to use separate cookware and oil, since even trace amounts of gluten can cause celiac reactions. Shared fryers used for tempura are the most common source of cross-contamination in Japanese restaurants."
@@ -2322,7 +2322,7 @@
       "name": "Can I find halal food in rural areas?",
       "acceptedAnswer": {
        "@type": "Answer",
-       "text": "Sparingly. The strategy is to plan meals around city stops, carry halal-certified instant meals and snacks (online halal grocers ship across Japan), and consider self-catering at AirBnBs with kitchens. Some ryokans in tourist regions have started offering halal kaiseki on advance request — book at least two weeks ahead with full disclosure of what you do and don't eat."
+       "text": "Sparingly. The strategy is to plan meals around city stops, carry halal-certified instant meals and snacks (online halal grocers in Japan such as JAPANeid ship across the country), and consider self-catering at AirBnBs with kitchens. Some ryokans in tourist regions have started offering halal kaiseki on advance request — book at least two weeks ahead with full disclosure of what you do and don't eat."
       }
      },
      {
@@ -2774,7 +2774,7 @@
      },
      {
       "@type": "Question",
-      "name": "What's the difference between halal certified and Muslim-friendly?",
+      "name": "What's the difference between \"halal certified\" and \"Muslim-friendly\"?",
       "acceptedAnswer": {
        "@type": "Answer",
        "text": "Halal certified means a recognized body has inspected the restaurant and verified that all ingredients, meat sourcing, preparation methods, and kitchen equipment meet halal standards. Muslim-friendly means the restaurant has made efforts to accommodate Muslim diners — no pork in certain dishes, halal meat options — but may still use mirin or cooking sake, share kitchen equipment with non-halal items, and serve alcohol."
@@ -2793,7 +2793,7 @@
       "name": "Which halal certification body in Japan is most trusted?",
       "acceptedAnswer": {
        "@type": "Answer",
-       "text": "JHA has the widest international recognition — approved by JAKIM, MUIS, BPJPH, HAK, GAC, and MOIAT. JMA (Japan Muslim Association) is the oldest Muslim organization and is JAKIM-recognized. MPJA is recognized by JAKIM, MUI, and CICOT. The 'most trusted' depends on which country's standards you follow."
+       "text": "JHA has the widest international recognition — approved by JAKIM, MUIS, BPJPH, HAK, GAC, and MOIAT. JMA (Japan Muslim Association) is the oldest Muslim organization and is JAKIM-recognized. MPJA is recognized by JAKIM, MUI, and CICOT. \"Most trusted\" depends on which country's standards you follow."
       }
      },
      {
@@ -3025,7 +3025,7 @@
       "name": "Can I just say \"I'm vegan\" and trust the answer?",
       "acceptedAnswer": {
        "@type": "Answer",
-       "text": "Often no. \"Vegan\" doesn't reliably translate to \"no fish stock\" for everyone. Many Japanese kitchens understand it as \"no visible meat\" — eggs and dashi and bonito sometimes still slip through. Use the card. In conversation, list what you don't eat: 肉、魚、卵、乳製品は食べません。だしも避けてください — I don't eat meat, fish, eggs, or dairy. Please also avoid dashi."
+       "text": "Often no. \"Vegan\" doesn't reliably translate to \"no fish stock\" for everyone. Many Japanese kitchens understand it as \"no visible meat\" — eggs and dashi and bonito sometimes still slip through. Use the card. In conversation, list what you don't eat: 「肉、魚、卵、乳製品は食べません。だしも避けてください」 — I don't eat meat, fish, eggs, or dairy. Please also avoid dashi."
       }
      },
      {
@@ -3033,7 +3033,7 @@
       "name": "Is kombu dashi always vegan?",
       "acceptedAnswer": {
        "@type": "Answer",
-       "text": "Pure kombu (kelp) dashi is, yes. The complication is that most Japanese restaurants use awase dashi — kombu and bonito together. Always ask: だしは昆布だけですか? — is the dashi just kelp? If the answer is yes, you're safe; if there's any hesitation, treat it as a no."
+       "text": "Pure kombu (kelp) dashi is, yes. The complication is that most Japanese restaurants use awase dashi — kombu and bonito together. Always ask: 「だしは昆布だけですか?」 — is the dashi just kelp? If the answer is yes, you're safe; if there's any hesitation, treat it as a no."
       }
      },
      {
@@ -3065,7 +3065,7 @@
       "name": "Are there vegan ramen shops?",
       "acceptedAnswer": {
        "@type": "Answer",
-       "text": "In Tokyo, Kyoto, and Osaka, yes — and growing. T's Tantan at major train stations is the most reliable chain, with branches in Tokyo Station, Ueno, Ikebukuro, and at both Narita and Haneda airports. Search HappyCow for \"vegan ramen [city]\" and you'll find dedicated shops in most large cities. Ordinary ramen shops, even those serving \"vegetable ramen,\" almost always use animal stock and won't be able to swap on request."
+       "text": "In Tokyo, Kyoto, and Osaka, yes — and growing. T's Tantan at major train stations is the most reliable chain. Search HappyCow for \"vegan ramen [city]\" and you'll find dedicated shops in most large cities. Ordinary ramen shops, even those serving \"vegetable ramen,\" almost always use animal stock and won't be able to swap on request."
       }
      },
      {

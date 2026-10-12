@@ -1,3 +1,4 @@
+import { parse as parseHtml } from 'parse5';
 export const SITE = 'https://tabemasen.io';
 export const BASELINE_FIELDS = ['title', 'description', 'h1', 'canonical', 'robots', 'jsonLdTypes'];
 
@@ -99,6 +100,54 @@ export function socialProblems(baseline, current) {
       if (JSON.stringify(now[key]) === JSON.stringify(value)) continue;
       problems.push(`${url}: ${key} changed\n    was: ${JSON.stringify(value)}\n    now: ${JSON.stringify(now[key] ?? null)}`);
     }
+  }
+  return problems;
+}
+
+// Google wants FAQPage answers to match what the page shows. Each Question name and
+// Answer text must appear word for word in the visible text (whitespace collapsed).
+const INLINE = new Set(['a', 'strong', 'em', 'b', 'i', 'span', 'code', 'abbr', 'small', 'sup', 'sub', 'mark', 'q', 'cite', 'time', 'kbd']);
+const HIDDEN = new Set(['script', 'style', 'template', 'head', 'noscript']);
+const squash = (s) => s.replace(/\s+/g, ' ').trim();
+
+function visibleText(html) {
+  let out = '';
+  (function walk(n) {
+    for (const c of n.childNodes ?? []) {
+      if (c.nodeName === '#text') out += c.value;
+      else if (c.tagName && !HIDDEN.has(c.tagName)) {
+        const block = !INLINE.has(c.tagName);
+        if (block) out += ' ';
+        walk(c);
+        if (block) out += ' ';
+      }
+    }
+  })(parseHtml(html));
+  return squash(out);
+}
+
+function faqQuestions(html) {
+  const out = [];
+  const visit = (node) => {
+    if (Array.isArray(node)) return node.forEach(visit);
+    if (!node || typeof node !== 'object') return;
+    if (node['@type'] === 'FAQPage') for (const q of [node.mainEntity ?? []].flat()) out.push(q);
+    for (const v of Object.values(node)) if (typeof v === 'object') visit(v);
+  };
+  for (const m of html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)) {
+    try { visit(JSON.parse(m[1])); } catch { /* reported by pageProblems */ }
+  }
+  return out;
+}
+
+export function faqProblems(url, html) {
+  const text = visibleText(html);
+  const problems = [];
+  for (const q of faqQuestions(html)) {
+    const name = squash(q.name ?? '');
+    const answer = squash(q.acceptedAnswer?.text ?? '');
+    if (!text.includes(name)) problems.push(`${url}: FAQ JSON-LD question "${name}" is not on the page`);
+    else if (!text.includes(answer)) problems.push(`${url}: FAQ JSON-LD answer to "${name}" is not the visible answer text`);
   }
   return problems;
 }

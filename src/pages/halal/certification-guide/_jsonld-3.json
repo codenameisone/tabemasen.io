@@ -12,7 +12,7 @@
       },
       {
         "@type": "Question",
-        "name": "What's the difference between halal certified and Muslim-friendly?",
+        "name": "What's the difference between \"halal certified\" and \"Muslim-friendly\"?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Halal certified means a recognized body has inspected the restaurant and verified that all ingredients, meat sourcing, preparation methods, and kitchen equipment meet halal standards. Muslim-friendly means the restaurant has made efforts to accommodate Muslim diners — no pork in certain dishes, halal meat options — but may still use mirin or cooking sake, share kitchen equipment with non-halal items, and serve alcohol."
@@ -31,7 +31,7 @@
         "name": "Which halal certification body in Japan is most trusted?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "JHA has the widest international recognition — approved by JAKIM, MUIS, BPJPH, HAK, GAC, and MOIAT. JMA (Japan Muslim Association) is the oldest Muslim organization and is JAKIM-recognized. MPJA is recognized by JAKIM, MUI, and CICOT. The 'most trusted' depends on which country's standards you follow."
+          "text": "JHA has the widest international recognition — approved by JAKIM, MUIS, BPJPH, HAK, GAC, and MOIAT. JMA (Japan Muslim Association) is the oldest Muslim organization and is JAKIM-recognized. MPJA is recognized by JAKIM, MUI, and CICOT. \"Most trusted\" depends on which country's standards you follow."
         }
       },
       {

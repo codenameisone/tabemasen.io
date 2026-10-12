@@ -20,10 +20,10 @@
       },
       {
         "@type": "Question",
-        "name": "Does Japan use 'may contain' labels?",
+        "name": "Does Japan use \"may contain\" labels?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Not in the Western sense. If an allergen is present above 10 ppm — including through cross-contamination — it's declared as a labeled ingredient. However, many manufacturers include production-line statements (e.g., 'This product is manufactured in a factory that also produces products containing egg') — these read as regular prose, not a separate warning box. They're easy to overlook if you're only scanning the allergen summary line."
+          "text": "Not in the Western sense. If an allergen is present above 10 ppm — including through cross-contamination — it's declared as a labeled ingredient. However, many manufacturers include production-line statements (e.g., \"This product is manufactured in a factory that also produces products containing egg\") — these read as regular prose, not a separate warning box. They're easy to overlook if you're only scanning the allergen summary line."
         }
       },
       {
