@@ -1,5 +1,5 @@
-/* src/styles/about-body.css — the legacy /about/ page (ab-*), restyled on --tm-* tokens. Text untouched. */
-/* The body fragments use no variables from the retired styles.css, so no shims are needed. */
+/* src/styles/about-body.css — the /about/ page body (ab-*), on --tm-* tokens. Text untouched. */
+/* The body fragments rely only on --tm-* tokens, so no shims are needed. */
 
 .tm-container.page-about { padding-top: 48px; padding-bottom: 96px; }
 .page-about > .ab-hero, .page-about > .ab-main, .page-about > .ab-cta { max-width: 760px; margin-left: auto; margin-right: auto; }

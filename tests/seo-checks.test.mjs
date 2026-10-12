@@ -157,6 +157,19 @@ describe('social meta', () => {
     expect(problems[1]).toContain('/a/: og:title changed');
   });
 
+  it('keeps repeated keys (article:tag) as an ordered array', () => {
+    const h = '<meta property="article:tag" content="a"><meta property="article:tag" content="b"><meta property="og:type" content="article">';
+    expect(socialMeta(h)).toEqual({ 'article:tag': ['a', 'b'], 'og:type': 'article' });
+  });
+
+  it('flags a dropped or reordered repeated tag', () => {
+    const baseline = { '/a/': { 'article:tag': ['a', 'b'] } };
+    expect(socialProblems(baseline, { '/a/': { 'article:tag': ['a', 'b'] } })).toEqual([]);
+    expect(socialProblems(baseline, { '/a/': { 'article:tag': 'b' } })).toHaveLength(1);
+    expect(socialProblems(baseline, { '/a/': { 'article:tag': ['a'] } })).toHaveLength(1);
+    expect(socialProblems(baseline, { '/a/': { 'article:tag': ['b', 'a'] } })).toHaveLength(1);
+  });
+
   it('passes when every legacy value is unchanged', () => {
     expect(socialProblems({ '/a/': { 'og:type': 'article' } }, { '/a/': { 'og:type': 'article', 'og:url': 'u' } })).toEqual([]);
   });

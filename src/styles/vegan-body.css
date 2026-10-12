@@ -19,5 +19,5 @@
 /* FAQ disclosures */
 .vg-faq { border-bottom: 1px solid var(--tm-rule); }
 .vg-faq__item { border-top: 1px solid var(--tm-rule); }
-.vg-faq__item summary { min-height: 44px; padding: 16px 0; cursor: pointer; font-weight: 700; font-size: 18px; list-style-position: outside; }
+.vg-faq__item summary { min-height: 44px; padding: 16px 0; cursor: pointer; font-weight: 700; font-size: 18px; }
 .vg-faq__item p { margin: 0 0 16px; }

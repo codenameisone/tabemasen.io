@@ -26,7 +26,7 @@ const hasToc = Astro.slots.has('toc');
     <Illustration src={p.illustration.src} alt={p.illustration.alt} caption={p.illustration.caption} loading="eager" sizes="(max-width: 900px) 100vw, 44vw" />
   </section>
 
-  <div class="tm-container guide-notice"><slot name="notice" /></div>
+  {Astro.slots.has('notice') && <div class="tm-container guide-notice"><slot name="notice" /></div>}
 
   <div class:list={['tm-container guide-main', !hasToc && 'guide-main--solo']}>
     {hasToc && (

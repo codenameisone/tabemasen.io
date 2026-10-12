@@ -35,6 +35,7 @@ const pickerState: CardState = {
 const guides = guidesForDiet(await getCollection('guides'), p.diet);
 ---
 <BaseLayout title={p.title} description={p.description} canonical={p.canonical} page={p.page} current={DIETS[p.diet].hub ?? undefined} ogType={p.ogType} ogDescription={p.ogDescription} twitterDescription={p.twitterDescription} jsonLd={p.jsonLd}>
+  <main id="main">
   <section class="tm-container hub-hero">
     <div class="hub-hero__copy">
       <p class="tm-kicker">{p.eyebrow}</p>
@@ -80,6 +81,7 @@ const guides = guidesForDiet(await getCollection('guides'), p.diet);
       <a class="tm-btn" href={DIETS[p.diet].pattern ? `/#p=${DIETS[p.diet].pattern}` : '/'} data-gc-event={p.closing.event}>{p.ctaLabel}</a>
     </div>
   </section>
+  </main>
 </BaseLayout>
 
 <style>

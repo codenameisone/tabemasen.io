@@ -80,3 +80,12 @@ describe('GuideLayout link-preview text', async () => {
     expect(html).toContain('<meta property="og:type" content="article">');
   });
 });
+
+describe('GuideLayout without a notice', async () => {
+  const container = await AstroContainer.create();
+  it('renders no empty notice region', async () => {
+    const { notice, ...rest } = slots;
+    const html = await container.renderToString(GuideLayout, { props: { ...base, related }, slots: rest });
+    expect(html).not.toContain('guide-notice');
+  });
+});
