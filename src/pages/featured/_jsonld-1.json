@@ -1,0 +1,8 @@
+{
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Featured in",
+    "url": "https://tabemasen.io/featured/",
+    "isPartOf": { "@id": "https://tabemasen.io/#website" },
+    "publisher": { "@id": "https://tabemasen.io/#organization" }
+  }
