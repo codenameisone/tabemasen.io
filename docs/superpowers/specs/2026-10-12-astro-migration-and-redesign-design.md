@@ -58,9 +58,7 @@ The built HTML for every URL equals today's HTML after whitespace and attribute-
 
 ### Shared layout
 
-- `src/layouts/LegacyLayout.astro` holds what every page repeats (doctype, head boilerplate, favicons, stylesheet link, header/nav markup, footer, `nav.js`, `analytics.js`, GoatCounter tag). Props: `title`, `description`, `canonical`, `jsonLd` (array of objects or raw strings), `extraHead` slot, `bodyClass`, and flags for page-specific scripts.
-- Where a page's boilerplate differs from the others (e.g. `/` loads html2canvas, `data.js`, `app.js`), that difference is expressed through props/slots, not by forking the layout.
-- Page bodies are moved verbatim into the `.astro` files. No copy edits in M1.
+- **Amended 2026-10-12 (M1 plan):** M1 does not extract a shared layout. Every page's head, header and footer differ (active nav state, analytics event names, footer link lists, page-specific inline styles), so a layout could not reproduce them without a prop per line, and Milestone 2 replaces header, footer and layouts. Pages are ported verbatim with `is:inline` on every `<script>`/`<style>`. `LegacyLayout` is introduced in M2 slice 1 for pages not yet redesigned.
 
 ### Astro output traps (must hold)
 
@@ -71,7 +69,7 @@ The built HTML for every URL equals today's HTML after whitespace and attribute-
 
 ### Verification
 
-- `scripts/compare-build.mjs`: for each of the 12 URLs, read the file from `main` (via `git show main:<path>`) and from `dist/`, normalise (collapse runs of whitespace, sort attributes within each tag; HTML comments are kept and compared), and diff. Also byte-compare every `public/` file with its `main` counterpart. Exit non-zero on any difference. Run as `npm run compare`.
+- `scripts/compare-build.mjs`: for each of the 12 URLs, read the file from `main` (via `git show pre-astro:<path>`, the tag at `a5d5b21`) and from `dist/`, normalise (collapse runs of whitespace, sort attributes within each tag; HTML comments are kept and compared), and diff. Also byte-compare every `public/` file with its `main` counterpart. Exit non-zero on any difference. Run as `npm run compare`.
 - M1 is mergeable only when `npm run compare` reports zero differences.
 - One manual pass locally: build a card on `/`, copy link, open it, PNG export, print, follow each landing's `/#p=…` link.
 
@@ -86,7 +84,7 @@ The built HTML for every URL equals today's HTML after whitespace and attribute-
 ### Housekeeping
 
 - README: replace "No build step" quick start with `npm ci`, `npm run dev`, `npm run build`, `npm run preview`; update "Adding a new allergen" (still `data.js`, now under `public/`).
-- `CHANGE_REQUESTS_V1.md`: mark the "no build step / no framework" constraint as superseded by this spec. Keep the hash-format and `data.js`-as-source-of-truth constraints.
+- `CHANGE_REQUESTS_V1.md` is gitignored (local notes); its "no build step" constraint is superseded by this spec.
 - At the end of M1, generate `seo-baseline.json` (see §6).
 
 ## 4. Milestone 2 — information architecture and content model
