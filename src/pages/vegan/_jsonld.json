@@ -1,0 +1,62 @@
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I just say \"I'm vegan\" and trust the answer?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Often no. \"Vegan\" doesn't reliably translate to \"no fish stock\" for everyone. Many Japanese kitchens understand it as \"no visible meat\" — eggs and dashi and bonito sometimes still slip through. Use the card. In conversation, list what you don't eat: 肉、魚、卵、乳製品は食べません。だしも避けてください — I don't eat meat, fish, eggs, or dairy. Please also avoid dashi."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is kombu dashi always vegan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Pure kombu (kelp) dashi is, yes. The complication is that most Japanese restaurants use awase dashi — kombu and bonito together. Always ask: だしは昆布だけですか? — is the dashi just kelp? If the answer is yes, you're safe; if there's any hesitation, treat it as a no."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where can I find shojin ryori?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The classic spots are the temple lodgings of Koyasan (Mount Koya), central Kyoto, and Nara. Many temple stays (shukubo) include a shojin dinner. Daigo in Tokyo is a Michelin-starred shojin restaurant — but request animal-free preparation when reserving, since their default broth uses bonito flakes. Book at least a week ahead at any of these — the kitchens prepare bespoke menus and can't accommodate walk-ins."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is sushi vegan-friendly at all?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The vegetable rolls are: kappa maki (cucumber), oshinko maki (pickled radish), ume-shiso maki (plum and shiso). At higher-end sushi counters with notice, chefs will often prepare a vegan tasting menu around vegetables and pickles. Inari looks vegan but usually isn't — the tofu pouches are simmered in fish broth. Sushi rice (shari) at cheaper chains is sometimes seasoned with a bonito-containing vinegar; better counters use pure rice vinegar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What about mochi and Japanese sweets?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Traditional mochi (rice cake) and yokan (red bean jelly) are usually vegan. Watch for: gelatin in modern mochi, dairy in cream-filled daifuku, honey in some glazes. The pretty seasonal wagashi at department-store basements are a mixed bag — they look traditional but some use modern setting agents."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are there vegan ramen shops?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In Tokyo, Kyoto, and Osaka, yes — and growing. T's Tantan at major train stations is the most reliable chain, with branches in Tokyo Station, Ueno, Ikebukuro, and at both Narita and Haneda airports. Search HappyCow for \"vegan ramen [city]\" and you'll find dedicated shops in most large cities. Ordinary ramen shops, even those serving \"vegetable ramen,\" almost always use animal stock and won't be able to swap on request."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if I'm traveling rural?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Stock up before you leave the city. Carry plant-based bars, dried fruit, and instant cup noodles labelled vegan. Many ryokans will accommodate a vegan request if booked at least a week ahead with explicit disclosure — don't expect to walk in. In a real bind, plain steamed rice with pickles and edamame is available almost everywhere; convenience stores at major train stations carry the basics."
+        }
+      }
+    ]
+  }

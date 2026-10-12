@@ -136,7 +136,7 @@ test('mobile menu opens on a legacy page', async ({ page }, info) => {
   await expect(page.locator('.tm-header__toggle')).toHaveAttribute('aria-expanded', 'true');
 });
 
-for (const path of ['/', '/allergies/', '/halal/', '/guides/', '/allergies/labeling-guide/', '/allergies/food-allergies-in-japanese/', '/halal/certification-guide/']) {
+for (const path of ['/', '/allergies/', '/halal/', '/guides/', '/allergies/labeling-guide/', '/allergies/food-allergies-in-japanese/', '/halal/certification-guide/', '/vegan/']) {
   test(`${path} has no serious or critical axe violations`, async ({ page }) => {
     await page.goto(path);
     const { violations } = await new AxeBuilder({ page }).analyze();
@@ -315,6 +315,47 @@ test('halal preview matches the builder after hand-off, with the halal pattern s
 test('halal hub: no horizontal overflow and in-page links resolve', async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 800 });
   await page.goto('/halal/');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+  const hrefs = await page.locator('a[href^="#"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')).filter((h) => h.length > 1));
+  for (const h of hrefs) await expect(page.locator(`[id="${h.slice(1)}"]`)).toHaveCount(1);
+});
+
+test('vegan hub: picker starts empty, hands pattern to the builder, no phone mockup', async ({ page }) => {
+  await page.goto('/vegan/');
+  await expect(page.locator('h1')).toHaveText('Japan vegan restaurant card');
+  await expect(page.locator('.vg-phone-stage, .vg-phone')).toHaveCount(0);
+  const go = page.locator('.picker__go');
+  await expect(go).toHaveText('Generate my Japanese vegan card →');
+  await expect(go).toHaveAttribute('data-gc-event', 'cta-vegan-hero');
+  await expect(go).toHaveAttribute('href', '/#p=vegan');
+  await expect(page.locator('.picker__builder')).toHaveAttribute('data-gc-event', 'cta-vegan-builder');
+  await expect(page.locator('.picker__switch')).toHaveCount(0);
+  await expect(page.locator('.picker__chip[aria-pressed="true"]')).toHaveCount(0);
+  await expect(page.locator('.picker__chip')).toHaveCount(7);
+  await page.locator('.picker__chip[data-key="soy"]').click();
+  await expect(go).toHaveAttribute('href', '/#a=soy&p=vegan');
+  await expect(page.locator('.picker__builder')).toHaveAttribute('href', '/#a=soy&p=vegan');
+  await expect(page.locator('.hub-cta a.tm-btn')).toHaveText('Generate my Japanese vegan card →');
+  await expect(page.locator('.hub-cta a.tm-btn')).toHaveAttribute('data-gc-event', 'cta-vegan-footer');
+  await expect(page.locator('.hub-cta a.tm-btn')).toHaveAttribute('href', '/#p=vegan');
+});
+
+test('vegan hub: body is styled (cards, FAQ) and the FAQ opens', async ({ page }) => {
+  await page.goto('/vegan/');
+  await expect(page.locator('.vg-feature-card')).toHaveCount(8);
+  expect(await page.locator('.vg-feature-card').first().evaluate((e) => getComputedStyle(e).borderTopWidth)).not.toBe('0px');
+  expect(await page.locator('.vg-feature-grid').evaluate((e) => getComputedStyle(e).display)).toBe('grid');
+  expect(await page.locator('.vg-faq__item summary').first().evaluate((e) => e.getBoundingClientRect().height)).toBeGreaterThanOrEqual(44);
+  await expect(page.locator('.vg-faq__item')).toHaveCount(7);
+  await expect(page.locator('.vg-faq__item[open]')).toHaveCount(1);
+  await page.locator('.vg-faq__item summary').nth(1).click();
+  await expect(page.locator('.vg-faq__item').nth(1)).toHaveAttribute('open', '');
+  await expect(page.locator('main, [role="main"]')).toHaveCount(1);
+});
+
+test('vegan hub: no horizontal overflow and in-page links resolve', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 800 });
+  await page.goto('/vegan/');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
   const hrefs = await page.locator('a[href^="#"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')).filter((h) => h.length > 1));
   for (const h of hrefs) await expect(page.locator(`[id="${h.slice(1)}"]`)).toHaveCount(1);
