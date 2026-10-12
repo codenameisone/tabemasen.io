@@ -174,3 +174,31 @@ describe('social meta', () => {
     expect(socialProblems({ '/a/': { 'og:type': 'article' } }, { '/a/': { 'og:type': 'article', 'og:url': 'u' } })).toEqual([]);
   });
 });
+
+describe('faqProblems', async () => {
+  const { faqProblems } = await import('../scripts/lib/seo-checks.mjs');
+  const ld = (q, a) => `<script type="application/ld+json">${JSON.stringify({ '@type': 'FAQPage',
+    mainEntity: [{ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } }] })}</script>`;
+  const page = (head, body) => `<html><head>${head}</head><body>${body}</body></html>`;
+
+  it('passes when question and answer are on the page word for word', () => {
+    const html = page(ld('Is it safe?', 'Mostly — ask staff.'), '<details><summary>Is it safe?</summary><p>Mostly — <a href="/">ask</a>\n staff.</p></details>');
+    expect(faqProblems('/x/', html)).toEqual([]);
+  });
+
+  it('flags an answer that differs from the visible text', () => {
+    const html = page(ld('Is it safe?', 'Mostly.'), '<h3>Is it safe?</h3><p>Mostly — ask staff.</p>');
+    expect(faqProblems('/x/', html)).toEqual(['/x/: FAQ JSON-LD answer to "Is it safe?" is not the visible answer text']);
+  });
+
+  it('flags a question that is not on the page', () => {
+    const html = page(ld('Is it safe?', 'Yes.'), '<p>Yes.</p>');
+    expect(faqProblems('/x/', html)[0]).toMatch(/question "Is it safe\?" is not on the page/);
+  });
+
+  it('finds FAQPage inside an @graph', () => {
+    const graph = `<script type="application/ld+json">${JSON.stringify({ '@graph': [{ '@type': 'FAQPage',
+      mainEntity: [{ '@type': 'Question', name: 'Q?', acceptedAnswer: { '@type': 'Answer', text: 'Gone.' } }] }] })}</script>`;
+    expect(faqProblems('/x/', page(graph, '<p>Q?</p>'))).toHaveLength(1);
+  });
+});

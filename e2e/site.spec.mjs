@@ -679,3 +679,203 @@ test('hub pages: h1 and picker are inside the single main landmark', async ({ pa
     await expect(page.locator('main .hub-cta')).toHaveCount(1);
   }
 });
+
+test('food allergies guide: nine mandatory allergens, cashew included, marked in text as well as colour', async ({ page }) => {
+  await page.goto('/allergies/food-allergies-in-japanese/');
+  const cards = page.locator('.fa-allergen-card--mandatory');
+  await expect(cards).toHaveCount(9);
+  await expect(cards.filter({ hasText: 'Cashew' })).toHaveCount(1);
+  for (const card of await cards.all()) await expect(card).toContainText('mandatory allergen');
+  const body = await page.locator('main').innerText();
+  expect(body).not.toMatch(/mandatory 8|8 specific allergens/);
+  const ld = await page.$$eval('script[type="application/ld+json"]', (s) => s.map((x) => x.textContent).join(' '));
+  expect(ld).not.toMatch(/mandatory 8|8 specific allergens/);
+});
+
+// The focus ring must stand out (≥ 3:1) from the section it sits on, light or dark.
+const ringContrast = (locator) => locator.evaluate((el) => {
+  const rgb = (c) => (c.match(/[\d.]+/g) ?? []).slice(0, 4).map(Number);
+  const lum = ([r, g, b]) => [r, g, b].map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; })
+    .reduce((s, v, i) => s + v * [0.2126, 0.7152, 0.0722][i], 0);
+  const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+  let n = el.parentElement, bg;
+  while (n) { const c = rgb(getComputedStyle(n).backgroundColor); if (c.length === 3 || c[3] > 0) { bg = c; break; } n = n.parentElement; }
+  bg ??= [255, 255, 255];
+  const s = getComputedStyle(el);
+  const rings = [s.outlineStyle !== 'none' ? rgb(s.outlineColor) : null, ...(s.boxShadow.match(/rgba?\([^)]*\)/g) ?? []).map(rgb)].filter(Boolean);
+  return Math.max(0, ...rings.map((c) => ratio(c, bg)));
+});
+
+for (const [path, sel] of [
+  ['/celiac/', 'a[data-gc-event="cta-celiac-footer"]'],
+  ['/vegan/', '.hub-cta a'],
+  ['/', '.action-bar button'],
+  ['/allergies/labeling-guide/', '.tm-footer a'],
+  ['/allergies/labeling-guide/', 'main a'],
+]) {
+  test(`focus ring is visible on ${path} ${sel}`, async ({ page }) => {
+    await page.goto(path);
+    const el = page.locator(sel).first();
+    await el.focus();
+    await page.keyboard.press('Shift+Tab');
+    await page.keyboard.press('Tab');
+    await expect(el).toBeFocused();
+    expect(await ringContrast(el)).toBeGreaterThanOrEqual(3);
+  });
+}
+
+test('mobile menu: close icon while open, Escape closes and returns focus', async ({ page }, info) => {
+  test.skip(info.project.name !== 'mobile', 'menu toggle is mobile-only');
+  await page.goto('/vegan/');
+  const toggle = page.locator('.tm-header__toggle');
+  await expect(toggle.locator('.tm-header__icon--open')).toBeVisible();
+  await expect(toggle.locator('.tm-header__icon--close')).toBeHidden();
+  await toggle.click();
+  await expect(toggle.locator('.tm-header__icon--close')).toBeVisible();
+  await expect(toggle.locator('.tm-header__icon--open')).toBeHidden();
+  await page.keyboard.press('Escape');
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(page.locator('#tm-nav a[href="/halal/"]')).toBeHidden();
+  await expect(toggle).toBeFocused();
+});
+
+test('unknown paths get the branded, noindexed 404 page', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (e) => errors.push(e.message));
+  const res = await page.goto('/no-such-page/');
+  expect(res.status()).toBe(404);
+  await expect(page).toHaveTitle(/tabemasen/);
+  await expect(page.locator('h1')).toHaveCount(1);
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', /noindex/);
+  await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
+  for (const href of ['/', '/allergies/', '/halal/', '/vegan/', '/gluten-free-japan/', '/guides/']) {
+    await expect(page.locator(`main a[href="${href}"]`).first()).toBeVisible();
+  }
+  const { violations } = await new AxeBuilder({ page }).analyze();
+  expect(violations.filter((v) => ['serious', 'critical'].includes(v.impact))).toEqual([]);
+  expect(errors).toEqual([]);
+});
+
+test('halal certification table says it scrolls when it is wider than the screen', async ({ page }, info) => {
+  await page.goto('/halal/certification-guide/');
+  const wrap = page.locator('.cg-table-wrap');
+  const overflows = await wrap.evaluate((el) => el.scrollWidth > el.clientWidth);
+  const hint = page.locator('.cg-table-hint');
+  if (info.project.name === 'mobile') {
+    expect(overflows).toBe(true);
+    await expect(hint).toBeVisible();
+    await expect(hint).toContainText('sideways');
+    expect(await wrap.evaluate((el) => getComputedStyle(el).backgroundImage)).toContain('gradient');
+  } else {
+    expect(overflows).toBe(false);
+    await expect(hint).toBeHidden();
+  }
+});
+
+test('home: h1, builder, action toolbar and guides are inside the single main landmark', async ({ page }) => {
+  await page.goto('/');
+  await expect(page.locator('main')).toHaveCount(1);
+  for (const sel of ['h1', '#builder', '[role="toolbar"]', '#home-guides-h']) {
+    await expect(page.locator(`main ${sel}`)).toHaveCount(1);
+  }
+});
+
+test('guide contents list comes back when a narrow window is widened', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop', 'resizes the viewport itself');
+  await page.setViewportSize({ width: 800, height: 900 });
+  await page.goto('/allergies/labeling-guide/');
+  const link = page.locator('.guide-toc a').first();
+  await expect(link).toBeHidden();
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await expect(link).toBeVisible();
+  await page.setViewportSize({ width: 800, height: 900 });
+  await expect(link).toBeHidden();
+});
+
+for (const [path, ev, text, href] of [
+  ['/allergies/labeling-guide/', 'cta-allergies-labeling-hero', 'Generate my Japanese allergy card →', '/'],
+  ['/halal/certification-guide/', 'cta-halal-cert-hero', 'Generate my Japanese halal card →', '/#p=halal'],
+]) {
+  test(`${path} offers the card in its header`, async ({ page }) => {
+    await page.goto(path);
+    const cta = page.locator(`a[data-gc-event="${ev}"]`);
+    await expect(cta).toHaveText(text);
+    await expect(cta).toHaveAttribute('href', href);
+    const box = await cta.boundingBox();
+    expect(box.y).toBeLessThan(1400);
+    expect(box.height).toBeGreaterThanOrEqual(44);
+  });
+}
+
+test("vegan: every Japanese line the 'What's on the card' section quotes is on the vegan card", async ({ page }) => {
+  await page.goto('/vegan/');
+  const section = page.locator('section', { has: page.locator('h2', { hasText: "What's on the tabemasen card" }) });
+  const quoted = ((await section.innerText()).match(/「([^」]+)」/g) ?? []).map((q) => q.slice(1, -1));
+  expect(quoted.length).toBeGreaterThan(0);
+  await page.goto('/#p=vegan');
+  const card = (await page.locator('#card').innerText()).replace(/\s+/g, '');
+  for (const q of quoted) expect(card).toContain(q.replace(/\s+/g, ''));
+});
+
+test("halal: 'What's on the card' names every item the halal card lists, and nothing it doesn't", async ({ page }) => {
+  await page.goto('/halal/');
+  const section = page.locator('section', { has: page.locator('h2', { hasText: "What's on the tabemasen card" }) });
+  const text = (await section.innerText()).toLowerCase();
+  await page.goto('/#p=halal&en=1');
+  const items = await page.locator('#card .card-en-line--item').allInnerTexts();
+  expect(items.length).toBeGreaterThan(0);
+  for (const item of items) {
+    const word = item.replace(/^[•・]\s*/, '').trim().toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    expect(text, `section names "${word}"`).toMatch(new RegExp(`\\b${word}\\b`));
+  }
+  expect(text).not.toMatch(/asks specifically about shared cookware/);
+});
+
+test('celiac: shows the real gluten-free card next to the mid-page CTA', async ({ page }) => {
+  await page.goto('/celiac/');
+  const card = page.locator('.ce-example .card[role="img"]');
+  await expect(card).toBeVisible();
+  await expect(card).toContainText('大麦・ライ麦');
+  await expect(card).toContainText('醤油は小麦不使用のものをお願いします');
+  await expect(page.locator('.ce-example figcaption')).toBeVisible();
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+});
+
+test('gluten-free hub: the sushi illustration explains the soy sauce in it', async ({ page }) => {
+  await page.goto('/gluten-free-japan/');
+  await expect(page.locator('figure figcaption').first()).toContainText('soy sauce');
+});
+
+test('gluten-free: what the page says the card covers is on the card', async ({ page }) => {
+  await page.goto('/#p=gluten-free&en=0');
+  const card = await page.locator('#card').innerText();
+  await page.goto('/gluten-free-japan/');
+  const claims = [await page.locator('.hub-hero__lede').innerText(), await page.locator('.gf-mid-cta__text').first().innerText()].join(' ');
+  const said = { 'soy sauce': '醤油', noodle: '麺', miso: '味噌', 'barley tea': '麦茶', fryer: '油', cookware: '調理器具', dashi: 'だし' };
+  for (const [en, ja] of Object.entries(said)) {
+    if (claims.toLowerCase().includes(en)) expect(card, `page says the card covers ${en}`).toContain(ja);
+  }
+  expect(await page.locator('main').innerText()).not.toContain('one of the first things the card asks about');
+});
+
+test('keyboard focus keeps the home card its drop shadow', async ({ page }) => {
+  await page.goto('/');
+  const card = page.locator('#card');
+  const before = await card.evaluate((el) => getComputedStyle(el).boxShadow);
+  await card.focus();
+  await page.keyboard.press('Shift+Tab');
+  await page.keyboard.press('Tab');
+  await expect(card).toBeFocused();
+  expect(await card.evaluate((el) => getComputedStyle(el).boxShadow)).toBe(before);
+});
+
+test('halal certification table hint shows exactly when the table scrolls', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop', 'resizes the viewport itself');
+  for (const width of [375, 600, 640, 700, 960, 1000, 1280]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/halal/certification-guide/');
+    const overflows = await page.locator('.cg-table-wrap').evaluate((el) => el.scrollWidth > el.clientWidth);
+    expect(await page.locator('.cg-table-hint').isVisible(), `hint at ${width}px`).toBe(overflows);
+  }
+});

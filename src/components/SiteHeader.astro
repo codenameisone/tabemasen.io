@@ -14,7 +14,8 @@ const { page, current } = Astro.props;
       <span class="tm-header__word">tabemasen</span>
     </a>
     <button class="tm-header__toggle" type="button" aria-expanded="false" aria-controls="tm-nav" aria-label="Open menu">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="8" x2="20" y2="8"></line><line x1="4" y1="16" x2="20" y2="16"></line></svg>
+      <svg class="tm-header__icon tm-header__icon--open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="8" x2="20" y2="8"></line><line x1="4" y1="16" x2="20" y2="16"></line></svg>
+      <svg class="tm-header__icon tm-header__icon--close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"></line><line x1="18" y1="6" x2="6" y2="18"></line></svg>
     </button>
     <nav id="tm-nav" class="tm-header__nav" aria-label="Main">
       <ul class="tm-header__list">
@@ -31,17 +32,27 @@ const { page, current } = Astro.props;
   for (const toggle of document.querySelectorAll<HTMLButtonElement>('.tm-header__toggle')) {
     const nav = document.getElementById(toggle.getAttribute('aria-controls') ?? '');
     if (!nav) continue;
-    toggle.addEventListener('click', () => {
-      const open = toggle.getAttribute('aria-expanded') !== 'true';
+    const setOpen = (open: boolean) => {
       toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       nav.toggleAttribute('data-open', open);
+    };
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') !== 'true';
+      setOpen(open);
       if (open) nav.querySelector<HTMLAnchorElement>('a')?.focus();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape' || toggle.getAttribute('aria-expanded') !== 'true') return;
+      setOpen(false);
+      toggle.focus();
     });
   }
 </script>
 
 <style>
+  .tm-header__icon--close, .tm-header__toggle[aria-expanded="true"] .tm-header__icon--open { display: none; }
+  .tm-header__toggle[aria-expanded="true"] .tm-header__icon--close { display: block; }
   /* Keep header links un-underlined on hover (global anchor styles would add it). */
   .tm-header a:hover { text-decoration: none; }
   /* Explicit resets so the header looks the same wherever it is rendered. */

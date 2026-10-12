@@ -2,6 +2,15 @@
 
 ## 2026-10-12
 
+- fix: review follow-ups after the redesign.
+  - Footer: /vegan/, /halal/ and the halal certification guide list their own resources again (HappyCow, VegeProject, Halal Gourmet, Tokyo Camii and others); the halal guide keeps its not-a-religious-ruling disclaimer; the home footer explains 食べません again.
+  - Food allergies guide: Japan's 9 mandatory allergens (cashew added), and the mandatory cards say so in words as well as colour.
+  - FAQ structured data now matches the visible FAQ word for word on every page.
+  - The vegan, halal and gluten-free pages describe their cards as the cards actually read.
+  - /celiac/ shows the real gluten-free card again; the labeling and halal certification guides have a card button in their header.
+  - Accessibility: focus ring visible on dark bands; one main landmark on the home page; Escape closes the mobile menu; the contents list survives widening the window; the halal table says it scrolls.
+  - New branded 404 page; root favicons match the current icon; bakery and home table illustrations redrawn without lettering; corrected alt text.
+  - check:content now compares every page (header and footer included, plus links, alts, events and JSON-LD) with content-snapshot.json; check:seo fails if FAQ JSON-LD drifts from the page. Migration scripts removed.
 - design(seo): the link-preview image (og:image, shared by every page) redrawn in the new design with a real card from the builder; 1200×630 and 120 KB, same URL. Regenerate with scripts/og-image.mjs.
 - chore: the legacy stylesheet (styles.css) and nav script (nav.js) are retired; every page is on the new design.
 - design(about): /about/ and /featured/ in the new design. Every word unchanged.

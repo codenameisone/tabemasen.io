@@ -4,10 +4,10 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "How do you say I have multiple food allergies in Japanese?",
+        "name": "How do you say \"I have multiple food allergies\" in Japanese?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "List each allergen connected with と (to, meaning 'and'): 小麦と卵と乳のアレルギーがあります (komugi to tamago to nyuu no arerugi ga arimasu) — I have wheat, egg, and dairy allergies. Listing each allergen individually is more useful to kitchen staff than saying you have 'multiple allergies' in the abstract."
+          "text": "List each allergen connected with と (to, meaning \"and\"): 小麦と卵と乳のアレルギーがあります (komugi to tamago to nyuu no arerugi ga arimasu). Listing each allergen individually is more useful to kitchen staff than saying you have \"multiple allergies\" in the abstract — they need to know exactly which ones."
         }
       },
       {
@@ -15,15 +15,15 @@
         "name": "Do Japanese restaurants understand food allergies?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Awareness varies. Chain and family restaurants often have allergen menus (アレルギー表) listing the mandatory 8 allergens. Small independent restaurants may not have formal protocols but are usually willing to help if you can communicate clearly. A written card in Japanese helps bridge the gap, especially at smaller places."
+          "text": "Awareness varies. Chain and family restaurants often have allergen menus (アレルギー表) listing the mandatory 9 allergens. Small independent restaurants may not have formal protocols but are usually willing to help if you can communicate clearly. A written card in Japanese helps bridge the gap, especially at smaller places where staff may not speak English."
         }
       },
       {
         "@type": "Question",
-        "name": "What is the difference between an allergy card and a chef card?",
+        "name": "What's the difference between an allergy card and a chef card?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Same thing, different names. Chef card is the term used by allergists and dietitians. Allergy card or allergy translation card is more common among travelers. Both refer to a written explanation of your dietary restriction in the local language that you show restaurant staff."
+          "text": "Same thing, different names. \"Chef card\" is the term used by allergists and dietitians. \"Allergy card\" or \"allergy translation card\" is more common among travelers. Both refer to a written explanation of your dietary restriction in the local language that you show restaurant staff."
         }
       },
       {
@@ -31,7 +31,7 @@
         "name": "Can I use Google Translate for food allergies in Japan?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "For simple phrases it can work, but allergy communication requires precision that machine translation often misses. For example, translating 'I am allergic to milk' may produce phrasing that sounds like you simply dislike drinking milk, rather than flagging hidden dairy in sauces, breading, or stock. Kitchen staff need concise, actionable instructions — not a literal translation of conversational English."
+          "text": "For simple phrases it can work, but allergy communication requires precision that machine translation often misses. For example, translating \"I am allergic to milk\" may produce phrasing that sounds like you dislike drinking milk, rather than flagging hidden dairy in sauces, breading, or stock. Kitchen staff need concise, actionable instructions — not a literal translation of conversational English."
         }
       },
       {
@@ -39,7 +39,7 @@
         "name": "Does Japan's allergen labeling cover restaurants?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No — only packaged food. Japan mandates disclosure of 8 specific allergens (wheat, milk, eggs, peanuts, shrimp, crab, buckwheat, walnuts) on packaged products, and recommends disclosure of 20 more. Restaurants have no legal obligation to disclose allergens, though many chains voluntarily provide allergen menus on request."
+          "text": "No — only packaged food. Japan mandates disclosure of 9 specific allergens on packaged products, and recommends disclosure of 20 more. Restaurants have no legal obligation to disclose allergens, though many chains voluntarily provide allergen menus on request. For details on reading Japanese food labels, see the labeling guide."
         }
       }
     ]

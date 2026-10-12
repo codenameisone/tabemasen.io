@@ -15,15 +15,15 @@
         "name": "What are Japan's mandatory food allergens?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "As of April 2026, there are nine: egg (卵), milk (乳), wheat (小麦), buckwheat (そば), peanut (落花生), shrimp (えび), crab (かに), walnut (くるみ), and cashew nut (カシューナッツ). Cashew was added in April 2026. A further 21 allergens — including soy, sesame, and almonds — are recommended but not legally required."
+          "text": "As of April 2026, there are nine: egg (卵), milk (乳), wheat (小麦), buckwheat (そば), peanut (落花生), shrimp (えび), crab (かに), walnut (くるみ), and cashew nut (カシューナッツ). Cashew was added in April 2026. A further 20 allergens — including soy, sesame, and almonds — are recommended but not legally required."
         }
       },
       {
         "@type": "Question",
-        "name": "Does Japan use 'may contain' labels?",
+        "name": "Does Japan use \"may contain\" labels?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Not in the Western sense. If an allergen is present above 10 ppm — including through cross-contamination — it's declared as a labeled ingredient. However, many manufacturers include production-line statements (e.g., 'This product is manufactured in a factory that also produces products containing egg') — these read as regular prose, not a separate warning box. They're easy to overlook if you're only scanning the allergen summary line."
+          "text": "Not in the Western sense. If an allergen is present above 10 ppm — including through cross-contamination — it's declared as a labeled ingredient. However, many manufacturers include production-line statements (e.g., \"This product is manufactured in a factory that also produces products containing egg\") — these read as regular prose, not a separate warning box. They're easy to overlook if you're only scanning the allergen summary line."
         }
       },
       {

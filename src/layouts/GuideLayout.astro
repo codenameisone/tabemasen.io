@@ -36,7 +36,14 @@ const hasToc = Astro.slots.has('toc');
         <slot name="toc" />
       </details>
       <script is:inline>
-        if (window.matchMedia('(max-width: 900px)').matches) document.querySelector('.guide-toc__fold')?.removeAttribute('open');
+        {
+          // Folded on narrow screens, always open beside the article (where the summary is hidden).
+          const fold = document.querySelector('.guide-toc__fold');
+          const narrow = window.matchMedia('(max-width: 900px)');
+          const sync = () => fold?.toggleAttribute('open', !narrow.matches);
+          sync();
+          narrow.addEventListener('change', sync);
+        }
       </script>
     </div>
     )}

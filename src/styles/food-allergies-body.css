@@ -35,7 +35,7 @@
 .fa-formula__reading { font-size: 15px; font-style: italic; color: var(--tm-ink-muted); }
 .fa-formula__english { font-size: 17px; }
 
-/* ── allergen cards: mandatory 8 marked by a thick red border (the body text says so) and a dot, others by a thin neutral border ── */
+/* ── allergen cards: mandatory 9 marked by a thick red border (the body text says so) and a dot, others by a thin neutral border ── */
 .fa-allergen-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 14px; margin: 12px 0 20px; }
 .fa-allergen-card { position: relative; background: #fff; border: 1px solid var(--tm-rule-strong); border-radius: var(--tm-radius); padding: 16px; display: flex; flex-direction: column; gap: 8px; }
 .fa-allergen-card--mandatory { border: 2px solid var(--tm-shu); }

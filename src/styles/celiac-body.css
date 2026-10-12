@@ -63,3 +63,7 @@
 .ce-cta .btn:hover { background: var(--tm-shu-dark); color: #fff; }
 
 @media (max-width: 640px) { .ce-kanji-callout { flex-direction: column; gap: 8px; } .ce-kanji-callout__chars { font-size: 48px; } }
+
+/* Example card above the mid-page CTA (restored after the redesign dropped the phone mockup). */
+.ce-example { margin: 32px 0 8px; max-width: 520px; }
+.ce-example figcaption { margin-top: 12px; font-size: 14px; color: var(--tm-ink-faint); }

@@ -28,6 +28,7 @@ const chevron = '<svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stro
   jsonLd={[homeJsonLd.trim()]}
   bodyClass="tm-home"
 >
+  <main id="main">
   <section class="app-intro tm-container tm-intro">
     <div class="tm-intro__copy">
       <p class="tm-intro__display" aria-hidden="true">Tell the kitchen what you <Wash>can't eat.</Wash></p>
@@ -37,10 +38,10 @@ const chevron = '<svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stro
       <h2 class="site-seo-heading">Free Japanese restaurant cards for food allergies, vegetarian, vegan, halal &amp; gluten-free travelers</h2>
     </div>
     <Illustration class="tm-intro__ill" src={counter} loading="eager" sizes="(max-width: 900px) 100vw, 42vw"
-      alt="Watercolour sketch: a traveller at a small ramen counter holds up a phone, and the chef leans in to read it" />
+      alt="Watercolour sketch: a traveller at a small ramen counter holds up a phone while the chef leans across the counter towards them" />
   </section>
 
-  <main class="main-content tm-container" id="builder">
+  <div class="main-content tm-container" id="builder">
     <div class="app-grid">
       <section class="selection-panel" aria-label="Card options">
         <div class="panel-section" id="panel-allergens">
@@ -92,7 +93,7 @@ const chevron = '<svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stro
         <div class="card" id="card" tabindex="0" aria-label="Japanese restaurant card preview" lang="ja"></div>
       </section>
     </div>
-  </main>
+  </div>
 
   <div class="action-bar" role="toolbar" aria-label="Card actions">
     <button type="button" class="btn btn--ghost btn--action" id="copy-btn">
@@ -119,7 +120,7 @@ const chevron = '<svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stro
         <div class="home-why__item"><BrushGlyph text="みりん" size={52} /><p>Sweet rice wine in glazes and teriyaki. The halal card lists mirin and cooking sake.</p></div>
       </div>
       <Illustration src={table} sizes="(max-width: 900px) 100vw, 50vw"
-        alt="Watercolour sketch of a set meal on a wooden table: miso soup, grilled fish, rice, pickles, soy sauce, green tea, an open travel notebook and a passport"
+        alt="Watercolour sketch of a set meal on a wooden tray: miso soup, glazed grilled fish, rice, pickles, a soy sauce jug and green tea, beside an open travel notebook"
         caption="Miso soup is made with dashi, the soy sauce contains wheat, and the fish is often glazed with mirin." />
     </section>
 
@@ -147,6 +148,7 @@ const chevron = '<svg class="panel-chevron" viewBox="0 0 24 24" fill="none" stro
 
     <FeaturedStrip eventSuffix="home" />
   </div>
+  </main>
 
   <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
   <script is:inline src="/data.js"></script>

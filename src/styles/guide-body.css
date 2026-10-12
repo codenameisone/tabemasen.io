@@ -131,3 +131,6 @@
 .lg-cta .btn:hover { background: var(--tm-shu-dark); color: #fff; }
 
 @media (max-width: 640px) { .lg-hero__meta { flex-direction: column; gap: 2px; } .lg-hero__meta-dot { display: none; } }
+
+/* Hero CTA (added after the review: the first card button was ~20,000px down on phones). */
+.lg-hero__actions { margin: 24px 0 0; }

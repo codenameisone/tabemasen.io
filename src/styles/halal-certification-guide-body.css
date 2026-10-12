@@ -49,7 +49,19 @@
 .cg-callout p:last-child { margin-bottom: 0; }
 
 /* ── certification table ── */
-.cg-table-wrap { overflow-x: auto; margin: 8px 0 16px; }
+.cg-table-wrap {
+  overflow-x: auto; margin: 8px 0 16px;
+  /* Scroll shadows: a soft edge shows on whichever side has more table. */
+  background:
+    linear-gradient(to right, var(--tm-paper) 30%, transparent) left / 40px 100% no-repeat local,
+    linear-gradient(to left, var(--tm-paper) 30%, transparent) right / 40px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(30, 27, 24, .2), transparent) left / 14px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(30, 27, 24, .2), transparent) right / 14px 100% no-repeat scroll;
+}
+/* The hint shows exactly when the 600px table is wider than its column (container query, not window width). */
+#certification-bodies { container-type: inline-size; }
+.cg-table-hint { display: none; margin: 8px 0 0; font-size: 14px; color: var(--tm-ink-faint); }
+@container (max-width: 599.98px) { .cg-table-hint { display: block; } }
 .cg-table { width: 100%; min-width: 600px; border-collapse: collapse; font-size: 16px; }
 .cg-table th, .cg-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--tm-rule); vertical-align: top; }
 .cg-table th { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--tm-ink-muted); border-bottom: 1.5px solid var(--tm-ink); }
@@ -144,3 +156,6 @@
 .cg-cta p { margin: 0; max-width: 640px; color: var(--tm-rule); }
 .cg-cta .btn { display: inline-flex; align-items: center; min-height: 56px; padding: 0 26px; border-radius: var(--tm-radius); background: var(--tm-shu); color: #fff; font-weight: 700; font-size: 17px; text-decoration: none; }
 .cg-cta .btn:hover { background: var(--tm-shu-dark); color: #fff; }
+
+/* Hero CTA (added after the review: the first card button was ~17,000px down on phones). */
+.cg-hero__actions { margin: 24px 0 0; }

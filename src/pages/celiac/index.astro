@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import GuideLayout from '../../layouts/GuideLayout.astro';
 import { relatedGuides } from '../../lib/guides';
 import supermarket from '../../assets/illustrations/supermarket.jpg';
+import '../../styles/card.css';
 import '../../styles/celiac-body.css';
 import ld1 from './_jsonld-1.json?raw';
 import ld2 from './_jsonld-2.json?raw';
@@ -10,7 +11,13 @@ import ld3 from './_jsonld-3.json?raw';
 import hero from './_hero.html?raw';
 import body from './_body.html?raw';
 import cta from './_cta.html?raw';
+import { exampleCardHtml } from '../../lib/cardData';
+import { insertAtMarker } from '../../lib/fragments';
 
+const bodyWithCard = insertAtMarker(body, '<!-- example-card -->', `<figure class="ce-example">
+        ${exampleCardHtml({ patterns: ['gluten-free'], showEnglish: false }, 'Example gluten-free card in Japanese')}
+        <figcaption>What the kitchen sees: the gluten-free card, word for word as the generator makes it. Your copy also has the English underneath.</figcaption>
+      </figure>`);
 const related = relatedGuides(await getCollection('guides'), 'gluten-free', 'celiac');
 ---
 <GuideLayout
@@ -32,6 +39,6 @@ const related = relatedGuides(await getCollection('guides'), 'gluten-free', 'cel
     <meta property="article:tag" content="Japan allergen law">
   </Fragment>
   <Fragment slot="hero" set:html={hero} />
-  <Fragment set:html={body} />
+  <Fragment set:html={bodyWithCard} />
   <Fragment slot="cta" set:html={cta} />
 </GuideLayout>

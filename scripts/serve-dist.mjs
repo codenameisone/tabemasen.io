@@ -22,7 +22,9 @@ createServer(async (req, res) => {
     res.writeHead(200, { 'Content-Type': types[extname(file)] ?? 'application/octet-stream' });
     res.end(body);
   } catch {
-    res.writeHead(404, { 'Content-Type': 'text/plain' });
-    res.end('not found');
+    // Like GitHub Pages: unknown paths get dist/404.html with a 404 status.
+    const page = await readFile(join(root, '404.html')).catch(() => null);
+    res.writeHead(404, { 'Content-Type': page ? types['.html'] : 'text/plain' });
+    res.end(page ?? 'not found');
   }
 }).listen(port, () => console.log(`serving dist on http://localhost:${port}`));

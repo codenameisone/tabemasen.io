@@ -31,7 +31,7 @@
         "name": "Is ramen gluten free in Japan?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. Ramen noodles are made from wheat flour, and the broth almost always contains soy sauce. A few specialty shops offer rice noodle or konjac noodle substitutes, but they are rare. If you want noodles, look for 100% buckwheat soba (called juwari soba or 十割そば) at a dedicated soba restaurant — not at a ramen shop."
+          "text": "No. Ramen noodles are made from wheat flour, and the broth almost always contains soy sauce. A few specialty shops offer rice noodle or konjac noodle substitutes, but they're rare. If you want noodles, look for 100% buckwheat soba (called juwari soba, or 十割そば) at a dedicated soba restaurant — not a ramen shop."
         }
       },
       {
@@ -39,7 +39,7 @@
         "name": "Can I find gluten-free beer in Japan?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "It's tricky. Regular Japanese beers (Asahi, Sapporo, Kirin Ichiban) contain barley and are not safe. Happoshu (low-malt beer) still contains barley, so it's also not safe for celiacs. Some third-category beers (第3のビール) are brewed from pea protein, soy, or corn and may avoid barley entirely, but always check labels for 小麦 and 大麦 — formulations vary by brand. The safest widely-available options: chuhai (shochu-based fruit cocktails) and highballs (whisky and soda) are naturally grain-free and sold at every convenience store."
+          "text": "It's tricky. Regular Japanese beers (Asahi, Sapporo, Kirin Ichiban) contain barley and are not safe. Happoshu (low-malt beer) still contains barley — just less of it — so it's also not safe for celiacs. Some \"third-category\" beers (第3のビール) are brewed from pea protein, soy, or corn instead of grain and may avoid barley entirely, but always check labels for 小麦 and 大麦 (wheat and barley) — formulations vary by brand. The safest widely-available options: chuhai (チューハイ, shochu-based fruit cocktails) and highballs (ハイボール, whisky and soda) are naturally grain-free and sold at every convenience store."
         }
       },
       {
@@ -47,20 +47,20 @@
         "name": "Are Japanese convenience stores good for gluten-free food?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Excellent. Japan's allergen labeling law requires all packaged food to clearly list wheat (小麦) as an allergen. Plain salt and umeboshi onigiri are usually safe, but check the label even for simple-looking fish flavours — salmon flake is often pre-seasoned with soy sauce. Edamame, hard-boiled eggs, plain rice, fruit, and yogurt are widely available. Watch out for mitarashi dango (soy-sauce-glazed rice balls) and rice crackers with wheat-derived processing aids. 7-Eleven, Lawson, and FamilyMart all carry safe options."
+          "text": "Excellent. Japan's allergen labeling law requires all packaged food to clearly list wheat (小麦) as an allergen. Plain salt and umeboshi onigiri are usually safe, but check the label even for simple-looking fish flavours — salmon flake is often pre-seasoned with soy sauce. Edamame, hard-boiled eggs, plain rice, fruit, and yogurt are widely available. Watch out for mitarashi dango (the soy-sauce-glazed rice balls) and rice crackers that may contain wheat-derived processing aids. 7-Eleven, Lawson, and FamilyMart all carry safe options — the mandatory labeling makes convenience stores one of the safest places to eat gluten-free in Japan."
         }
       },
       {
         "@type": "Question",
-        "name": "How do you say gluten-free in Japanese?",
+        "name": "How do you say \"gluten-free\" in Japanese?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "The phrase is グルテンフリー (guruten furii) — a direct loan from English. For wheat specifically, the word is 小麦 (komugi). In practice, though, saying the words isn't enough. Restaurant staff may not connect gluten with the wheat in their soy sauce. A written card with the specific ingredients listed in kanji is far more reliable than a verbal explanation."
+          "text": "The phrase is グルテンフリー (guruten furii) — a direct loan from English. For wheat specifically, the word is 小麦 (komugi). In practice, though, saying the words isn't enough. Restaurant staff may not connect \"gluten\" with the wheat in their soy sauce. A written card with the specific ingredients listed in kanji is far more reliable than a verbal explanation — which is exactly what this generator creates."
         }
       },
       {
         "@type": "Question",
-        "name": "Does the restaurant card warn about cross-contamination?",
+        "name": "Does the card warn about cross-contamination?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "Yes — by default. The gluten-free card specifically asks staff to use separate cookware and oil, since even trace amounts of gluten can cause celiac reactions. Shared fryers used for tempura are the most common source of cross-contamination in Japanese restaurants."

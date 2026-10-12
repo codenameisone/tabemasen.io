@@ -4,23 +4,23 @@
     "mainEntity": [
       {
         "@type": "Question",
-        "name": "Does \"no wheat\" on a Japanese label mean the food is gluten-free?",
+        "name": "Does “no wheat” on a Japanese label mean the food is gluten-free?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "No. Japan's mandatory allergen list covers nine items — shrimp, cashew nut, crab, walnut, wheat, buckwheat, egg, milk and peanut. Barley and rye are on neither the mandatory list nor the 21-item recommended list, so barley malt or roasted barley can be present in a product whose allergen box shows no wheat. Read the full ingredients list, not only the allergen declaration."
+          "text": "No. Japan's mandatory allergen list covers nine items — shrimp, cashew nut, crab, walnut, wheat, buckwheat, egg, milk and peanut. Barley and rye are on neither the mandatory list nor the 20-item recommended list, so barley malt or roasted barley can be present in a product whose allergen box shows no wheat. Read the full ingredients list, not only the allergen declaration."
         }
       },
       {
         "@type": "Question",
-        "name": "Is \"gluten-free\" legally defined in Japan?",
+        "name": "Is “gluten-free” legally defined in Japan?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Not in the general way it is in the EU or the US, where a 20 ppm threshold applies. Japan's only formal scheme is narrower and stricter: MAFF's rice flour labelling guidelines permit rice flour containing 1 ppm or less of gluten to be labelled \"Non-Gluten\". It is voluntary, requires third-party certification, and covers only rice flour made from Japanese rice. Outside that scheme, グルテンフリー on a package or menu is a marketing claim rather than a regulated one."
+          "text": "Not in the general way it is in the EU or the US, where a 20 ppm threshold applies. Japan's only formal scheme is narrower and stricter: MAFF's rice flour labelling guidelines permit rice flour containing 1 ppm or less of gluten to be labelled “Non-Gluten”. It is voluntary, requires third-party certification, and covers only rice flour made from Japanese rice. Outside that scheme, グルテンフリー on a package or menu is a marketing claim rather than a regulated one."
         }
       },
       {
         "@type": "Question",
-        "name": "What is the Japanese \"Non-Gluten\" certification mark?",
+        "name": "What is the Japanese “Non-Gluten” certification mark?",
         "acceptedAnswer": {
           "@type": "Answer",
           "text": "A voluntary mark for rice flour certified at 1 ppm gluten or below, administered through third-party certification set up by the Japan Rice Flour Association. The threshold is stricter than the US FDA's less than 20 ppm and the European Commission's 20 ppm or lower. Its scope is the limitation: it applies to rice flour from Japanese rice, not to food in general."

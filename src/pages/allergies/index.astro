@@ -6,10 +6,10 @@ import onigiri from '../../assets/photos/onigiri-label-annotated.png';
 import { Image } from 'astro:assets';
 import jsonLd from './_jsonld.json?raw';
 import body from './_body.html?raw';
+import { splitAtMarkers } from '../../lib/fragments';
 
-// Photos are placed after the paragraph whose topic they illustrate.
-const RAMEN_AFTER = '<h2>Restaurants that work — and how to order</h2>';
-const ONIGIRI_AFTER = '<h2>Convenience stores: your safety net</h2>';
+// Photos go under the headings whose topic they illustrate (markers in _body.html).
+const [beforeRamen, beforeOnigiri, rest] = splitAtMarkers(body, ['<!-- photo:ramen -->', '<!-- photo:onigiri -->']);
 ---
 <HubLayout
   title="Japan Food Allergy Restaurant Card — Free Generator | tabemasen"
@@ -29,13 +29,11 @@ const ONIGIRI_AFTER = '<h2>Convenience stores: your safety net</h2>';
   ctaLabel="Generate my Japanese allergy card →"
   closing={{ heading: 'Ready to generate yours?', text: 'Free, no signup, takes about 30 seconds. Pick the allergens that apply, set severity, and add other dietary needs.', event: 'cta-allergies-footer' }}
 >
-  <Fragment set:html={body.split(RAMEN_AFTER)[0]} />
-  <Fragment set:html={RAMEN_AFTER} />
+  <Fragment set:html={beforeRamen} />
   <Image class="al-photo" src={ramen} alt="Inside a Japanese tonkotsu ramen shop — the walls are covered in signage for drinks, house rules, and pricing, but no allergen information is displayed anywhere" widths={[480, 860]} sizes="(max-width: 900px) 100vw, 860px" format="webp" />
-  <Fragment set:html={body.split(RAMEN_AFTER)[1].split(ONIGIRI_AFTER)[0]} />
-  <Fragment set:html={ONIGIRI_AFTER} />
+  <Fragment set:html={beforeOnigiri} />
   <Image class="al-photo" src={onigiri} alt="Annotated allergen label on a FamilyMart grilled salmon onigiri wrapper. Callout 1 points to the 名称 and 原材料名 header. Callout 2 highlights the collective allergen summary line (一部に…を含む) within the ingredient list. Callout 3 shows the visual allergen icon chart listing all nine mandatory allergens with icons." widths={[480, 860]} sizes="(max-width: 900px) 100vw, 860px" format="webp" />
-  <Fragment set:html={body.split(ONIGIRI_AFTER)[1]} />
+  <Fragment set:html={rest} />
 </HubLayout>
 
 <style is:global>
