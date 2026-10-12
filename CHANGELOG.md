@@ -5,6 +5,7 @@
 - design(vegan): /vegan/ redesigned with a new illustration. Pick what you can't eat right on the page and watch the card update; the button and the builder link open the builder with that card. Every paragraph and FAQ unchanged.
 - design(halal): the halal certification guide in the new design with a new illustration: contents list beside the article, certification tiers marked by border style as well as colour. Every word, heading and FAQ unchanged.
 - design(halal): /halal/ redesigned with a new illustration. Pick what you can't eat right on the page and watch the card update; the button and the builder link open the builder with that card. Every paragraph and FAQ unchanged.
+- seo: check:seo also guards link-preview meta (og:, twitter:, article:) against the legacy pages (seo-social-baseline.json). The food allergies guide keeps its own og/twitter description.
 - design(allergies): food allergies in Japanese guide in the new design with a new illustration. Every word, heading and FAQ unchanged.
 - design(guides): the labeling guide in the new design: guide header with illustration, contents list beside the article, restyled sections, kanji tiers marked by shape as well as colour, "Keep reading". Every word, heading and FAQ unchanged.
 - design(home): the card builder in the new design. The card itself has a new look (seal, "To the staff", items in two columns, warning and note blocks) that also applies to the PNG download and print. Same wording, same links, same shared-card URLs.

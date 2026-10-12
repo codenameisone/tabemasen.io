@@ -72,3 +72,29 @@ export function sitemapProblems(sitemapXml, indexableUrls, site = SITE) {
   }
   return problems;
 }
+
+const decodeEntities = (s) => s.replace(/&quot;/g, '"').replace(/&#39;|&#x27;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
+
+// og:, twitter: and article: meta (link previews). Keyed by property/name; values entity-decoded.
+export function socialMeta(html) {
+  const out = {};
+  for (const [tag] of html.matchAll(/<meta\s[^>]*>/gi)) {
+    const key = tag.match(/\b(?:property|name)="((?:og|twitter|article):[^"]+)"/i)?.[1];
+    const content = tag.match(/\bcontent="([^"]*)"/i)?.[1];
+    if (key && content !== undefined) out[key] = decodeEntities(content);
+  }
+  return out;
+}
+
+// Every legacy social value must survive unchanged; tags added since are fine.
+export function socialProblems(baseline, current) {
+  const problems = [];
+  for (const [url, before] of Object.entries(baseline)) {
+    const now = current[url] ?? {};
+    for (const [key, value] of Object.entries(before)) {
+      if (now[key] === value) continue;
+      problems.push(`${url}: ${key} changed\n    was: ${JSON.stringify(value)}\n    now: ${JSON.stringify(now[key] ?? null)}`);
+    }
+  }
+  return problems;
+}
