@@ -2,6 +2,7 @@
 
 ## 2026-10-12
 
+- design(about): /about/ and /featured/ in the new design. Every word unchanged.
 - design(celiac): the celiac guide in the new design with a new illustration. Every word, heading and FAQ unchanged.
 - design(gluten-free): /gluten-free-japan/ redesigned with a new illustration. Pick what you can't eat right on the page and watch the card update; the button and the builder link open the builder with that card. Every paragraph and FAQ unchanged.
 - design(vegan): /vegan/ redesigned with a new illustration. Pick what you can't eat right on the page and watch the card update; the button and the builder link open the builder with that card. Every paragraph and FAQ unchanged.
