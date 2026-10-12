@@ -24,11 +24,13 @@
 .panel-body { padding: 14px 0 0 36px; display: flex; flex-direction: column; gap: 12px; }
 .field-hint { margin: 0; font-size: 14px; color: var(--tm-ink-muted); line-height: 1.55; }
 .chip-legend { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 13px; color: var(--tm-ink-muted); }
-.chip-legend i { display: inline-block; width: 18px; height: 12px; flex: none; border-radius: var(--tm-radius-pill); border: 1.5px solid var(--tm-ink); }
+.chip-legend i { display: inline-block; width: 7px; height: 7px; flex: none; border-radius: 50%; background: var(--tm-shu); }
 .chip-grid { display: flex; flex-wrap: wrap; gap: 8px; }
-.chip { font: inherit; min-height: 44px; padding: 0 16px; border-radius: var(--tm-radius-pill); border: 1.5px solid var(--tm-rule-strong); background: #fff; color: var(--tm-ink); font-size: 15px; font-weight: 500; cursor: pointer; }
+.chip { font: inherit; min-height: 44px; padding: 0 16px; border-radius: var(--tm-radius-pill); border: 1.5px solid var(--tm-rule-strong); background: #fff; color: var(--tm-ink); font-size: 15px; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; }
 .chip--mandatory { border-color: var(--tm-ink); }
+.chip--mandatory::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--tm-shu); margin-right: 7px; flex: none; }
 .chip--selected, .chip[aria-pressed="true"] { background: var(--tm-ink); border-color: var(--tm-ink); color: #fff; }
+.chip--selected.chip--mandatory::before, .chip--mandatory[aria-pressed="true"]::before { background: #e07f6e; }
 .pattern-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
 .pattern-btn { font: inherit; min-height: 52px; border-radius: var(--tm-radius); border: 1.5px solid var(--tm-rule-strong); background: #fff; color: var(--tm-ink); font-size: 16px; font-weight: 500; cursor: pointer; }
 .pattern-btn--selected, .pattern-btn[aria-pressed="true"] { background: var(--tm-ink); border-color: var(--tm-ink); color: #fff; }

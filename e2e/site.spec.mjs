@@ -43,6 +43,16 @@ test('mandatory allergens are the nine from data.js', async ({ page }) => {
   expect(keys).toEqual(['buckwheat', 'cashew', 'crab', 'dairy', 'egg', 'peanut', 'shrimp', 'walnut', 'wheat']);
 });
 
+test('mandatory chips carry a dot', async ({ page }) => {
+  const before = (loc) => loc.evaluate((e) => getComputedStyle(e, '::before').content);
+  await page.goto('/');
+  expect(await before(page.locator('.chip[data-key="cashew"]'))).not.toBe('none');
+  expect(await before(page.locator('.chip[data-key="almond"]'))).toBe('none');
+  await page.goto('/allergies/');
+  expect(await before(page.locator('.picker__chip[data-key="cashew"]').first())).not.toBe('none');
+  expect(await before(page.locator('.picker__chip[data-key="sesame"]').first())).toBe('none');
+});
+
 test('PNG export downloads a file', async ({ page }) => {
   await page.goto('/#a=egg');
   const [download] = await Promise.all([page.waitForEvent('download'), page.locator('#download-btn').click()]);

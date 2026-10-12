@@ -40,6 +40,18 @@ describe('Picker', async () => {
     expect(html).not.toMatch(/data-key="sesame"[^>]*data-mandatory/);
   });
 
+  it('renders a mandatory legend when a mandatory chip is present', () => {
+    expect(html).toContain('picker__legend');
+    expect(html).toContain("Red dot: Japan's mandatory allergens");
+  });
+
+  it('omits the legend when no chip is mandatory', async () => {
+    const out = await container.renderToString(Picker, {
+      props: { diet: 'allergies', allergenKeys: ['sesame', 'soy'], ctaLabel: 'x', event: 'cta-x' },
+    });
+    expect(out).not.toContain('picker__legend');
+  });
+
   it('includes the severity switch when asked', () => {
     expect(html).toContain('role="switch"');
   });
