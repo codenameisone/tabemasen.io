@@ -1,0 +1,12 @@
+---
+// src/components/ExampleCard.astro — a static card rendered from data.js at build time.
+import '../styles/card.css';
+import { loadCardData, renderCardHtml, type CardState } from '../lib/cardData';
+interface Props { state: Partial<CardState>; label?: string; id?: string; live?: boolean }
+const { state, label = 'Example card', id, live = false } = Astro.props;
+const full: CardState = { allergens: [], patterns: [], severity: 'allergy', name: '', customText: '', showEnglish: true, ...state };
+const html = renderCardHtml(loadCardData().buildCard(full), full.showEnglish);
+---
+{live
+  ? <div class="card" id={id} lang="ja" aria-live="polite" aria-label="Card preview" set:html={html} />
+  : <div class="card" id={id} lang="ja" role="img" aria-label={label} set:html={html} />}

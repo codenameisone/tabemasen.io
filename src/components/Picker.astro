@@ -1,0 +1,105 @@
+---
+// src/components/Picker.astro — choose a few options here, finish on the full builder at /.
+import { loadCardData } from '../lib/cardData';
+import { buildPickerHref } from '../lib/picker';
+import { DIETS, type DietKey } from '../data/diets';
+
+interface Props {
+  diet: DietKey;
+  allergenKeys: string[];
+  showSeverity?: boolean;
+  ctaLabel: string;
+  event: string;
+  preset?: { allergens: string[]; severe: boolean };
+  previewId?: string;
+  builderEvent?: string;
+}
+
+const { diet, allergenKeys, showSeverity = false, ctaLabel, event, preset, previewId, builderEvent } = Astro.props;
+const byKey = new Map(loadCardData().allergens.map((a) => [a.key, a]));
+const chips = allergenKeys.map((k) => {
+  const a = byKey.get(k);
+  if (!a) throw new Error(`Picker: unknown allergen key "${k}"`);
+  return a;
+});
+for (const k of preset?.allergens ?? []) {
+  if (!byKey.has(k)) throw new Error(`Picker: unknown preset allergen key "${k}"`);
+  if (!allergenKeys.includes(k)) throw new Error(`Picker: preset allergen key "${k}" is not in allergenKeys`);
+}
+const pressed = new Set(preset?.allergens ?? []);
+const severe = !!preset?.severe;
+const pattern = DIETS[diet].pattern;
+const href = buildPickerHref({ pattern, allergens: allergenKeys.filter((k) => pressed.has(k)), severe });
+const hasMandatory = chips.some((a) => a.mandatory);
+const sevId = `picker-sev-${event}`;
+---
+
+<div class="picker" data-pattern={pattern ?? ''} data-preview={previewId}>
+  {hasMandatory && <p class="picker__legend"><i aria-hidden="true"></i>Red dot: Japan's mandatory allergens</p>}
+  <div class="picker__group" role="group" aria-label="Allergens">
+    {chips.map((a) => (
+      <button type="button" class="picker__chip" data-key={a.key} data-mandatory={a.mandatory ? '' : undefined} aria-pressed={String(pressed.has(a.key))}>
+        {a.english} <small lang="ja">{a.japanese.replace(/[(（].*$/, '')}</small>
+      </button>
+    ))}
+  </div>
+  {showSeverity && (
+    <div class="picker__severity">
+      <span class="picker__sev-text" id={sevId}><strong>Severe allergy</strong> Adds a warning that trace amounts are dangerous</span>
+      <button type="button" class="picker__switch" role="switch" aria-checked={String(severe)} aria-labelledby={sevId}></button>
+    </div>
+  )}
+  <a class="tm-btn picker__go" href={href} data-gc-event={event}>{ctaLabel}</a>
+  <p class="picker__more">More allergens, diets, your name and a custom line on the <a class="picker__builder" href={href} data-gc-event={builderEvent}>full card builder</a>.</p>
+</div>
+
+<script>
+  import { buildPickerHref } from '../lib/picker';
+  import { renderCardHtml } from '../lib/cardRender';
+  for (const root of document.querySelectorAll<HTMLElement>('.picker')) {
+    const go = root.querySelector<HTMLAnchorElement>('.picker__go');
+    const builder = root.querySelector<HTMLAnchorElement>('.picker__builder');
+    const sw = root.querySelector<HTMLButtonElement>('.picker__switch');
+    const pattern = root.dataset.pattern || null;
+    const update = () => {
+      const allergens = [...root.querySelectorAll<HTMLButtonElement>('.picker__chip[aria-pressed="true"]')].map((b) => b.dataset.key!);
+      const severe = sw?.getAttribute('aria-checked') === 'true';
+      const newHref = buildPickerHref({ pattern, allergens, severe });
+      if (go) go.href = newHref;
+      if (builder) builder.href = newHref;
+      const target = root.dataset.preview ? document.getElementById(root.dataset.preview) : null;
+      const data = (window as any).CARD_DATA;
+      if (target && data) {
+        const state = { allergens, patterns: pattern ? [pattern] : [], severity: severe ? 'severe' : 'allergy', name: '', customText: '', showEnglish: true } as const;
+        target.innerHTML = renderCardHtml(data.buildCard(state), true);
+      }
+    };
+    for (const chip of root.querySelectorAll<HTMLButtonElement>('.picker__chip')) {
+      chip.addEventListener('click', () => { chip.setAttribute('aria-pressed', String(chip.getAttribute('aria-pressed') !== 'true')); update(); });
+    }
+    sw?.addEventListener('click', () => { sw.setAttribute('aria-checked', String(sw.getAttribute('aria-checked') !== 'true')); update(); });
+  }
+</script>
+
+<style>
+  .picker { display: flex; flex-direction: column; gap: 20px; }
+  .picker__group { display: flex; flex-wrap: wrap; gap: 8px; }
+  .picker__chip { font: inherit; min-height: 44px; padding: 0 14px; border-radius: var(--tm-radius-pill); border: 1.5px solid var(--tm-rule-strong); background: #fff; color: var(--tm-ink); font-size: 15px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+  .picker__chip[data-mandatory] { border-color: var(--tm-ink); }
+  .picker__chip[data-mandatory]::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--tm-shu); flex: none; }
+  .picker__chip[data-mandatory][aria-pressed="true"]::before { background: #e07f6e; }
+  .picker__legend { display: flex; align-items: flex-start; gap: 8px; margin: 0 0 -8px; font-size: 13px; color: var(--tm-ink-muted); }
+  .picker__legend i { width: 7px; height: 7px; flex: none; border-radius: 50%; background: var(--tm-shu); margin-top: 6px; margin-top: calc((1lh - 7px) / 2); }
+  .picker__chip small { font-family: var(--tm-font-display); font-size: 13px; opacity: .8; }
+  .picker__chip[aria-pressed="true"] { background: var(--tm-ink); border-color: var(--tm-ink); color: #fff; }
+  .picker__severity { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid var(--tm-rule); padding-top: 18px; }
+  .picker__sev-text { display: flex; flex-direction: column; font-size: 14px; color: var(--tm-ink-muted); }
+  .picker__sev-text strong { font-size: 16px; color: var(--tm-ink); }
+  .picker__switch { width: 56px; height: 44px; flex: none; border: 0; padding: 0; background: transparent; position: relative; cursor: pointer; display: flex; align-items: center; }
+  .picker__switch::before { content: ""; position: absolute; width: 56px; height: 32px; border-radius: 16px; background: var(--tm-ink-faint); transition: background .15s; }
+  .picker__switch::after { content: ""; position: absolute; width: 24px; height: 24px; border-radius: 12px; background: #fff; transition: left .15s; left: 4px; }
+  .picker__switch[aria-checked="true"]::before { background: var(--tm-shu); }
+  .picker__switch[aria-checked="true"]::after { left: 28px; }
+  .picker__go { align-self: flex-start; }
+  .picker__more { margin: 0; font-size: 14px; color: var(--tm-ink-muted); }
+</style>

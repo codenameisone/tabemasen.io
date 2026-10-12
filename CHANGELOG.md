@@ -2,6 +2,9 @@
 
 ## 2026-10-12
 
+- design(home): the card builder in the new design. The card itself has a new look (seal, "To the staff", items in two columns, warning and note blocks) that also applies to the PNG download and print. Same wording, same links, same shared-card URLs.
+- design(allergies): /allergies/ redesigned. Pick allergens right on the page and watch the card update; the button and the "full card builder" link open the builder with exactly that card. Allergy guides list and photos. Every paragraph and FAQ unchanged.
+- a11y: mandatory allergens are marked with a red dot as well as an outline (not colour alone); the viewport no longer blocks zooming on redesigned pages.
 - design: new site header and footer on every page (Draft 5 "sumi ink": seal mark, serif wordmark, self-hosted fonts). Page bodies unchanged.
 - guides: new /guides/ index listing every guide by diet; guides are now a content collection, so hub pages and the index list them automatically.
 - build: sitemap.xml is generated (same URLs plus /guides/); new npm run check:content guards every text block of restyled pages; check:seo also requires title, description, H1 and canonical on new pages.

@@ -40,16 +40,24 @@ Requires Node 22 (`nvm use`).
 
 ```bash
 npm ci
-npm run dev        # http://localhost:4321 with live reload
-npm run build      # static site in dist/
-npm run preview    # serve dist/ locally
-npm test           # unit tests for the build scripts
-npm run check:seo  # titles, H1s, canonicals, JSON-LD, links and sitemap vs seo-baseline.json
+npm run dev              # http://localhost:4321 with live reload
+npm run build           # static site in dist/
+npm run preview         # serve dist/ locally
+npm test                # unit tests for the build scripts
+npm run check:seo       # titles, H1s, canonicals, JSON-LD, links and sitemap vs seo-baseline.json
+npm run check:content   # preserved text blocks vs content-manifest.json
+npm run test:e2e        # Playwright smoke test (375px + 1280px), builder, picker, print, axe
 ```
 
 Pages live in `src/pages/` (one `index.astro` per URL). Files served as-is (scripts, styles, images, `CNAME`, `robots.txt`, `sitemap.xml`, `llms.txt`) live in `public/`.
 
 Deploys run from GitHub Actions on every push to `main` (`.github/workflows/site.yml`).
+
+---
+
+## Design system
+
+Design tokens in `src/styles/tokens.css` (prefixed `--tm-*`): colour, type, spacing and radii. Fonts (Shippori Mincho, Zen Kaku Gothic New, Yuji Syuku) via Fontsource, imported in `BaseLayout`. Components in `src/components/` (SiteHeader, SiteFooter, Picker, ExampleCard, and more). The card's styles in `src/styles/card.css` apply to the live card on `/`, the PNG download and print. Guides are a content collection in `src/content/guides/`, written as Markdown/MDX files (today all four are `.md`) with validated frontmatter.
 
 ---
 

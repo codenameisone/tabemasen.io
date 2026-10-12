@@ -1,0 +1,105 @@
+---
+// src/layouts/HubLayout.astro
+import type { ImageMetadata } from 'astro';
+import { getCollection } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Picker from '../components/Picker.astro';
+import ExampleCard from '../components/ExampleCard.astro';
+import Illustration from '../components/Illustration.astro';
+import GuideList from '../components/GuideList.astro';
+import FeaturedStrip from '../components/FeaturedStrip.astro';
+import { guidesForDiet } from '../lib/guides';
+import { DIETS, type DietKey } from '../data/diets';
+import type { CardState } from '../lib/cardData';
+
+interface Props {
+  title: string; description: string; canonical: string; jsonLd: string[]; page: string;
+  diet: DietKey; eyebrow: string; h1: string; lede: string; reviewed: string;
+  illustration: { src: ImageMetadata; alt: string; caption?: string };
+  picker: { allergenKeys: string[]; showSeverity?: boolean; event: string };
+  example: Partial<CardState>;
+  ctaLabel: string;
+  microcopy?: string;
+  closing: { heading: string; text: string; event: string };
+}
+const p = Astro.props;
+const dietPattern = DIETS[p.diet].pattern;
+const pickerState: CardState = {
+  allergens: p.picker.allergenKeys.filter((k) => (p.example.allergens ?? []).includes(k)),
+  patterns: dietPattern ? [dietPattern] : [],
+  severity: p.example.severity ?? 'allergy',
+  name: '', customText: '', showEnglish: true,
+};
+const guides = guidesForDiet(await getCollection('guides'), p.diet);
+---
+<BaseLayout title={p.title} description={p.description} canonical={p.canonical} page={p.page} current={DIETS[p.diet].hub ?? undefined} jsonLd={p.jsonLd}>
+  <section class="tm-container hub-hero">
+    <div class="hub-hero__copy">
+      <p class="tm-kicker">{p.eyebrow}</p>
+      <h1 class="tm-display hub-hero__h1">{p.h1}</h1>
+      <p class="hub-hero__lede">{p.lede}</p>
+      <p class="hub-hero__reviewed">Last reviewed {p.reviewed} · <a href="/about/#corrections">Corrections</a></p>
+    </div>
+    <Illustration src={p.illustration.src} alt={p.illustration.alt} caption={p.illustration.caption} loading="eager" sizes="(max-width: 900px) 100vw, 50vw" />
+  </section>
+
+  <section class="tm-container hub-pick" aria-label="Start your card">
+    <div class="hub-pick__panel">
+      <Picker diet={p.diet} allergenKeys={p.picker.allergenKeys} showSeverity={p.picker.showSeverity} ctaLabel={p.ctaLabel} event={p.picker.event}
+        preset={{ allergens: pickerState.allergens, severe: pickerState.severity === 'severe' }} previewId="hub-card" builderEvent={`cta-${p.page}-builder`} />
+      {p.microcopy && <p class="hub-pick__micro">{p.microcopy}</p>}
+    </div>
+    <div class="hub-pick__card">
+      <p class="tm-kicker hub-pick__label">Your card preview</p>
+      <p class="hub-pick__hint">Tap what you can't eat. Your card fills in as you go.</p>
+      <ExampleCard id="hub-card" live state={pickerState} />
+    </div>
+  </section>
+  <script is:inline src="/data.js"></script>
+
+  <div class="tm-container hub-body"><slot /></div>
+
+  {guides.length > 0 && (
+    <section class="hub-guides" aria-labelledby="hub-guides-h">
+      <div class="tm-container hub-guides__inner">
+        <div><p class="tm-kicker">{DIETS[p.diet].name} guides</p><h2 class="tm-display hub-guides__h" id="hub-guides-h">Before you order.</h2></div>
+        <GuideList guides={guides} />
+      </div>
+    </section>
+  )}
+
+  <FeaturedStrip eventSuffix={p.page === 'allergies' ? 'strip' : p.page} />
+
+  <section class="hub-cta">
+    <div class="tm-container hub-cta__inner">
+      <h2 class="tm-display hub-cta__h">{p.closing.heading}</h2>
+      <p class="hub-cta__text">{p.closing.text}</p>
+      <a class="tm-btn" href={DIETS[p.diet].pattern ? `/#p=${DIETS[p.diet].pattern}` : '/'} data-gc-event={p.closing.event}>{p.ctaLabel}</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hub-hero { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px 48px; align-items: center; padding-top: 32px; padding-bottom: 48px; }
+  .hub-hero__copy { display: flex; flex-direction: column; gap: 16px; }
+  .hub-hero__h1 { margin: 0; font-size: clamp(2.4rem, 4.6vw, 3.6rem); line-height: 1.06; }
+  .hub-hero__lede { margin: 0; font-size: 19px; color: var(--tm-ink-muted); max-width: 540px; }
+  .hub-hero__reviewed { margin: 0; font-size: 14px; color: var(--tm-ink-faint); }
+  .hub-pick { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 6fr); gap: 48px 64px; align-items: start; padding-bottom: 88px; }
+  .hub-pick__panel { background: var(--tm-paper-warm); border-radius: var(--tm-radius); padding: 32px; }
+  .hub-pick__micro { margin: 12px 0 0; font-size: 13px; color: var(--tm-ink-faint); }
+  .hub-pick__label { margin: 0 0 4px; font-size: 13px; }
+  .hub-pick__hint { margin: 0 0 12px; font-size: 14px; color: var(--tm-ink-muted); }
+  .hub-body { max-width: 860px; padding-bottom: 72px; }
+  .hub-guides { background: var(--tm-paper-warm); border-top: 1px solid var(--tm-rule); }
+  .hub-guides__inner { padding-top: 72px; padding-bottom: 72px; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 32px 56px; }
+  .hub-guides__h { margin: 4px 0 0; font-size: clamp(2rem, 3.2vw, 2.6rem); }
+  .hub-cta { background: var(--tm-ink); color: #f6f1e7; }
+  .hub-cta__inner { padding-top: 72px; padding-bottom: 72px; display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+  .hub-cta__h { margin: 0; font-size: clamp(2rem, 3.2vw, 2.6rem); color: #fff; }
+  .hub-cta__text { margin: 0; max-width: 640px; color: #c9c1b5; }
+  @media (max-width: 900px) {
+    .hub-hero, .hub-pick, .hub-guides__inner { grid-template-columns: 1fr; }
+    .hub-pick__panel { padding: 20px; }
+  }
+</style>

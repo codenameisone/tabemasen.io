@@ -1,0 +1,71 @@
+/* src/styles/card.css — the card. Styles #card (filled by app.js), ExampleCard,
+   the PNG export (html2canvas captures #card) and print. Class names come from
+   app.js renderCard() / src/lib/cardData.ts renderCardHtml(). */
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
+  margin: 0;
+  background: var(--tm-paper-warm);
+  color: var(--tm-ink-card);
+  padding: 68px 36px 26px;
+  border-radius: var(--tm-radius);
+  box-shadow: var(--tm-shadow-card);
+  font-family: var(--tm-font-display);
+  text-align: left;
+}
+.card::before {
+  content: "お店の方へ　To the staff";
+  position: absolute; top: 30px; left: 36px;
+  font-size: 12px; letter-spacing: .2em; color: var(--tm-ink-faint);
+}
+.card::after {
+  content: "食";
+  position: absolute; top: 22px; right: 28px;
+  width: 44px; height: 44px; box-sizing: border-box;
+  border: 2.5px solid var(--tm-shu); color: var(--tm-shu);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 800; transform: rotate(8deg);
+}
+.card > * { grid-column: 1 / -1; margin: 0; }
+.card-line { font-size: 18px; line-height: 1.7; overflow-wrap: anywhere; min-width: 0; }
+.card-line--greeting, .card-line--statement { font-size: 21px; font-weight: 600; line-height: 1.6; }
+.card-line--list-header { margin-top: 14px; margin-bottom: 4px; font-size: 16px; color: var(--tm-ink-faint); }
+.card-line--item { grid-column: auto; font-size: 20px; font-weight: 700; padding: 6px 0; border-bottom: 1px solid var(--tm-rule); line-height: 1.5; }
+.card-line--blank { height: 12px; font-size: 0; line-height: 0; }
+.card-line--warning { background: var(--tm-shu-soft); color: var(--tm-warning-ink); font-size: 16px; font-weight: 600; padding: 12px 14px; border-radius: var(--tm-radius); line-height: 1.65; }
+.card-line--note { background: var(--tm-paper-sunk); color: #3a352f; font-size: 15px; padding: 10px 14px; border-radius: var(--tm-radius); line-height: 1.65; }
+.card-line--closing { font-size: 17px; }
+.card-en { display: grid; grid-template-columns: 1fr 1fr; column-gap: 24px; margin-top: 22px; font-family: var(--tm-font-body); }
+.card-en--hidden { display: none; }
+.card-en-divider { grid-column: 1 / -1; border-top: 1px solid var(--tm-rule); margin-bottom: 12px; }
+.card-en-line { grid-column: 1 / -1; margin: 0; overflow-wrap: anywhere; min-width: 0; font-size: 14px; line-height: 1.6; color: var(--tm-ink-muted); }
+.card-en-line--greeting, .card-en-line--statement { font-weight: 700; color: var(--tm-ink); }
+.card-en-line--item { grid-column: auto; }
+.card-en-line--blank { height: 6px; font-size: 0; line-height: 0; }
+.card-line--disclaimer { margin-top: 20px; padding-top: 12px; border-top: 1px solid var(--tm-rule); font-family: var(--tm-font-body); font-size: 12px; line-height: 1.55; color: var(--tm-ink-faint); }
+.card-line--site-url { font-family: var(--tm-font-body); font-size: 12px; font-weight: 700; color: var(--tm-shu-text); letter-spacing: .04em; }
+
+@media (max-width: 480px) {
+  .card { grid-template-columns: 1fr; padding: 60px 20px 20px; }
+  .card::before { top: 24px; left: 20px; font-size: 11px; }
+  .card::after { top: 16px; right: 16px; width: 38px; height: 38px; font-size: 19px; border-width: 2px; }
+  .card-line--item { grid-column: 1 / -1; font-size: 21px; }
+  .card-line--greeting, .card-line--statement { font-size: 19px; }
+  .card-en { grid-template-columns: 1fr; }
+  .card-en-line--item { grid-column: 1 / -1; }
+}
+
+@media print {
+  .card {
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    max-width: 640px; margin: 0 auto; box-shadow: none;
+    border: 1px solid var(--tm-rule);
+    break-inside: avoid; page-break-inside: avoid;
+  }
+  .card-line--warning, .card-line--note { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+.card--export { box-shadow: none; border-radius: 0; }
+/* html2canvas may ignore overflow-wrap: anywhere; give the export a fallback. */
+.card--export .card-line, .card--export .card-en-line { overflow-wrap: break-word; word-break: break-word; }

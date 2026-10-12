@@ -1,0 +1,62 @@
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Will Japanese restaurants take my allergy seriously?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most will, especially in cities. The bigger risk is misunderstanding rather than dismissal — staff genuinely want to help but may not know what's in the kitchen's stocks and sauces. A written card removes that gap. If a restaurant looks unsure after reading it, eat somewhere else; the right move when in doubt is to leave, not to negotiate."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I bring my EpiPen into Japan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. EpiPen is the only auto-injector approved for use in Japan, so if you carry a different brand, bring a doctor's letter explaining what it is. For other prescription medication, look up Yunyu Kakunin-sho well before flying — some over-the-counter drugs from your country are restricted here. Two weeks' lead time is sensible."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What number do I call in an emergency?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "119 for ambulance and fire (not 911). Tell the dispatcher in English if needed — major-city dispatchers usually have translation support. Mention if you may need epinephrine, since not all ambulances carry it. After using your auto-injector, go to a hospital — anaphylaxis can rebound several hours later."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is buckwheat really a problem if I'm not allergic to it?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If you've never reacted to it, it's not. The reason it's listed alongside the other major allergens on this page is that it's mandatory in Japan but not in the US or EU — so some travelers who have never been exposed at home meet it for the first time in Tokyo. If buckwheat is one of your known allergens, also be aware that soba shops often share boiling water with udon."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What about ryokans and kaiseki dinners?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Both can absolutely be done with allergies, but only with notice. Email at booking, list your allergens precisely, and re-confirm 48 hours before arrival. Many ryokans will prepare a custom kaiseki around your restrictions — but they need lead time to source ingredients. A walk-in request the night of is rarely workable."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is sesame really everywhere?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Close to it, in everyday Japanese cooking. Sesame oil finishes many dishes, sesame seeds garnish rice and salads, and gomadare (sesame dressing) is the default for shabu-shabu. If sesame is your allergen, the card matters here especially — staff often don't think to mention it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What if I have multiple severe allergies?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Lean heavily on three things: chains with published allergen tables, ryokans booked with full disclosure, and konbini for in-between meals. Independent restaurants without written allergen info are the riskiest call. Carry safe snacks for the day so a missed lunch doesn't force a rushed decision."
+        }
+      }
+    ]
+  }

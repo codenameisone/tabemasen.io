@@ -9,6 +9,6 @@ const { text, size = 120, gloss } = Astro.props;
 </span>
 <style>
   .tm-glyph { display: inline-flex; align-items: flex-end; gap: 14px; }
-  .tm-glyph__text { font-family: var(--tm-font-brush); line-height: .9; color: var(--tm-ink); }
+  .tm-glyph__text { font-family: var(--tm-font-brush); line-height: .9; white-space: nowrap; color: var(--tm-ink); }
   .tm-glyph__gloss { font-family: var(--tm-font-display); font-weight: 600; font-size: 16px; color: var(--tm-shu); padding-bottom: 8px; }
 </style>
