@@ -1,0 +1,29 @@
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Celiac (coeliac) disease in Japan: why \"no wheat\" is not the same as gluten-free",
+    "description": "Japan's mandatory allergen labelling covers wheat but not barley, rye or gluten. What a Japanese label guarantees, what \"gluten-free\" legally means in Japan, and how celiac travellers can verify food themselves.",
+    "image": "https://tabemasen.io/assets/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "tabemasen",
+      "url": "https://tabemasen.io/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://tabemasen.io/#organization",
+      "name": "tabemasen",
+      "url": "https://tabemasen.io/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://tabemasen.io/assets/android-chrome-512.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://tabemasen.io/celiac/"
+    },
+    "datePublished": "2026-07-27",
+    "dateModified": "2026-10-10",
+    "inLanguage": "en"
+  }
