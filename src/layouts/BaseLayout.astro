@@ -5,6 +5,11 @@ import '../styles/tokens.css';
 import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+// The Latin files of the body and heading fonts, preloaded so font-display: optional
+// usually gets them in time (same hashed URLs as in fonts.css).
+import zen400 from '@fontsource/zen-kaku-gothic-new/files/zen-kaku-gothic-new-latin-400-normal.woff2?url';
+import zen700 from '@fontsource/zen-kaku-gothic-new/files/zen-kaku-gothic-new-latin-700-normal.woff2?url';
+import mincho600 from '@fontsource/shippori-mincho/files/shippori-mincho-latin-600-normal.woff2?url';
 
 interface Props {
   title: string;
@@ -22,7 +27,7 @@ interface Props {
 }
 const {
   title, description, canonical, robots, page, current,
-  ogType = 'website', ogImage = 'https://tabemasen.io/assets/og-image.png',
+  ogType = 'website', ogImage = 'https://tabemasen.io/assets/og-image-v2.png',
   jsonLd = [], bodyClass,
   ogDescription = description, twitterDescription = description,
 } = Astro.props;
@@ -34,6 +39,7 @@ const {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{title}</title>
+  {[zen400, zen700, mincho600].map((href) => <link rel="preload" href={href} as="font" type="font/woff2" crossorigin />)}
   <meta name="description" content={description}>
   {robots && <meta name="robots" content={robots}>}
   {canonical && <link rel="canonical" href={canonical}>}
