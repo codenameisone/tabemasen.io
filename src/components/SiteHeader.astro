@@ -42,6 +42,8 @@ const { page, current } = Astro.props;
 </script>
 
 <style>
+  /* legacy styles.css has `a:hover { text-decoration: underline }` */
+  .tm-header a:hover { text-decoration: none; }
   /* Explicit resets: on legacy pages styles.css and inline styles are present. */
   .tm-header, .tm-header * { box-sizing: border-box; }
   .tm-header { background: var(--tm-paper); color: var(--tm-ink); font-family: var(--tm-font-body); font-size: 15px; line-height: 1.4; border-bottom: 1px solid var(--tm-rule); position: relative; z-index: 50; }
