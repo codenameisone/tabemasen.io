@@ -52,6 +52,14 @@ describe('Picker', async () => {
     expect(out).not.toContain('picker__legend');
   });
 
+  it('tags the secondary builder link when builderEvent is set', async () => {
+    const out = await container.renderToString(Picker, {
+      props: { diet: 'allergies', allergenKeys: ['egg'], ctaLabel: 'x', event: 'cta-allergies-hero', builderEvent: 'cta-allergies-builder' },
+    });
+    expect(out).toMatch(/<a[^>]*class="[^"]*picker__builder[^"]*"[^>]*data-gc-event="cta-allergies-builder"/);
+    expect(html).not.toMatch(/picker__builder[^>]*data-gc-event/);
+  });
+
   it('includes the severity switch when asked', () => {
     expect(html).toContain('role="switch"');
   });

@@ -12,9 +12,10 @@ interface Props {
   event: string;
   preset?: { allergens: string[]; severe: boolean };
   previewId?: string;
+  builderEvent?: string;
 }
 
-const { diet, allergenKeys, showSeverity = false, ctaLabel, event, preset, previewId } = Astro.props;
+const { diet, allergenKeys, showSeverity = false, ctaLabel, event, preset, previewId, builderEvent } = Astro.props;
 const byKey = new Map(loadCardData().allergens.map((a) => [a.key, a]));
 const chips = allergenKeys.map((k) => {
   const a = byKey.get(k);
@@ -49,7 +50,7 @@ const sevId = `picker-sev-${event}`;
     </div>
   )}
   <a class="tm-btn picker__go" href={href} data-gc-event={event}>{ctaLabel}</a>
-  <p class="picker__more">More allergens, diets, your name and a custom line on the <a class="picker__builder" href={href}>full card builder</a>.</p>
+  <p class="picker__more">More allergens, diets, your name and a custom line on the <a class="picker__builder" href={href} data-gc-event={builderEvent}>full card builder</a>.</p>
 </div>
 
 <script>
