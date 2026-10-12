@@ -298,3 +298,37 @@ Decisions taken with the owner after M1 shipped. Where they conflict with §4–
 15. **The hub example card is a live preview.** The picker's chips, the preview card and both links (CTA and "full card builder") are rendered from one state; the page opens empty (no selections, the basic card, links to `/`), so a click without choosing never overwrites a saved card, and every change re-renders the card from `data.js` with the builder's markup (`src/lib/cardRender.ts`, browser-safe). Without JavaScript all three still agree.
 16. **Second `app.js` change.** Besides awaiting web fonts, the html2canvas call has an `onclone` hook that adds `.card--export` to the cloned card so the export has no shadow or rounded corners (the shadow greyed the PNG).
 17. **Mandatory allergens carry a red dot** (CSS circle) as well as the darker outline, on the builder and the hub picker, with a legend — shape as well as colour, for colour-blind users.
+
+## 9. Slice 2 — labeling guide on the guide template (2026-10-12)
+
+Decisions taken with the owner for `/allergies/labeling-guide/` (44% of Search impressions). Where they conflict with §4–§5 or §8.2, this section wins for this slice.
+
+### Approach
+**Template plus restyled body.** The guide gets the new page frame (`GuideLayout`); its body keeps its existing HTML, moved verbatim into `src/pages/allergies/labeling-guide/_body.html` and restyled with new CSS. No MDX conversion of this guide in this slice. `GuideLayout` is built to be reused by new MDX guides later; the MDX authoring path is proven by the first new guide, not here.
+
+### `GuideLayout` (src/layouts/GuideLayout.astro)
+- **Head:** title, meta description, canonical and every JSON-LD block of the existing page, emitted verbatim (the page has three: Article, BreadcrumbList, FAQPage).
+- **Hero:** the existing breadcrumb markup reproduced exactly ("tabemasen › Allergies › Labeling guide", same links and separators); eyebrow "Practical travel guide"; the unchanged H1 including its no-break space; the lede; the meta line ("Updated for 2026 regulations · Last reviewed October 2026 · Corrections · ~12 min read", Corrections → `/about/#corrections`); the konbini watercolour (`src/assets/illustrations/konbini.jpg`) on the right with a plain caption below; the existing "not medical advice" box beneath the hero, restyled.
+- **Body area:** desktop: a sticky sidebar holding the existing "In this article" contents list (the same 12 entries, moved, not regenerated) beside a body column of at most 760px; phones: the contents list sits above the body.
+- **After the body:** the existing closing CTA ("Generate your allergy card" + its paragraph), restyled, with the button wording changed from "Generate my card →" to "Generate my Japanese allergy card →" (owner's long-form CTA rule, applied to guides under a diet hub); a new "Keep reading" list of the other guides for the same diet from the guide collection, never including the current guide. No "Recommended by" strip (the page has none today).
+- **Props/slots:** head data, page analytics name (`allergies-labeling`), current nav href (`/allergies/`), breadcrumb, eyebrow, H1, lede, meta line, illustration, contents list, guide id (for "Keep reading"); body as the default slot.
+
+### Restyled body
+All existing `lg-*` classes get new CSS built on `--tm-*` tokens, replacing the page's ~650 lines of inline CSS: serif `h2`s and 18px body text; key-takeaways ruled box; tables with rules and horizontal scroll on phones; the tiers chart as two columns with large serif counts; "New" badges as small red text labels; the mock label on paper with step tags as numbered pills; kanji, food and phrase cards with large serif Japanese; three tinted callout variants (warn, tip, celiac) keeping their titles; full-width photos with captions; small-print sources; FAQ disclosures styled like `/allergies/`.
+
+**Not colour alone:** kanji cards currently distinguish mandatory / recommended / not-on-any-list by colour only. Mandatory cards carry the red dot (as on the builder chips), recommended a solid outline, unlisted a dashed outline; the kanji legend shows the same shapes. In the mock label, the individual-notation and collective-line highlights differ by underline style (solid vs dotted) as well as colour.
+
+**Unchanged:** every word, the order of elements and every heading. The only text change on the page is the CTA button wording above.
+
+### Safety and testing
+- `check:seo` passes with `seo-allowlist.json` still `"changes": []`.
+- `check:content` compares against the git tag `slice2-base` (created at the start of the slice); the manifest's existing labeling-guide entry stays (whole body minus old header/footer); the only allowlisted change is "Generate my card →".
+- Unit (container) tests for `GuideLayout`: head data, breadcrumb, meta line, contents list, "Keep reading" excludes the current guide.
+- E2E: loads without console errors at 375 and 1280; every contents link targets an existing section id; contents list sticky on desktop and above the body on phones; closing CTA goes to `/`; kanji legend and cards show their shape markers; axe has no serious or critical violations.
+- Owner review on a local build before the PR.
+
+### Release
+One PR from `astro-redesign`. Recommended merge on or after 2026-10-26, so `/` and `/allergies/` (shipped 2026-10-12) have had two weeks in Search Console and any ranking change on this page is attributable. After merge: request reindexing; compare 14-day clicks and position before/after (baseline: position ~7, CTR ~1.2%).
+
+### Out of scope
+MDX conversion of this guide; the other three guides; new guides; the separate title/description CTR fix; `llms.txt` generation.
