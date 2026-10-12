@@ -98,6 +98,11 @@ test('allergies preview updates as you pick', async ({ page }) => {
   const card = page.locator('#hub-card');
   await expect(card).toContainText('落花生(ピーナッツ)');
   await expect(card.locator('.card-line--warning').first()).toBeVisible();
+  const order = ['・えび', '・卵', '・落花生(ピーナッツ)'];
+  await expect(card.locator('.card-line--item')).toHaveText(order);
+  await page.locator('.picker__chip[data-key="egg"]').click();
+  await page.locator('.picker__chip[data-key="egg"]').click();
+  await expect(card.locator('.card-line--item')).toHaveText(order);
   await page.locator('.picker__chip[data-key="egg"]').click();
   await expect(card.locator('.card-line', { hasText: '・卵' })).toHaveCount(0);
   await page.locator('.picker__chip[data-key="cashew"]').click();

@@ -104,4 +104,7 @@ describe('Picker preset and preview', async () => {
   it('throws on an unknown preset key', async () => {
     await expect(container.renderToString(Picker, { props: { ...base, preset: { allergens: ['nope'], severe: false } } })).rejects.toThrow();
   });
+  it('throws when a preset key is not one of the picker allergenKeys', async () => {
+    await expect(container.renderToString(Picker, { props: { ...base, allergenKeys: ['egg', 'cashew'], preset: { allergens: ['soy'], severe: false } } })).rejects.toThrow(/soy/);
+  });
 });

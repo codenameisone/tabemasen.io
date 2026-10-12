@@ -23,6 +23,7 @@ const chips = allergenKeys.map((k) => {
 });
 for (const k of preset?.allergens ?? []) {
   if (!byKey.has(k)) throw new Error(`Picker: unknown preset allergen key "${k}"`);
+  if (!allergenKeys.includes(k)) throw new Error(`Picker: preset allergen key "${k}" is not in allergenKeys`);
 }
 const pressed = new Set(preset?.allergens ?? []);
 const severe = !!preset?.severe;

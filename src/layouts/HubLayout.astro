@@ -23,6 +23,13 @@ interface Props {
   closing: { heading: string; text: string; event: string };
 }
 const p = Astro.props;
+const dietPattern = DIETS[p.diet].pattern;
+const pickerState: CardState = {
+  allergens: p.picker.allergenKeys.filter((k) => (p.example.allergens ?? []).includes(k)),
+  patterns: dietPattern ? [dietPattern] : [],
+  severity: p.example.severity ?? 'allergy',
+  name: '', customText: '', showEnglish: true,
+};
 const guides = guidesForDiet(await getCollection('guides'), p.diet);
 ---
 <BaseLayout title={p.title} description={p.description} canonical={p.canonical} page={p.page} current={DIETS[p.diet].hub ?? undefined} jsonLd={p.jsonLd}>
@@ -39,12 +46,12 @@ const guides = guidesForDiet(await getCollection('guides'), p.diet);
   <section class="tm-container hub-pick" aria-label="Start your card">
     <div class="hub-pick__panel">
       <Picker diet={p.diet} allergenKeys={p.picker.allergenKeys} showSeverity={p.picker.showSeverity} ctaLabel={p.ctaLabel} event={p.picker.event}
-        preset={{ allergens: p.example.allergens ?? [], severe: p.example.severity === 'severe' }} previewId="hub-card" />
+        preset={{ allergens: pickerState.allergens, severe: pickerState.severity === 'severe' }} previewId="hub-card" />
       {p.microcopy && <p class="hub-pick__micro">{p.microcopy}</p>}
     </div>
     <div class="hub-pick__card">
       <p class="tm-kicker hub-pick__label">Your card preview</p>
-      <ExampleCard id="hub-card" live state={p.example} />
+      <ExampleCard id="hub-card" live state={pickerState} />
     </div>
   </section>
   <script is:inline src="/data.js"></script>
