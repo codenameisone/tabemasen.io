@@ -1,0 +1,58 @@
+---
+// src/components/SiteFooter.astro
+import '../styles/fonts.css';
+import '../styles/tokens.css';
+import SealMark from './SealMark.astro';
+import { FOOTER } from '../lib/site';
+interface Props { page: string }
+const { page } = Astro.props;
+const external = (href: string) => href.startsWith('http');
+const columns = [
+  { heading: 'Cards', links: FOOTER.cards },
+  { heading: 'Guides', links: FOOTER.guides },
+  { heading: 'Resources', links: FOOTER.resources },
+  { heading: 'About', links: FOOTER.about },
+];
+---
+<footer class="tm-footer">
+  <div class="tm-footer__inner">
+    <div class="tm-footer__brand">
+      <a class="tm-footer__home" href="/" aria-label="tabemasen home"><SealMark size={28} color="#e07f6e" /><span>tabemasen</span></a>
+      <p class="tm-footer__tagline">Free Japanese restaurant cards for travelers with food allergies and dietary restrictions.</p>
+      <a class="tm-footer__coffee" href="https://buymeacoffee.com/iwakuranik" target="_blank" rel="noopener noreferrer" data-gc-event={`coffee-${page}`}>Buy me a coffee</a>
+    </div>
+    {columns.map((col) => (
+      <div class="tm-footer__col">
+        <h2 class="tm-footer__heading">{col.heading}</h2>
+        <ul class="tm-footer__list">
+          {col.links.map((l) => (
+            <li><a href={l.href} target={external(l.href) ? '_blank' : undefined} rel={external(l.href) ? 'noopener' : undefined}>{l.label}</a></li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+  <div class="tm-footer__bottom">
+    <p class="tm-footer__disclaimer">Not medical advice. A card helps you ask, but it can't guarantee what's in your food, so always confirm with staff. If you have a serious allergy, carry your prescribed medication and a doctor's letter. Emergency in Japan: 119. Wording last reviewed October 2026. <a href="/about/">How the cards are made</a></p>
+    <p class="tm-footer__credit">Built by a fellow traveller · v2.0</p>
+  </div>
+</footer>
+
+<style>
+  .tm-footer, .tm-footer * { box-sizing: border-box; }
+  .tm-footer { background: var(--tm-ink); color: #c9c1b5; font-family: var(--tm-font-body); font-size: 15px; line-height: 1.6; }
+  .tm-footer a { color: #f6f1e7; text-decoration: none; }
+  .tm-footer a:hover { color: #e07f6e; }
+  .tm-footer__inner { max-width: var(--tm-max); margin: 0 auto; padding: 56px var(--tm-gutter) 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 32px; }
+  .tm-footer__home { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-family: var(--tm-font-display); font-size: 20px; font-weight: 700; }
+  .tm-footer__tagline { margin: 8px 0 12px; font-size: 14px; }
+  .tm-footer__coffee { display: inline-flex; align-items: center; min-height: 44px; font-weight: 700; border-bottom: 2px solid #e07f6e; }
+  .tm-footer__heading { margin: 0 0 6px; font-family: var(--tm-font-body); font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #c9c1b5; }
+  .tm-footer__list { list-style: none; margin: 0; padding: 0; }
+  .tm-footer__list li { margin: 0; padding: 0; }
+  .tm-footer__list a { display: inline-flex; align-items: center; min-height: 36px; }
+  .tm-footer__bottom { max-width: var(--tm-max); margin: 0 auto; padding: 20px var(--tm-gutter) 40px; border-top: 1px solid #3a352f; font-size: 13px; }
+  .tm-footer__disclaimer { margin: 0 0 8px; max-width: 900px; }
+  .tm-footer__disclaimer a { border-bottom: 1px solid #c9c1b5; }
+  .tm-footer__credit { margin: 0; color: #a89f91; }
+</style>
