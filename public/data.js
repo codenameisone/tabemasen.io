@@ -23,21 +23,21 @@ window.CARD_DATA = (function () {
   'use strict';
 
   // ─────────────────────────────────────────────────────────────────────────
-  // ALLERGENS — Japan's 8 mandatory + common others
+  // ALLERGENS — Japan's 9 mandatory (mandatory: true) + common others
   // ─────────────────────────────────────────────────────────────────────────
   const allergens = [
     // ── Mandatory (表示義務) ──────────────────────────────────────────────
-    { key: 'shrimp',     japanese: 'えび',                          english: 'Shrimp' },
-    { key: 'crab',       japanese: 'かに',                            english: 'Crab' },
-    { key: 'wheat',      japanese: '小麦',                            english: 'Wheat' },
-    { key: 'buckwheat',  japanese: 'そば',                            english: 'Buckwheat' },
-    { key: 'egg',        japanese: '卵',                              english: 'Egg' },
-    { key: 'dairy',      japanese: '乳製品(牛乳、チーズ、バター)',      english: 'Dairy' },
-    { key: 'peanut',     japanese: '落花生(ピーナッツ)',              english: 'Peanut' },
-    { key: 'walnut',     japanese: 'くるみ',                          english: 'Walnut' },
+    { key: 'shrimp',     japanese: 'えび',                          english: 'Shrimp', mandatory: true },
+    { key: 'crab',       japanese: 'かに',                            english: 'Crab', mandatory: true },
+    { key: 'wheat',      japanese: '小麦',                            english: 'Wheat', mandatory: true },
+    { key: 'buckwheat',  japanese: 'そば',                            english: 'Buckwheat', mandatory: true },
+    { key: 'egg',        japanese: '卵',                              english: 'Egg', mandatory: true },
+    { key: 'dairy',      japanese: '乳製品(牛乳、チーズ、バター)',      english: 'Dairy', mandatory: true },
+    { key: 'peanut',     japanese: '落花生(ピーナッツ)',              english: 'Peanut', mandatory: true },
+    { key: 'walnut',     japanese: 'くるみ',                          english: 'Walnut', mandatory: true },
+    { key: 'cashew',     japanese: 'カシューナッツ',                  english: 'Cashew', mandatory: true },
     // ── Common additional ─────────────────────────────────────────────────
     { key: 'almond',     japanese: 'アーモンド',                      english: 'Almond' },
-    { key: 'cashew',     japanese: 'カシューナッツ',                  english: 'Cashew' },
     { key: 'pistachio',  japanese: 'ピスタチオ',                      english: 'Pistachio' },
     { key: 'soy',        japanese: '大豆',                            english: 'Soy' },
     { key: 'sesame',     japanese: 'ごま',                            english: 'Sesame' },
