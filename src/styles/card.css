@@ -67,3 +67,5 @@
   .card-line--warning, .card-line--note { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
 .card--export { box-shadow: none; border-radius: 0; }
+/* html2canvas may ignore overflow-wrap: anywhere; give the export a fallback. */
+.card--export .card-line, .card--export .card-en-line { overflow-wrap: break-word; word-break: break-word; }
