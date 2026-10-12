@@ -58,7 +58,7 @@ Deploys run from GitHub Actions on every push to `main` (`.github/workflows/site
 
 ## Design system
 
-Design tokens in `src/styles/tokens.css` (prefixed `--tm-*`): colour, type, spacing and radii. Fonts (Shippori Mincho, Zen Kaku Gothic New, Yuji Syuku) via Fontsource, imported in `BaseLayout`. Components in `src/components/` (SiteHeader, SiteFooter, Picker, ExampleCard, and more). The card's styles in `src/styles/card.css` apply to the live card on `/`, the PNG download and print. Guides are a content collection in `src/content/guides/`, written as Markdown/MDX files (today all four are `.md`) with validated frontmatter.
+Design tokens in `src/styles/tokens.css` (prefixed `--tm-*`): colour, type, spacing and radii. Fonts (Shippori Mincho, Zen Kaku Gothic New, Yuji Syuku) via Fontsource, imported in `BaseLayout`. Components in `src/components/` (SiteHeader, SiteFooter, Picker, ExampleCard, and more). The card's styles in `src/styles/card.css` apply to the live card on `/`, the PNG download and print. Guides are listed in a content collection in `src/content/guides/` (one `.md` file of validated frontmatter each), which feeds `/guides/`, the hubs' guide lists and "Keep reading". The guide pages themselves live in `src/pages/` like every other page; a new guide needs both its `.md` entry and its page, plus a line in `src/lib/sitemap.ts`.
 
 ---
 

@@ -11,7 +11,6 @@
     "preview": "astro preview",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "compare": "node scripts/compare-build.mjs",
     "seo:baseline": "node scripts/seo-baseline.mjs",
     "check:seo": "node scripts/check-seo.mjs",
     "check:content": "node scripts/check-content.mjs",
