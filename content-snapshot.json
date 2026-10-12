@@ -102,7 +102,7 @@
    "mailto:hello@tabemasen.io"
   ],
   "alts": [
-   "Watercolour sketch: a traveller at a small ramen counter holds up a phone, and the chef leans in to read it",
+   "Watercolour sketch: a traveller at a small ramen counter holds up a phone while the chef leans across the counter towards them",
    "Watercolour sketch of a set meal on a wooden table: miso soup, grilled fish, rice, pickles, soy sauce, green tea, an open travel notebook and a passport",
    "Watercolour sketch: a hand turns over an onigiri in a convenience store to read the label on the back",
    "The Tokyo Chapter: Japan with severe food allergies",
@@ -1679,6 +1679,7 @@
    "✓ Covers soy sauce, dashi & fryer cross-contamination",
    "✓ Japanese-reviewed wording",
    "✓ Works offline on your phone",
+   "The rice and fish are naturally gluten-free. The soy sauce usually isn't: standard shoyu is brewed with wheat.",
    "Red dot: Japan's mandatory allergens",
    "Egg 卵",
    "Dairy 乳製品",
@@ -2730,7 +2731,7 @@
    "mailto:hello@tabemasen.io"
   ],
   "alts": [
-   "Watercolour sketch: a hand slides open a Japanese restaurant door with a round sticker and a small plaque on the glass"
+   "Watercolour sketch: a hand pulls open a Japanese restaurant's glass door; inside hang a round sign and a small wooden plaque"
   ],
   "events": [
    "coffee-halal-cert",

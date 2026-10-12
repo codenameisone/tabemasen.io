@@ -838,3 +838,8 @@ test('celiac: shows the real gluten-free card next to the mid-page CTA', async (
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   expect(overflow).toBeLessThanOrEqual(0);
 });
+
+test('gluten-free hub: the sushi illustration explains the soy sauce in it', async ({ page }) => {
+  await page.goto('/gluten-free-japan/');
+  await expect(page.locator('figure figcaption').first()).toContainText('soy sauce');
+});
