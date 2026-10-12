@@ -136,7 +136,7 @@ test('mobile menu opens on a legacy page', async ({ page }, info) => {
   await expect(page.locator('.tm-header__toggle')).toHaveAttribute('aria-expanded', 'true');
 });
 
-for (const path of ['/', '/allergies/', '/halal/', '/guides/', '/allergies/labeling-guide/', '/allergies/food-allergies-in-japanese/', '/halal/certification-guide/', '/vegan/']) {
+for (const path of ['/', '/allergies/', '/halal/', '/guides/', '/allergies/labeling-guide/', '/allergies/food-allergies-in-japanese/', '/halal/certification-guide/', '/vegan/', '/gluten-free-japan/']) {
   test(`${path} has no serious or critical axe violations`, async ({ page }) => {
     await page.goto(path);
     const { violations } = await new AxeBuilder({ page }).analyze();
@@ -454,4 +454,95 @@ test('vegan preview matches the builder after hand-off, with the vegan pattern s
   expect(await page.locator('#card .card-line').allTextContents()).toEqual(hub);
   await expect(page.locator('.pattern-btn[data-key="vegan"]')).toHaveClass(/pattern-btn--selected/);
   await expect(page.locator('.chip[data-key="peanut"]')).toHaveAttribute('aria-pressed', 'true');
+});
+
+test('gluten-free hub: picker starts empty, severity toggle, no phone mockup, builder hand-off', async ({ page }) => {
+  await page.goto('/gluten-free-japan/');
+  await expect(page.locator('h1')).toHaveText('Gluten-free in Japan');
+  await expect(page.locator('.gf-phone-stage, .gf-phone')).toHaveCount(0);
+  const go = page.locator('.picker__go');
+  await expect(go).toHaveText('Generate my Japanese gluten-free card →');
+  await expect(go).toHaveAttribute('data-gc-event', 'cta-gluten-free-hero');
+  await expect(go).toHaveAttribute('href', '/#p=gluten-free');
+  await expect(page.locator('.picker__builder')).toHaveAttribute('data-gc-event', 'cta-gluten-free-builder');
+  await expect(page.locator('.picker__builder')).toHaveAttribute('href', '/#p=gluten-free');
+  await expect(page.locator('.picker__switch')).toHaveCount(1);
+  await expect(page.locator('.picker__chip[aria-pressed="true"]')).toHaveCount(0);
+  await expect(page.locator('.picker__chip')).toHaveCount(9);
+  await page.locator('.picker__chip[data-key="egg"]').click();
+  await expect(go).toHaveAttribute('href', '/#a=egg&p=gluten-free');
+  await page.locator('.picker__switch').click();
+  await expect(go).toHaveAttribute('href', '/#a=egg&p=gluten-free&s=severe');
+  await expect(page.locator('.picker__builder')).toHaveAttribute('href', '/#a=egg&p=gluten-free&s=severe');
+  await expect(page.locator('.hub-cta a.tm-btn')).toHaveText('Generate my Japanese gluten-free card →');
+  await expect(page.locator('.hub-cta a.tm-btn')).toHaveAttribute('data-gc-event', 'cta-gluten-free-footer');
+  await expect(page.locator('.hub-cta a.tm-btn')).toHaveAttribute('href', '/#p=gluten-free');
+});
+
+test('gluten-free hub: trust strip sits under the lede and both mid CTAs keep events, hrefs and wording', async ({ page }) => {
+  await page.goto('/gluten-free-japan/');
+  await expect(page.locator('.gf-trust-strip__item')).toHaveCount(3);
+  await expect(page.locator('.gf-trust-strip')).toContainText('Covers soy sauce, dashi & fryer cross-contamination');
+  const mids = page.locator('.gf-main a.btn');
+  await expect(mids).toHaveCount(2);
+  await expect(mids).toHaveText(['Generate my Japanese gluten-free card →', 'Generate my Japanese gluten-free card →']);
+  await expect(mids.nth(0)).toHaveAttribute('data-gc-event', 'cta-gluten-free-mid');
+  await expect(mids.nth(1)).toHaveAttribute('data-gc-event', 'cta-gluten-free-mid-2');
+  for (const i of [0, 1]) await expect(mids.nth(i)).toHaveAttribute('href', '/#p=gluten-free');
+  expect(await mids.first().evaluate((e) => e.getBoundingClientRect().height)).toBeGreaterThanOrEqual(44);
+});
+
+test('gluten-free hub: body is styled (items, safe cards, FAQ) and the FAQ opens', async ({ page }) => {
+  await page.goto('/gluten-free-japan/');
+  await expect(page.locator('.gf-gluten-item')).toHaveCount(9);
+  await expect(page.locator('.gf-safe-card')).toHaveCount(6);
+  expect(await page.locator('.gf-gluten-list').evaluate((e) => getComputedStyle(e).display)).toBe('flex');
+  expect(await page.locator('.gf-safe-grid').evaluate((e) => getComputedStyle(e).display)).toBe('grid');
+  // gluten items and safe foods are told apart by more than colour: edge style and a marker
+  expect(await page.locator('.gf-gluten-item').first().evaluate((e) => getComputedStyle(e).borderLeftStyle)).toBe('solid');
+  expect(await page.locator('.gf-safe-card').first().evaluate((e) => getComputedStyle(e).borderLeftStyle)).toBe('double');
+  expect(await page.locator('.gf-gluten-item__title').first().evaluate((e) => getComputedStyle(e, '::before').content)).toContain('✕');
+  expect(await page.locator('.gf-safe-card__title').first().evaluate((e) => getComputedStyle(e, '::before').content)).toContain('✓');
+  expect(await page.locator('.gf-faq__item summary').first().evaluate((e) => e.getBoundingClientRect().height)).toBeGreaterThanOrEqual(44);
+  await expect(page.locator('.gf-faq__item')).toHaveCount(9);
+  await expect(page.locator('.gf-faq__item[open]')).toHaveCount(1);
+  await page.locator('.gf-faq__item summary').nth(1).click();
+  await expect(page.locator('.gf-faq__item').nth(1)).toHaveAttribute('open', '');
+  await expect(page.locator('main, [role="main"]')).toHaveCount(1);
+});
+
+test('gluten-free hub: tapping chips updates the card and both links open the builder with it', async ({ page }) => {
+  await page.goto('/gluten-free-japan/');
+  const card = page.locator('#hub-card');
+  await expect(card.locator('.card-line', { hasText: '・卵' })).toHaveCount(0);
+  await page.locator('.picker__chip[data-key="shrimp"]').click();
+  await page.locator('.picker__chip[data-key="egg"]').click();
+  await expect(card.locator('.card-line', { hasText: '・卵' })).toHaveCount(1);
+  await expect(card.locator('.card-line', { hasText: '・えび' })).toHaveCount(1);
+  const go = await page.locator('.picker__go').getAttribute('href');
+  expect(go).toBe('/#a=egg,shrimp&p=gluten-free');
+  await expect(page.locator('.picker__builder')).toHaveAttribute('href', go);
+});
+
+test('gluten-free preview matches the builder after hand-off, with the gluten-free pattern selected', async ({ page }) => {
+  await page.goto('/gluten-free-japan/');
+  await page.locator('.picker__chip[data-key="shrimp"]').click();
+  await page.locator('.picker__chip[data-key="soy"]').click();
+  await page.locator('.picker__switch').click();
+  await expect(page.locator('#hub-card .card-line', { hasText: '・えび' })).toHaveCount(1);
+  const hub = await page.locator('#hub-card .card-line').allTextContents();
+  await page.locator('.picker__go').click();
+  await expect(page.locator('#card .card-line').first()).toBeVisible();
+  expect(await page.locator('#card .card-line').allTextContents()).toEqual(hub);
+  await expect(page.locator('.pattern-btn[data-key="gluten-free"]')).toHaveClass(/pattern-btn--selected/);
+  await expect(page.locator('.chip[data-key="shrimp"]')).toHaveAttribute('aria-pressed', 'true');
+  await expect(page.locator('#severity-toggle')).toBeChecked();
+});
+
+test('gluten-free hub: no horizontal overflow and in-page links resolve', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 800 });
+  await page.goto('/gluten-free-japan/');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
+  const hrefs = await page.locator('a[href^="#"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')).filter((h) => h.length > 1));
+  for (const h of hrefs) await expect(page.locator(`[id="${h.slice(1)}"]`)).toHaveCount(1);
 });
