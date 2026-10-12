@@ -13,6 +13,7 @@ The name "tabemasen" (食べません) means "I don't eat" in Japanese.
 - [Allergy cards](https://tabemasen.io/allergies/): Cards for Japan's labeled allergens including shrimp, crab, eggs, milk, peanuts, tree nuts, and buckwheat
 - [Vegan guide](https://tabemasen.io/vegan/): Vegan dining in Japan — hidden fish-based dashi in most dishes, and how to request plant-based alternatives
 - [Halal guide](https://tabemasen.io/halal/): Halal dining in Japan — alcohol in cooking (mirin), pork-derived ingredients, and finding halal-certified restaurants
+- [All guides](https://tabemasen.io/guides/): Every tabemasen guide grouped by diet — allergies, halal, gluten-free and coeliac — with labels, phrases and restaurant advice
 
 ## About
 
