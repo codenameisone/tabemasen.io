@@ -1,0 +1,70 @@
+{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is there a single official halal logo in Japan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Japan has no government halal certification body and no official national halal logo. Multiple private organizations issue their own certifications with their own logos. The most internationally recognized is JHA (Japan Halal Association), approved by JAKIM, MUIS, and BPJPH, among others."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the difference between halal certified and Muslim-friendly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Halal certified means a recognized body has inspected the restaurant and verified that all ingredients, meat sourcing, preparation methods, and kitchen equipment meet halal standards. Muslim-friendly means the restaurant has made efforts to accommodate Muslim diners — no pork in certain dishes, halal meat options — but may still use mirin or cooking sake, share kitchen equipment with non-halal items, and serve alcohol."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is soy sauce halal in Japan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Standard Japanese soy sauce contains approximately 1.5–2% alcohol from fermentation. Whether this makes it non-halal is debated. Some treat it as acceptable because the alcohol is a natural fermentation byproduct (similar to bread or vinegar). Others hold that any measurable alcohol content makes it non-halal. Halal-certified restaurants typically use specifically certified halal soy sauce."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which halal certification body in Japan is most trusted?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "JHA has the widest international recognition — approved by JAKIM, MUIS, BPJPH, HAK, GAC, and MOIAT. JMA (Japan Muslim Association) is the oldest Muslim organization and is JAKIM-recognized. MPJA is recognized by JAKIM, MUI, and CICOT. The 'most trusted' depends on which country's standards you follow."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I find halal food at convenience stores?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "At konbini (7-Eleven, FamilyMart, Lawson), halal-certified options are limited but growing. Some branches in tourist areas have begun carrying halal-certified bento boxes. For non-certified konbini food, check labels for 豚 (pork), ゼラチン (gelatin), みりん (mirin), and 酒 (sake). For a wider selection, Gyomu Super stocks halal products with clear labeling nationwide."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need a halal dietary card in Japan?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "It helps significantly. Most restaurant staff don't speak English fluently, and verbal explanations of halal requirements often get lost in translation. A written card in Japanese gives the kitchen something concrete to work with. tabemasen generates this card for free."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I trust halal certification on Japanese airline meals?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Japanese airlines (ANA, JAL) offer halal meal options on international flights — these must be pre-ordered when booking, not requested at the gate. The meals are typically prepared by certified halal catering kitchens. Domestic flights generally do not offer meal service, so bring your own food for internal travel."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are there halal-certified instant ramen options?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not many domestic Japanese brands are halal-certified. The safest options are imported brands available at Gyomu Super, ethnic grocery stores, or online shops in Japan — Indomie and Samyang are widely stocked and carry recognized halal certifications from their home countries. If buying a Japanese brand, scan labels for 豚, ゼラチン, みりん, and 酒."
+        }
+      }
+    ]
+  }

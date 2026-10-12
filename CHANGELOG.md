@@ -2,6 +2,7 @@
 
 ## 2026-10-12
 
+- design(halal): the halal certification guide in the new design with a new illustration: contents list beside the article, certification tiers marked by border style as well as colour. Every word, heading and FAQ unchanged.
 - design(halal): /halal/ redesigned with a new illustration. Pick what you can't eat right on the page and watch the card update; the button and the builder link open the builder with that card. Every paragraph and FAQ unchanged.
 - seo: check:seo also guards link-preview meta (og:, twitter:, article:) against the legacy pages (seo-social-baseline.json). The food allergies guide keeps its own og/twitter description.
 - design(allergies): food allergies in Japanese guide in the new design with a new illustration. Every word, heading and FAQ unchanged.

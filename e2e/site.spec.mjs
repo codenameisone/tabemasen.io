@@ -136,7 +136,7 @@ test('mobile menu opens on a legacy page', async ({ page }, info) => {
   await expect(page.locator('.tm-header__toggle')).toHaveAttribute('aria-expanded', 'true');
 });
 
-for (const path of ['/', '/allergies/', '/halal/', '/guides/', '/allergies/labeling-guide/', '/allergies/food-allergies-in-japanese/']) {
+for (const path of ['/', '/allergies/', '/halal/', '/guides/', '/allergies/labeling-guide/', '/allergies/food-allergies-in-japanese/', '/halal/certification-guide/']) {
   test(`${path} has no serious or critical axe violations`, async ({ page }) => {
     await page.goto(path);
     const { violations } = await new AxeBuilder({ page }).analyze();
@@ -318,4 +318,74 @@ test('halal hub: no horizontal overflow and in-page links resolve', async ({ pag
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
   const hrefs = await page.locator('a[href^="#"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')).filter((h) => h.length > 1));
   for (const h of hrefs) await expect(page.locator(`[id="${h.slice(1)}"]`)).toHaveCount(1);
+});
+
+test('halal certification guide: tiers, callouts and icons are told apart by more than colour', async ({ page }) => {
+  await page.goto('/halal/certification-guide/');
+  const top = (sel) => page.locator(sel).first().evaluate((el) => getComputedStyle(el).borderTopStyle);
+  expect(await top('.cg-tier-card--halal')).toBe('solid');
+  expect(await top('.cg-tier-card--friendly')).toBe('dashed');
+  expect(await top('.cg-tier-card--porkfree')).toBe('dotted');
+  const left = (sel) => page.locator(sel).first().evaluate((el) => getComputedStyle(el).borderLeftStyle);
+  expect(await left('.cg-callout--warning')).toBe('double');
+  expect(await left('.cg-callout--info')).toBe('dashed');
+  expect(await left('.cg-callout--danger')).toBe('solid');
+  const glyph = (sel) => page.locator(sel).first().innerText();
+  expect(await glyph('.cg-tier-row__icon--yes')).toBe('✓');
+  expect(await glyph('.cg-tier-row__icon--no')).toBe('✗');
+  expect(await glyph('.cg-tier-row__icon--maybe')).toBe('?');
+});
+
+test('halal certification guide: every in-page link resolves and the contents list scrolls', async ({ page }) => {
+  await page.goto('/halal/certification-guide/');
+  const hrefs = await page.locator('main a[href^="#"]').evaluateAll((as) => as.map((a) => a.getAttribute('href')));
+  expect(hrefs).toHaveLength(11);
+  for (const href of hrefs) await expect(page.locator(href)).toHaveCount(1);
+  await page.locator('.guide-toc__fold').evaluate((d) => d.setAttribute('open', ''));
+  await page.locator('.guide-toc .cg-toc a[href="#kanji-cheat-sheet"]').click();
+  await expect(page.locator('#kanji-cheat-sheet')).toBeInViewport();
+});
+
+test('halal certification guide: disclaimer stays in the hero, inline links and footer CTA keep their events', async ({ page }) => {
+  await page.goto('/halal/certification-guide/');
+  await expect(page.locator('.guide-hero__copy .cg-hero__disclaimer')).toHaveCount(1);
+  for (const ev of ['cta-halal-cert-inline-verify', 'cta-halal-cert-inline-faq']) {
+    const a = page.locator(`a[data-gc-event="${ev}"]`);
+    await expect(a).toHaveCount(1);
+    await expect(a).toHaveAttribute('href', '/#p=halal');
+  }
+  const cta = page.locator('.cg-cta a');
+  await expect(cta).toHaveText('Generate my Japanese halal card →');
+  await expect(cta).toHaveAttribute('href', '/#p=halal');
+  await expect(cta).toHaveAttribute('data-gc-event', 'cta-halal-cert-footer');
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+});
+
+test('halal certification guide: Keep reading lists other halal guides, not itself', async ({ page }) => {
+  await page.goto('/halal/certification-guide/');
+  await expect(page.locator('.guide-related a[href="/halal/certification-guide/"]')).toHaveCount(0);
+});
+
+test('halal certification guide: contents list is sticky on desktop and above the body on phones', async ({ page }, info) => {
+  await page.goto('/halal/certification-guide/');
+  const position = await page.locator('.guide-toc').evaluate((el) => getComputedStyle(el).position);
+  const first = page.locator('.guide-toc .cg-toc a').first();
+  if (info.project.name === 'desktop') {
+    expect(position).toBe('sticky');
+    await expect(page.locator('.guide-toc__summary')).toBeHidden();
+    await expect(first).toBeVisible();
+  }
+  else {
+    expect(position).toBe('static');
+    const fold = page.locator('details.guide-toc__fold');
+    await expect(fold).not.toHaveAttribute('open', '');
+    await expect(first).toBeHidden();
+    await page.locator('.guide-toc__summary').click();
+    await expect(fold).toHaveAttribute('open', '');
+    await expect(first).toBeVisible();
+    const tocBottom = await page.locator('.guide-toc').evaluate((el) => el.getBoundingClientRect().bottom + window.scrollY);
+    const bodyTop = await page.locator('.guide-body').evaluate((el) => el.getBoundingClientRect().top + window.scrollY);
+    expect(tocBottom).toBeLessThanOrEqual(bodyTop);
+  }
 });
