@@ -44,12 +44,12 @@ function collect(el, exclude, out) {
   for (const c of el.childNodes ?? []) if (c.tagName) collect(c, exclude, out);
 }
 
-export function textBlocks(html, { include = ['body'], exclude = [] } = {}) {
+export function textBlocks(html, { include = ['body'], exclude = [], unique = true } = {}) {
   const roots = [];
   findAll(parse(html), include, roots);
   const out = [];
   for (const r of roots) collect(r, exclude, out);
-  return [...new Set(out)];
+  return unique ? [...new Set(out)] : out;
 }
 
 export function missingBlocks(oldBlocks, newBlocks, allowed) {

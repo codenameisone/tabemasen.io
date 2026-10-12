@@ -15,6 +15,7 @@
     "seo:baseline": "node scripts/seo-baseline.mjs",
     "check:seo": "node scripts/check-seo.mjs",
     "check:content": "node scripts/check-content.mjs",
+    "content:snapshot": "node scripts/content-snapshot.mjs",
     "smoke:live": "node scripts/smoke-live.mjs"
   },
   "dependencies": {
