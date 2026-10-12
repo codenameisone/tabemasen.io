@@ -7,5 +7,6 @@
   { "url": "/", "text": "🔗 Copy Link", "reason": "Emoji replaced by SVG icon; sentence case" },
   { "url": "/", "text": "⬇ Download PNG", "reason": "Emoji replaced by SVG icon; label unchanged" },
   { "url": "/", "text": "🖨 Print", "reason": "Emoji replaced by SVG icon; label unchanged" },
-  { "url": "/allergies/", "text": "Generate my allergy card →", "reason": "Owner rule: hub CTAs use 'Generate my Japanese [diet] card →'" }
+  { "url": "/allergies/", "text": "Generate my allergy card →", "reason": "Owner rule: hub CTAs use 'Generate my Japanese [diet] card →'" },
+  { "url": "/allergies/labeling-guide/", "text": "Generate my card →", "reason": "Owner rule: CTAs under a diet hub use 'Generate my Japanese [diet] card →'" }
 ]

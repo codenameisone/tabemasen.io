@@ -1,0 +1,3 @@
+/* src/styles/guide-body.css — restyle of the legacy lg-* guide body (Task 3 fills this in). */
+/* Shims: two inline styles in the guide body use variables from the retired styles.css. */
+.lg-article { --font-card: var(--tm-font-display); --color-success-light: #e1eadb; }

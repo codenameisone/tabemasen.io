@@ -1,0 +1,29 @@
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Japan's allergen labeling, explained: what's on the packet vs. what's not on the menu",
+    "description": "Japan's 9 mandatory food allergens, how to read a Japanese label, why restaurants aren't required to disclose, and what celiac travelers need to watch for.",
+    "image": "https://tabemasen.io/assets/og-image.png",
+    "author": {
+      "@type": "Organization",
+      "name": "tabemasen",
+      "url": "https://tabemasen.io/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "@id": "https://tabemasen.io/#organization",
+      "name": "tabemasen",
+      "url": "https://tabemasen.io/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://tabemasen.io/assets/android-chrome-512.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://tabemasen.io/allergies/labeling-guide/"
+    },
+    "datePublished": "2026-05-18",
+    "dateModified": "2026-10-08",
+    "inLanguage": "en"
+  }
