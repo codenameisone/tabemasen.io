@@ -827,3 +827,14 @@ test("halal: 'What's on the card' names every item the halal card lists, and not
   for (const item of items) expect(text).toContain(item.replace(/^[•・]\s*/, '').trim().toLowerCase());
   expect(text).not.toMatch(/asks specifically about shared cookware/);
 });
+
+test('celiac: shows the real gluten-free card next to the mid-page CTA', async ({ page }) => {
+  await page.goto('/celiac/');
+  const card = page.locator('.ce-example .card[role="img"]');
+  await expect(card).toBeVisible();
+  await expect(card).toContainText('大麦・ライ麦');
+  await expect(card).toContainText('醤油は小麦不使用のものをお願いします');
+  await expect(page.locator('.ce-example figcaption')).toBeVisible();
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  expect(overflow).toBeLessThanOrEqual(0);
+});
