@@ -20,8 +20,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0   # compare needs the pre-astro tag and its tree
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -29,9 +27,6 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
-      # Milestone 1 gate: output identical to the pre-astro site.
-      # Remove this step in the first Milestone 2 slice that changes a page.
-      - run: npm run compare
       - run: npm run check:seo
       - if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@v3

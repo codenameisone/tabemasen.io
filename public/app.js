@@ -71,8 +71,8 @@
     CARD_DATA.allergens.forEach(function (allergen, index) {
       var chip = document.createElement('button');
       chip.type = 'button';
-      // Mark Japan's 8 mandatory allergens (first 8) with a stronger border
-      chip.className = 'chip' + (index < 8 ? ' chip--mandatory' : '');
+      // Mark Japan's mandatory allergens (flagged in data.js) with a stronger border
+      chip.className = 'chip' + (allergen.mandatory ? ' chip--mandatory' : '');
       chip.dataset.key = allergen.key;
       chip.setAttribute('aria-pressed', 'false');
       chip.setAttribute('aria-label', allergen.english + ' (' + allergen.japanese + ')');
