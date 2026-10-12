@@ -76,12 +76,16 @@ export function sitemapProblems(sitemapXml, indexableUrls, site = SITE) {
 const decodeEntities = (s) => s.replace(/&quot;/g, '"').replace(/&#39;|&#x27;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&');
 
 // og:, twitter: and article: meta (link previews). Keyed by property/name; values entity-decoded.
+// A key that repeats (article:tag) becomes an array in document order; single keys stay strings.
 export function socialMeta(html) {
   const out = {};
   for (const [tag] of html.matchAll(/<meta\s[^>]*>/gi)) {
     const key = tag.match(/\b(?:property|name)="((?:og|twitter|article):[^"]+)"/i)?.[1];
     const content = tag.match(/\bcontent="([^"]*)"/i)?.[1];
-    if (key && content !== undefined) out[key] = decodeEntities(content);
+    if (!key || content === undefined) continue;
+    const value = decodeEntities(content);
+    if (!(key in out)) out[key] = value;
+    else out[key] = [...[].concat(out[key]), value];   // repeated key (article:tag): keep all, in order
   }
   return out;
 }
@@ -92,7 +96,7 @@ export function socialProblems(baseline, current) {
   for (const [url, before] of Object.entries(baseline)) {
     const now = current[url] ?? {};
     for (const [key, value] of Object.entries(before)) {
-      if (now[key] === value) continue;
+      if (JSON.stringify(now[key]) === JSON.stringify(value)) continue;
       problems.push(`${url}: ${key} changed\n    was: ${JSON.stringify(value)}\n    now: ${JSON.stringify(now[key] ?? null)}`);
     }
   }

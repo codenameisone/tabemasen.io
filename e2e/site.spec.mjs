@@ -128,7 +128,7 @@ test('allergies preview matches the builder after hand-off', async ({ page }) =>
   expect(builder).toEqual(hub);
 });
 
-test('mobile menu opens on a legacy page', async ({ page }, info) => {
+test('mobile menu opens on the vegan hub', async ({ page }, info) => {
   test.skip(info.project.name !== 'mobile', 'mobile only');
   await page.goto('/vegan/');
   await page.locator('.tm-header__toggle').click();
@@ -651,4 +651,31 @@ test('/about/: emergency callout and notes are marked by shape, not colour alone
   const css = (sel, prop) => page.locator(sel).first().evaluate((el, p) => getComputedStyle(el)[p], prop);
   expect(await css('.ab-callout', 'borderLeftStyle')).toBe('solid');
   expect(await css('.ab-meta', 'borderLeftStyle')).toBe('dashed');
+});
+
+for (const path of ['/halal/', '/vegan/', '/gluten-free-japan/', '/halal/certification-guide/']) {
+  test(`${path}: FAQ marker sits inside the summary at 375`, async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 800 });
+    await page.goto(path);
+    const summary = page.locator('[class$="-faq__item"] summary').first();
+    expect(await summary.evaluate((e) => getComputedStyle(e).listStylePosition)).toBe('inside');
+  });
+}
+
+test('gluten-free: avoid and safe cards keep their marker glyphs', async ({ page }) => {
+  await page.goto('/gluten-free-japan/');
+  const avoid = await page.locator('.gf-gluten-item__title').first().evaluate((e) => getComputedStyle(e, '::before').content);
+  const safe = await page.locator('.gf-safe-card__title').first().evaluate((e) => getComputedStyle(e, '::before').content);
+  expect(avoid).toContain('✕');
+  expect(safe).toContain('✓');
+});
+
+test('hub pages: h1 and picker are inside the single main landmark', async ({ page }) => {
+  for (const path of ['/allergies/', '/halal/', '/vegan/', '/gluten-free-japan/']) {
+    await page.goto(path);
+    await expect(page.locator('main')).toHaveCount(1);
+    await expect(page.locator('main h1')).toHaveCount(1);
+    await expect(page.locator('main .hub-pick')).toHaveCount(1);
+    await expect(page.locator('main .hub-cta')).toHaveCount(1);
+  }
 });

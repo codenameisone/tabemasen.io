@@ -16,7 +16,7 @@
 .gf-gluten-list { display: flex; flex-direction: column; gap: 16px; margin-top: 12px; }
 .gf-gluten-item { padding: 14px 18px; border: 1px solid var(--tm-rule); border-left: 4px solid var(--tm-shu); border-radius: var(--tm-radius); background: var(--tm-paper); }
 .gf-gluten-item__title { margin-bottom: 6px; font-family: var(--tm-font-display); font-weight: 700; font-size: 20px; line-height: 1.3; }
-.gf-gluten-item__title::before { content: "✕ " / ""; color: var(--tm-shu-text); }
+.gf-gluten-item__title::before { content: "✕ "; content: "✕ " / ""; color: var(--tm-shu-text); }
 .gf-gluten-item__title em { font-style: normal; font-weight: 600; color: var(--tm-ink-faint); }
 .gf-gluten-item__text { font-size: 16px; line-height: 1.65; color: var(--tm-ink-muted); }
 
@@ -24,7 +24,7 @@
 .gf-safe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 16px; margin-top: 12px; }
 .gf-safe-card { padding: 14px 16px; border: 1px solid var(--tm-rule-strong); border-left: 6px double var(--tm-ink); border-radius: var(--tm-radius); background: var(--tm-paper-warm); }
 .gf-safe-card__title { margin-bottom: 6px; font-family: var(--tm-font-display); font-weight: 700; font-size: 19px; line-height: 1.3; }
-.gf-safe-card__title::before { content: "✓ " / ""; }
+.gf-safe-card__title::before { content: "✓ "; content: "✓ " / ""; }
 .gf-safe-card__text { font-size: 16px; line-height: 1.65; color: var(--tm-ink-muted); }
 .gf-safe-card__text em { font-style: italic; }
 
@@ -47,7 +47,7 @@
 /* FAQ disclosures */
 .gf-faq { border-bottom: 1px solid var(--tm-rule); }
 .gf-faq__item { border-top: 1px solid var(--tm-rule); }
-.gf-faq__item summary { min-height: 44px; padding: 16px 0; cursor: pointer; font-weight: 700; font-size: 18px; list-style-position: outside; }
+.gf-faq__item summary { min-height: 44px; padding: 16px 0; cursor: pointer; font-weight: 700; font-size: 18px; }
 .gf-faq__item p { margin: 0 0 16px; }
 
 /* hero trust strip (heroExtra slot) */

@@ -38,7 +38,11 @@
     "og:description": "「小麦アレルギーがあります」— the exact phrase for every major allergen, in kanji with readings, plus a free card to show staff.",
     "og:image": "https://tabemasen.io/assets/og-image.png",
     "article:section": "Allergies",
-    "article:tag": "Food allergy travel Japan",
+    "article:tag": [
+      "Japanese allergy phrases",
+      "Allergen kanji",
+      "Food allergy travel Japan"
+    ],
     "twitter:card": "summary_large_image",
     "twitter:title": "How to Say \"I Have a Food Allergy\" in Japanese | tabemasen",
     "twitter:description": "「小麦アレルギーがあります」— the exact phrase for every major allergen, in kanji with readings, plus a free card to show staff.",
@@ -51,7 +55,11 @@
     "og:description": "Japan's 9 mandatory food allergens, how to read a Japanese label, why restaurants aren't required to disclose, and what celiac travelers need to watch for.",
     "og:image": "https://tabemasen.io/assets/og-image.png",
     "article:section": "Allergies",
-    "article:tag": "Celiac travel",
+    "article:tag": [
+      "Japan food allergies",
+      "Allergen labeling",
+      "Celiac travel"
+    ],
     "twitter:card": "summary_large_image",
     "twitter:title": "Japan Food Allergen Labeling Guide: Mandatory Allergens, Labels & Restaurant Risks | tabemasen",
     "twitter:description": "Japan's 9 mandatory food allergens, how to read a Japanese label, why restaurants aren't required to disclose, and what celiac travelers need to watch for.",
@@ -64,7 +72,11 @@
     "og:description": "Japan's allergen law covers wheat — not barley, rye or gluten. What a Japanese label guarantees, and how celiacs (coeliacs) verify food themselves.",
     "og:image": "https://tabemasen.io/assets/og-image.png",
     "article:section": "Celiac",
-    "article:tag": "Japan allergen law",
+    "article:tag": [
+      "Celiac disease Japan",
+      "Gluten-free labelling Japan",
+      "Japan allergen law"
+    ],
     "twitter:card": "summary_large_image",
     "twitter:title": "Celiac / Coeliac in Japan: Why \"No Wheat\" Isn't Gluten-Free | tabemasen",
     "twitter:description": "Japan's allergen law covers wheat — not barley, rye or gluten. What a Japanese label guarantees, and how celiacs verify food themselves.",
@@ -110,7 +122,11 @@
     "og:description": "Confused by halal logos in Japan? A clear guide to the main certification bodies, what each symbol means, and how to tell if a Japanese restaurant is genuinely halal-certified.",
     "og:image": "https://tabemasen.io/assets/og-image.png",
     "article:section": "Halal",
-    "article:tag": "Muslim travel",
+    "article:tag": [
+      "Halal certification Japan",
+      "JHA",
+      "Muslim travel"
+    ],
     "twitter:card": "summary_large_image",
     "twitter:title": "Japan Halal Certification & Logos Explained | tabemasen",
     "twitter:description": "Confused by halal logos in Japan? A clear guide to the main certification bodies, what each symbol means, and how to tell if a Japanese restaurant is genuinely halal-certified.",

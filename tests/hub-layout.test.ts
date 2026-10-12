@@ -39,3 +39,18 @@ describe('HubLayout link-preview meta', async () => {
     expect(html).toContain('<meta name="twitter:description" content="TW">');
   });
 });
+
+describe('HubLayout main landmark', async () => {
+  const container = await AstroContainer.create();
+  it('wraps hero, picker and body in exactly one main, outside header and footer', async () => {
+    const html = await container.renderToString(HubLayout, { props: base, slots: { default: '<p>Body</p>' } });
+    expect(html.match(/<main[\s>]/g)).toHaveLength(1);
+    const main = html.slice(html.indexOf('<main'), html.indexOf('</main>'));
+    expect(main).toContain('id="main"');
+    expect(main).toContain('<h1');
+    expect(main).toContain('hub-pick');
+    expect(main).toContain('hub-cta');
+    expect(main).not.toContain('tm-header');
+    expect(main).not.toContain('tm-footer');
+  });
+});

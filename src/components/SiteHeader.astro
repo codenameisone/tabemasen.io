@@ -42,9 +42,9 @@ const { page, current } = Astro.props;
 </script>
 
 <style>
-  /* legacy styles.css has `a:hover { text-decoration: underline }` */
+  /* Keep header links un-underlined on hover (global anchor styles would add it). */
   .tm-header a:hover { text-decoration: none; }
-  /* Explicit resets: on legacy pages styles.css and inline styles are present. */
+  /* Explicit resets so the header looks the same wherever it is rendered. */
   .tm-header, .tm-header * { box-sizing: border-box; }
   .tm-header { background: var(--tm-paper); color: var(--tm-ink); font-family: var(--tm-font-body); font-size: 15px; line-height: 1.4; border-bottom: 1px solid var(--tm-rule); position: relative; z-index: 50; }
   .tm-header__inner { max-width: var(--tm-max); margin: 0 auto; padding: 14px var(--tm-gutter); display: flex; align-items: center; justify-content: space-between; gap: 12px 32px; flex-wrap: wrap; }
