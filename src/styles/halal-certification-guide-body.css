@@ -58,8 +58,10 @@
     radial-gradient(farthest-side at 0 50%, rgba(30, 27, 24, .2), transparent) left / 14px 100% no-repeat scroll,
     radial-gradient(farthest-side at 100% 50%, rgba(30, 27, 24, .2), transparent) right / 14px 100% no-repeat scroll;
 }
+/* The hint shows exactly when the 600px table is wider than its column (container query, not window width). */
+#certification-bodies { container-type: inline-size; }
 .cg-table-hint { display: none; margin: 8px 0 0; font-size: 14px; color: var(--tm-ink-faint); }
-@media (max-width: 640px) { .cg-table-hint { display: block; } }
+@container (max-width: 599.98px) { .cg-table-hint { display: block; } }
 .cg-table { width: 100%; min-width: 600px; border-collapse: collapse; font-size: 16px; }
 .cg-table th, .cg-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--tm-rule); vertical-align: top; }
 .cg-table th { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--tm-ink-muted); border-bottom: 1.5px solid var(--tm-ink); }

@@ -824,7 +824,10 @@ test("halal: 'What's on the card' names every item the halal card lists, and not
   await page.goto('/#p=halal&en=1');
   const items = await page.locator('#card .card-en-line--item').allInnerTexts();
   expect(items.length).toBeGreaterThan(0);
-  for (const item of items) expect(text).toContain(item.replace(/^[•・]\s*/, '').trim().toLowerCase());
+  for (const item of items) {
+    const word = item.replace(/^[•・]\s*/, '').trim().toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    expect(text, `section names "${word}"`).toMatch(new RegExp(`\\b${word}\\b`));
+  }
   expect(text).not.toMatch(/asks specifically about shared cookware/);
 });
 
@@ -854,4 +857,25 @@ test('gluten-free: what the page says the card covers is on the card', async ({ 
     if (claims.toLowerCase().includes(en)) expect(card, `page says the card covers ${en}`).toContain(ja);
   }
   expect(await page.locator('main').innerText()).not.toContain('one of the first things the card asks about');
+});
+
+test('keyboard focus keeps the home card its drop shadow', async ({ page }) => {
+  await page.goto('/');
+  const card = page.locator('#card');
+  const before = await card.evaluate((el) => getComputedStyle(el).boxShadow);
+  await card.focus();
+  await page.keyboard.press('Shift+Tab');
+  await page.keyboard.press('Tab');
+  await expect(card).toBeFocused();
+  expect(await card.evaluate((el) => getComputedStyle(el).boxShadow)).toBe(before);
+});
+
+test('halal certification table hint shows exactly when the table scrolls', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop', 'resizes the viewport itself');
+  for (const width of [375, 600, 640, 700, 960, 1000, 1280]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/halal/certification-guide/');
+    const overflows = await page.locator('.cg-table-wrap').evaluate((el) => el.scrollWidth > el.clientWidth);
+    expect(await page.locator('.cg-table-hint').isVisible(), `hint at ${width}px`).toBe(overflows);
+  }
 });
