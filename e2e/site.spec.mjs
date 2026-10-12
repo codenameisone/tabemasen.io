@@ -723,3 +723,18 @@ for (const [path, sel] of [
     expect(await ringContrast(el)).toBeGreaterThanOrEqual(3);
   });
 }
+
+test('mobile menu: close icon while open, Escape closes and returns focus', async ({ page }, info) => {
+  test.skip(info.project.name !== 'mobile', 'menu toggle is mobile-only');
+  await page.goto('/vegan/');
+  const toggle = page.locator('.tm-header__toggle');
+  await expect(toggle.locator('.tm-header__icon--open')).toBeVisible();
+  await expect(toggle.locator('.tm-header__icon--close')).toBeHidden();
+  await toggle.click();
+  await expect(toggle.locator('.tm-header__icon--close')).toBeVisible();
+  await expect(toggle.locator('.tm-header__icon--open')).toBeHidden();
+  await page.keyboard.press('Escape');
+  await expect(toggle).toHaveAttribute('aria-expanded', 'false');
+  await expect(page.locator('#tm-nav a[href="/halal/"]')).toBeHidden();
+  await expect(toggle).toBeFocused();
+});
