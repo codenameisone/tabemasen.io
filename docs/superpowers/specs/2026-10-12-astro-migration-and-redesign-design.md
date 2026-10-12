@@ -322,7 +322,7 @@ All existing `lg-*` classes get new CSS built on `--tm-*` tokens, replacing the 
 
 ### Safety and testing
 - `check:seo` passes with `seo-allowlist.json` still `"changes": []`.
-- `check:content` compares against the git tag `slice2-base` (created at the start of the slice); the manifest's existing labeling-guide entry stays (whole body minus old header/footer); the only allowlisted change is "Generate my card →".
+- `check:content` compares against `slice1-base` (the guide's text is unchanged since then; no new tag needed); the manifest's existing labeling-guide entry stays (whole body minus old header/footer); the only allowlisted change is "Generate my card →".
 - Unit (container) tests for `GuideLayout`: head data, breadcrumb, meta line, contents list, "Keep reading" excludes the current guide.
 - E2E: loads without console errors at 375 and 1280; every contents link targets an existing section id; contents list sticky on desktop and above the body on phones; closing CTA goes to `/`; kanji legend and cards show their shape markers; axe has no serious or critical violations.
 - Owner review on a local build before the PR.
