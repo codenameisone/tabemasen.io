@@ -25,6 +25,27 @@ export const FOOTER = {
     { href: 'https://www.legalnomads.com/gluten-free/japanese/', label: 'Legal Nomads — GF Japan' },
     { href: 'https://jp.usembassy.gov/services/importing-medication/', label: 'Yunyu Kakunin-sho' },
   ],
+  // Pages whose legacy footer listed their own resources instead of the allergy ones.
+  resourcesByPage: {
+    vegan: [
+      { href: 'https://www.happycow.net/asia/japan/', label: 'HappyCow Japan' },
+      { href: 'https://www.vegeproject.org/', label: 'VegeProject Japan' },
+      { href: 'https://isitveganjapan.com/', label: 'Is It Vegan Japan?' },
+      { href: 'https://vegewel.com/en/', label: 'Vegewel restaurant guide' },
+    ],
+    halal: [
+      { href: 'https://www.halalgourmet.jp/', label: 'Halal Gourmet Japan' },
+      { href: 'https://halalnavi.com/', label: 'Halal Navi' },
+      { href: 'https://tokyocamii.org/en/', label: 'Tokyo Camii (mosque)' },
+      { href: 'https://www.jhalal.com/', label: 'Japan Halal Association' },
+    ],
+    'halal-cert': [
+      { href: 'https://www.halalgourmet.jp/en', label: 'Halal Gourmet Japan' },
+      { href: 'https://www.halal-navi.com/', label: 'Halal Navi' },
+      { href: 'https://www.japan.travel/en/plan/muslim-travelers/', label: 'JNTO — Muslim Travelers' },
+      { href: 'https://jhalal.com/en/', label: 'Japan Halal Association' },
+    ],
+  } as Record<string, readonly { href: string; label: string }[]>,
   about: [
     { href: '/about/', label: 'About & safety' },
     { href: '/featured/', label: 'Featured in' },

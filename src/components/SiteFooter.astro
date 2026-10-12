@@ -10,7 +10,7 @@ const external = (href: string) => href.startsWith('http');
 const columns = [
   { heading: 'Cards', links: FOOTER.cards },
   { heading: 'Guides', links: FOOTER.guides },
-  { heading: 'Resources', links: FOOTER.resources },
+  { heading: 'Resources', links: FOOTER.resourcesByPage[page] ?? FOOTER.resources },
   { heading: 'About', links: FOOTER.about },
 ];
 ---
@@ -19,6 +19,7 @@ const columns = [
     <div class="tm-footer__brand">
       <a class="tm-footer__home" href="/" aria-label="tabemasen home"><SealMark size={28} color="#e07f6e" /><span>tabemasen</span></a>
       <p class="tm-footer__tagline">Free Japanese restaurant cards for travelers with food allergies and dietary restrictions.</p>
+      {page === 'home' && <p class="tm-footer__tagline"><strong>Tabemasen</strong> (<span lang="ja">食べません</span>) is Japanese for “I don't eat” — the polite way to say a dish isn't for you.</p>}
       <a class="tm-footer__coffee" href="https://buymeacoffee.com/iwakuranik" target="_blank" rel="noopener noreferrer" data-gc-event={`coffee-${page}`}>Buy me a coffee</a>
     </div>
     {columns.map((col) => (
@@ -33,7 +34,9 @@ const columns = [
     ))}
   </div>
   <div class="tm-footer__bottom">
-    <p class="tm-footer__disclaimer">Not medical advice. A card helps you ask, but it can't guarantee what's in your food, so always confirm with staff. If you have a serious allergy, carry your prescribed medication and a doctor's letter. Emergency in Japan: 119. Wording last reviewed October 2026. <a href="/about/">How the cards are made</a></p>
+    {page === 'halal-cert'
+      ? <p class="tm-footer__disclaimer">This article explains halal certification from a practical standpoint and is not a religious ruling. Information is checked against official certification body publications but is not a substitute for your own verification. If in doubt, consult the certifying body directly. Last reviewed October 2026. <a href="/about/">How the cards are made</a></p>
+      : <p class="tm-footer__disclaimer">Not medical advice. A card helps you ask, but it can't guarantee what's in your food, so always confirm with staff. If you have a serious allergy, carry your prescribed medication and a doctor's letter. Emergency in Japan: 119. Wording last reviewed October 2026. <a href="/about/">How the cards are made</a></p>}
     <p class="tm-footer__credit">Built by a fellow traveller · v2.0</p>
   </div>
 </footer>
