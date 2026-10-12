@@ -843,3 +843,15 @@ test('gluten-free hub: the sushi illustration explains the soy sauce in it', asy
   await page.goto('/gluten-free-japan/');
   await expect(page.locator('figure figcaption').first()).toContainText('soy sauce');
 });
+
+test('gluten-free: what the page says the card covers is on the card', async ({ page }) => {
+  await page.goto('/#p=gluten-free&en=0');
+  const card = await page.locator('#card').innerText();
+  await page.goto('/gluten-free-japan/');
+  const claims = [await page.locator('.hub-hero__lede').innerText(), await page.locator('.gf-mid-cta__text').first().innerText()].join(' ');
+  const said = { 'soy sauce': '醤油', noodle: '麺', miso: '味噌', 'barley tea': '麦茶', fryer: '油', cookware: '調理器具', dashi: 'だし' };
+  for (const [en, ja] of Object.entries(said)) {
+    if (claims.toLowerCase().includes(en)) expect(card, `page says the card covers ${en}`).toContain(ja);
+  }
+  expect(await page.locator('main').innerText()).not.toContain('one of the first things the card asks about');
+});
