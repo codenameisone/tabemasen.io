@@ -2,6 +2,7 @@
 
 ## 2026-10-12
 
+- design(allergies): food allergies in Japanese guide in the new design with a new illustration. Every word, heading and FAQ unchanged.
 - design(guides): the labeling guide in the new design: guide header with illustration, contents list beside the article, restyled sections, kanji tiers marked by shape as well as colour, "Keep reading". Every word, heading and FAQ unchanged.
 - design(home): the card builder in the new design. The card itself has a new look (seal, "To the staff", items in two columns, warning and note blocks) that also applies to the PNG download and print. Same wording, same links, same shared-card URLs.
 - design(allergies): /allergies/ redesigned. Pick allergens right on the page and watch the card update; the button and the "full card builder" link open the builder with exactly that card. Allergy guides list and photos. Every paragraph and FAQ unchanged.

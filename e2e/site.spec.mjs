@@ -239,3 +239,16 @@ test('food allergies guide: no overflow, CTAs keep events and go to the builder,
   await expect(page.locator('.guide-related a[href="/allergies/food-allergies-in-japanese/"]')).toHaveCount(0);
   await expect(page.locator('.guide-related a[href="/allergies/labeling-guide/"]')).toHaveCount(1);
 });
+
+test('food allergies guide: in-page links resolve, mandatory cards use the red border, others stay neutral', async ({ page }) => {
+  await page.goto('/allergies/food-allergies-in-japanese/');
+  const ids = await page.$$eval('a[href^="#"]', (as) => as.map((a) => a.getAttribute('href').slice(1)).filter(Boolean));
+  for (const id of ids) await expect(page.locator(`[id="${id}"]`)).toHaveCount(1);
+  const color = (sel) => page.locator(sel).first().evaluate((el) => getComputedStyle(el).borderTopColor);
+  const red = await page.evaluate(() => {
+    const d = document.createElement('i'); d.style.color = 'var(--tm-shu)'; document.body.append(d);
+    const c = getComputedStyle(d).color; d.remove(); return c;
+  });
+  expect(await color('.fa-allergen-card--mandatory')).toBe(red);
+  expect(await color('.fa-allergen-card:not(.fa-allergen-card--mandatory)')).not.toBe(red);
+});
