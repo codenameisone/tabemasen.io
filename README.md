@@ -36,21 +36,26 @@ Analytics are the bare minimum needed to keep the product working: [GoatCounter]
 
 ## Quick start
 
-No build step. Open `index.html` directly in your browser, or serve from GitHub Pages.
+Requires Node 22 (`nvm use`).
 
 ```bash
-# Serve locally (any static server)
-python3 -m http.server 8000
-# → open http://localhost:8000
+npm ci
+npm run dev        # http://localhost:4321 with live reload
+npm run build      # static site in dist/
+npm run preview    # serve dist/ locally
+npm test           # unit tests for the build scripts
+npm run check:seo  # titles, H1s, canonicals, JSON-LD, links and sitemap vs seo-baseline.json
 ```
 
-Deploy to GitHub Pages: push to `main` branch — enable Pages in repo settings, point to `/`.
+Pages live in `src/pages/` (one `index.astro` per URL). Files served as-is (scripts, styles, images, `CNAME`, `robots.txt`, `sitemap.xml`, `llms.txt`) live in `public/`.
+
+Deploys run from GitHub Actions on every push to `main` (`.github/workflows/site.yml`).
 
 ---
 
 ## Adding a new allergen or language
 
-All content lives in `data.js`. Open it and scroll to the `CARD_DATA` object.
+All content lives in `public/data.js`. Open it and scroll to the `CARD_DATA` object.
 
 **To add a new allergen:**
 ```js

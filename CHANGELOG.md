@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-10-12
+
+- Build: the site is now built with Astro and deployed by GitHub Actions. Every page's output is unchanged (verified by `npm run compare` against the `pre-astro` tag). New guard: `npm run check:seo`.
+- Known change: GitHub Pages no longer runs Jekyll, so the Markdown renders it used to publish (`/CHANGELOG.html`, `/REQUIREMENTS.html`) are gone. Neither was linked from the site or listed in the sitemap; the footer's changelog link points to GitHub.
+
 ## 2026-10-10
 
 - seo(celiac, gluten-free-japan): titles, meta descriptions, OG/Twitter titles and the /celiac/ H1 now carry the UK/AU/NZ spelling "coeliac" alongside "celiac". UK and Australian searchers type "coeliac", and both pages were almost entirely US spelling. Same URLs, no new pages

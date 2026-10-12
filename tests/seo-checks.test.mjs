@@ -1,0 +1,108 @@
+import { describe, it, expect } from 'vitest';
+import {
+  baselineProblems, pageProblems, resolveInternal, linkCandidates, sitemapProblems,
+} from '../scripts/lib/seo-checks.mjs';
+
+const facts = (over = {}) => ({
+  title: 'T', description: 'D', h1: 'H', canonical: 'https://tabemasen.io/a/',
+  robots: null, jsonLdTypes: ['Article'], jsonLdErrors: [], links: [], ...over,
+});
+const noAllow = { changes: [], knownBrokenLinks: [] };
+
+describe('baselineProblems', () => {
+  it('passes when nothing changed', () => {
+    expect(baselineProblems({ '/a/': facts() }, { '/a/': facts() }, noAllow)).toEqual([]);
+  });
+
+  it('reports a missing page', () => {
+    expect(baselineProblems({ '/a/': facts() }, {}, noAllow)).toEqual(['/a/: page is missing from dist/']);
+  });
+
+  it('reports a changed field with old and new values', () => {
+    const p = baselineProblems({ '/a/': facts() }, { '/a/': facts({ title: 'T2' }) }, noAllow);
+    expect(p).toEqual(['/a/: title changed\n    was: "T"\n    now: "T2"']);
+  });
+
+  it('compares jsonLdTypes as lists', () => {
+    const p = baselineProblems({ '/a/': facts() }, { '/a/': facts({ jsonLdTypes: ['Article', 'FAQPage'] }) }, noAllow);
+    expect(p).toHaveLength(1);
+  });
+
+  it('accepts a change listed in the allowlist', () => {
+    const allow = { changes: [{ url: '/a/', field: 'title', reason: 'CTR fix', date: '2026-10-12' }], knownBrokenLinks: [] };
+    expect(baselineProblems({ '/a/': facts() }, { '/a/': facts({ title: 'T2' }) }, allow)).toEqual([]);
+  });
+
+  it('ignores new pages that are not in the baseline', () => {
+    expect(baselineProblems({}, { '/new/': facts() }, noAllow)).toEqual([]);
+  });
+});
+
+describe('pageProblems', () => {
+  it('reports JSON-LD parse errors', () => {
+    expect(pageProblems('/a/', facts({ jsonLdErrors: ['Unexpected token'] })))
+      .toEqual(['/a/: JSON-LD does not parse (Unexpected token)']);
+  });
+
+  it('reports noindex in any case', () => {
+    expect(pageProblems('/a/', facts({ robots: 'NoIndex, follow' }))).toEqual(['/a/: robots meta contains noindex']);
+  });
+
+  it('passes a clean page', () => {
+    expect(pageProblems('/a/', facts())).toEqual([]);
+  });
+});
+
+describe('resolveInternal', () => {
+  it('resolves root-relative and page-relative paths', () => {
+    expect(resolveInternal('/halal/', '/allergies/')).toBe('/halal/');
+    expect(resolveInternal('data.js', '/')).toBe('/data.js');
+    expect(resolveInternal('../vegan/', '/allergies/labeling-guide/')).toBe('/allergies/vegan/');
+  });
+
+  it('treats absolute links to the own site as internal', () => {
+    expect(resolveInternal('https://tabemasen.io/gluten-free-japan/#x', '/gluten-free/')).toBe('/gluten-free-japan/');
+  });
+
+  it('strips query and hash, and ignores a pure fragment', () => {
+    expect(resolveInternal('/?a=1#p=vegan', '/vegan/')).toBe('/');
+    expect(resolveInternal('#corrections', '/about/')).toBeNull();
+  });
+
+  it('returns null for external and non-navigational links', () => {
+    expect(resolveInternal('https://buymeacoffee.com/iwakuranik', '/')).toBeNull();
+    expect(resolveInternal('//gc.zgo.at/count.js', '/')).toBeNull();
+    expect(resolveInternal('mailto:hello@tabemasen.io', '/')).toBeNull();
+  });
+
+  it('decodes percent-encoding', () => {
+    expect(resolveInternal('/a%20b/', '/')).toBe('/a b/');
+  });
+});
+
+describe('linkCandidates', () => {
+  it('maps a directory path to its index.html', () => {
+    expect(linkCandidates('/halal/')).toEqual(['halal/index.html']);
+    expect(linkCandidates('/')).toEqual(['index.html']);
+  });
+
+  it('accepts a file or a directory without trailing slash', () => {
+    expect(linkCandidates('/data.js')).toEqual(['data.js', 'data.js/index.html']);
+  });
+});
+
+describe('sitemapProblems', () => {
+  const xml = '<urlset><url><loc>https://tabemasen.io/</loc></url><url><loc>https://tabemasen.io/halal/</loc></url></urlset>';
+
+  it('passes when every indexable URL is listed', () => {
+    expect(sitemapProblems(xml, ['/', '/halal/'])).toEqual([]);
+  });
+
+  it('reports indexable URLs missing from the sitemap', () => {
+    expect(sitemapProblems(xml, ['/', '/halal/', '/vegan/'])).toEqual(['sitemap.xml is missing /vegan/']);
+  });
+
+  it('reports sitemap URLs that do not exist', () => {
+    expect(sitemapProblems(xml, ['/'])).toEqual(['sitemap.xml lists /halal/, which is not an indexable built page']);
+  });
+});
