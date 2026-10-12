@@ -691,3 +691,35 @@ test('food allergies guide: nine mandatory allergens, cashew included, marked in
   const ld = await page.$$eval('script[type="application/ld+json"]', (s) => s.map((x) => x.textContent).join(' '));
   expect(ld).not.toMatch(/mandatory 8|8 specific allergens/);
 });
+
+// The focus ring must stand out (≥ 3:1) from the section it sits on, light or dark.
+const ringContrast = (locator) => locator.evaluate((el) => {
+  const rgb = (c) => (c.match(/[\d.]+/g) ?? []).slice(0, 4).map(Number);
+  const lum = ([r, g, b]) => [r, g, b].map((v) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; })
+    .reduce((s, v, i) => s + v * [0.2126, 0.7152, 0.0722][i], 0);
+  const ratio = (a, b) => { const [x, y] = [lum(a), lum(b)].sort((p, q) => q - p); return (x + 0.05) / (y + 0.05); };
+  let n = el.parentElement, bg;
+  while (n) { const c = rgb(getComputedStyle(n).backgroundColor); if (c.length === 3 || c[3] > 0) { bg = c; break; } n = n.parentElement; }
+  bg ??= [255, 255, 255];
+  const s = getComputedStyle(el);
+  const rings = [s.outlineStyle !== 'none' ? rgb(s.outlineColor) : null, ...(s.boxShadow.match(/rgba?\([^)]*\)/g) ?? []).map(rgb)].filter(Boolean);
+  return Math.max(0, ...rings.map((c) => ratio(c, bg)));
+});
+
+for (const [path, sel] of [
+  ['/celiac/', 'a[data-gc-event="cta-celiac-footer"]'],
+  ['/vegan/', '.hub-cta a'],
+  ['/', '.action-bar button'],
+  ['/allergies/labeling-guide/', '.tm-footer a'],
+  ['/allergies/labeling-guide/', 'main a'],
+]) {
+  test(`focus ring is visible on ${path} ${sel}`, async ({ page }) => {
+    await page.goto(path);
+    const el = page.locator(sel).first();
+    await el.focus();
+    await page.keyboard.press('Shift+Tab');
+    await page.keyboard.press('Tab');
+    await expect(el).toBeFocused();
+    expect(await ringContrast(el)).toBeGreaterThanOrEqual(3);
+  });
+}

@@ -11,9 +11,11 @@ body {
 img { max-width: 100%; height: auto; }
 a { color: var(--tm-ink); }
 a:hover { color: var(--tm-shu); }
-a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible {
+/* Two-tone ring: a light band against the element, then indigo, so it shows on paper and on the dark ink bands. */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
   outline: 2px solid var(--tm-ai);
   outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--tm-paper-warm);
 }
 .tm-container { max-width: var(--tm-max); margin: 0 auto; padding: 0 var(--tm-gutter); }
 .tm-kicker { margin: 0; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--tm-ink-muted); }
