@@ -23,7 +23,7 @@
   <meta name="twitter:image" content="https://tabemasen.io/assets/og-image.png">
 
   <!-- FAQ structured data, mirrors the FAQ section below -->
-  <script type="application/ld+json">
+  <script is:inline type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -98,7 +98,7 @@
 
   <!-- Page-specific layout. Inherits all colors, fonts, spacing, btn,
        site-nav and site-footer from /styles.css. -->
-  <style>
+  <style is:inline>
     /* Lift the home page's bottom 80px (which exists for the sticky
        action bar). This page has no action bar — let the footer touch
        its own padding. */
@@ -674,9 +674,9 @@
     </div>
   </footer>
 
-  <script src="/nav.js" defer></script>
-  <script src="/analytics.js"></script>
-  <script data-goatcounter="https://nqtn.goatcounter.com/count"
+  <script is:inline src="/nav.js" defer></script>
+  <script is:inline src="/analytics.js"></script>
+  <script is:inline data-goatcounter="https://nqtn.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>

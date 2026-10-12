@@ -27,7 +27,7 @@
   <meta name="twitter:image" content="https://tabemasen.io/assets/og-image.png">
 
   <!-- Article structured data -->
-  <script type="application/ld+json">
+  <script is:inline type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -60,7 +60,7 @@
   </script>
 
   <!-- Breadcrumb structured data -->
-  <script type="application/ld+json">
+  <script is:inline type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -88,7 +88,7 @@
   </script>
 
   <!-- FAQ structured data, mirrors the FAQ section below -->
-  <script type="application/ld+json">
+  <script is:inline type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -147,7 +147,7 @@
 
   <!-- Page-specific layout. Inherits all colors, fonts, spacing, btn,
        site-nav and site-footer from /styles.css. -->
-  <style>
+  <style is:inline>
     body { padding-bottom: 0; }
 
     /* Page-local accents not in the global palette. */
@@ -792,9 +792,9 @@
     </div>
   </footer>
 
-  <script src="/nav.js" defer></script>
-  <script src="/analytics.js"></script>
-  <script data-goatcounter="https://nqtn.goatcounter.com/count"
+  <script is:inline src="/nav.js" defer></script>
+  <script is:inline src="/analytics.js"></script>
+  <script is:inline data-goatcounter="https://nqtn.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
