@@ -1,0 +1,25 @@
+{
+  "name": "tabemasen",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "vitest run",
+    "compare": "node scripts/compare-build.mjs",
+    "seo:baseline": "node scripts/seo-baseline.mjs",
+    "check:seo": "node scripts/check-seo.mjs",
+    "smoke:live": "node scripts/smoke-live.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.3.8"
+  },
+  "devDependencies": {
+    "parse5": "^8.0.1",
+    "vitest": "^5.0.3"
+  }
+}
