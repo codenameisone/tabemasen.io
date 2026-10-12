@@ -6,5 +6,6 @@
   { "url": "/", "text": "🚨 Severe allergy", "reason": "Emoji removed from builder chrome; label unchanged" },
   { "url": "/", "text": "🔗 Copy Link", "reason": "Emoji replaced by SVG icon; sentence case" },
   { "url": "/", "text": "⬇ Download PNG", "reason": "Emoji replaced by SVG icon; label unchanged" },
-  { "url": "/", "text": "🖨 Print", "reason": "Emoji replaced by SVG icon; label unchanged" }
+  { "url": "/", "text": "🖨 Print", "reason": "Emoji replaced by SVG icon; label unchanged" },
+  { "url": "/allergies/", "text": "Generate my allergy card →", "reason": "Owner rule: hub CTAs use 'Generate my Japanese [diet] card →'" }
 ]
