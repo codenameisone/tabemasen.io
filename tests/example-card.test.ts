@@ -20,3 +20,15 @@ describe('insertAtMarker', () => {
     expect(() => insertAtMarker('<!-- x --><!-- x -->', '<!-- x -->', 'c')).toThrow(/2/);
   });
 });
+
+describe('splitAtMarkers', async () => {
+  const { splitAtMarkers } = await import('../src/lib/fragments');
+  it('splits at each marker in order', () => {
+    expect(splitAtMarkers('a<!-- 1 -->b<!-- 2 -->c', ['<!-- 1 -->', '<!-- 2 -->'])).toEqual(['a', 'b', 'c']);
+  });
+  it('throws when a marker is missing, repeated or out of order', () => {
+    expect(() => splitAtMarkers('a<!-- 1 -->b', ['<!-- 1 -->', '<!-- 2 -->'])).toThrow(/<!-- 2 -->/);
+    expect(() => splitAtMarkers('a<!-- 1 -->b<!-- 1 -->', ['<!-- 1 -->'])).toThrow(/<!-- 1 -->/);
+    expect(() => splitAtMarkers('a<!-- 2 -->b<!-- 1 -->c', ['<!-- 1 -->', '<!-- 2 -->'])).toThrow(/order/);
+  });
+});
