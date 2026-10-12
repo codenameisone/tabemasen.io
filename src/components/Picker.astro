@@ -1,0 +1,77 @@
+---
+// src/components/Picker.astro — choose a few options here, finish on the full builder at /.
+import { loadCardData } from '../lib/cardData';
+import { buildPickerHref } from '../lib/picker';
+import { DIETS, type DietKey } from '../data/diets';
+
+interface Props {
+  diet: DietKey;
+  allergenKeys: string[];
+  showSeverity?: boolean;
+  ctaLabel: string;
+  event: string;
+}
+
+const { diet, allergenKeys, showSeverity = false, ctaLabel, event } = Astro.props;
+const byKey = new Map(loadCardData().allergens.map((a) => [a.key, a]));
+const chips = allergenKeys.map((k) => {
+  const a = byKey.get(k);
+  if (!a) throw new Error(`Picker: unknown allergen key "${k}"`);
+  return a;
+});
+const pattern = DIETS[diet].pattern;
+const href = buildPickerHref({ pattern, allergens: [], severe: false });
+---
+
+<div class="picker" data-pattern={pattern ?? ''}>
+  <div class="picker__group" role="group" aria-label="Allergens">
+    {chips.map((a) => (
+      <button type="button" class="picker__chip" data-key={a.key} data-mandatory={a.mandatory ? '' : undefined} aria-pressed="false">
+        {a.english} <small lang="ja">{a.japanese.replace(/[(（].*$/, '')}</small>
+      </button>
+    ))}
+  </div>
+  {showSeverity && (
+    <div class="picker__severity">
+      <span class="picker__sev-text" id="picker-sev-label"><strong>Severe allergy</strong> Adds a warning that trace amounts are dangerous</span>
+      <button type="button" class="picker__switch" role="switch" aria-checked="false" aria-labelledby="picker-sev-label"></button>
+    </div>
+  )}
+  <a class="tm-btn picker__go" href={href} data-gc-event={event}>{ctaLabel}</a>
+  <p class="picker__more">More allergens, diets, your name and a custom line on the <a href="/">full card builder</a>.</p>
+</div>
+
+<script>
+  import { buildPickerHref } from '../lib/picker';
+  for (const root of document.querySelectorAll<HTMLElement>('.picker')) {
+    const go = root.querySelector<HTMLAnchorElement>('.picker__go');
+    const sw = root.querySelector<HTMLButtonElement>('.picker__switch');
+    const pattern = root.dataset.pattern || null;
+    const update = () => {
+      const allergens = [...root.querySelectorAll<HTMLButtonElement>('.picker__chip[aria-pressed="true"]')].map((b) => b.dataset.key!);
+      if (go) go.href = buildPickerHref({ pattern, allergens, severe: sw?.getAttribute('aria-checked') === 'true' });
+    };
+    for (const chip of root.querySelectorAll<HTMLButtonElement>('.picker__chip')) {
+      chip.addEventListener('click', () => { chip.setAttribute('aria-pressed', String(chip.getAttribute('aria-pressed') !== 'true')); update(); });
+    }
+    sw?.addEventListener('click', () => { sw.setAttribute('aria-checked', String(sw.getAttribute('aria-checked') !== 'true')); update(); });
+  }
+</script>
+
+<style>
+  .picker { display: flex; flex-direction: column; gap: 20px; }
+  .picker__group { display: flex; flex-wrap: wrap; gap: 8px; }
+  .picker__chip { font: inherit; min-height: 44px; padding: 0 14px; border-radius: var(--tm-radius-pill); border: 1.5px solid var(--tm-rule-strong); background: #fff; color: var(--tm-ink); font-size: 15px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; }
+  .picker__chip[data-mandatory] { border-color: var(--tm-ink); }
+  .picker__chip small { font-family: var(--tm-font-display); font-size: 13px; opacity: .8; }
+  .picker__chip[aria-pressed="true"] { background: var(--tm-ink); border-color: var(--tm-ink); color: #fff; }
+  .picker__severity { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid var(--tm-rule); padding-top: 18px; }
+  .picker__sev-text { display: flex; flex-direction: column; font-size: 14px; color: var(--tm-ink-muted); }
+  .picker__sev-text strong { font-size: 16px; color: var(--tm-ink); }
+  .picker__switch { width: 56px; height: 32px; flex: none; border-radius: 16px; border: 0; padding: 0; background: var(--tm-rule-strong); position: relative; cursor: pointer; }
+  .picker__switch::after { content: ""; position: absolute; top: 4px; left: 4px; width: 24px; height: 24px; border-radius: 12px; background: #fff; transition: left .15s; }
+  .picker__switch[aria-checked="true"] { background: var(--tm-shu); }
+  .picker__switch[aria-checked="true"]::after { left: 28px; }
+  .picker__go { align-self: flex-start; }
+  .picker__more { margin: 0; font-size: 14px; color: var(--tm-ink-muted); }
+</style>
