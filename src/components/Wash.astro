@@ -1,8 +1,11 @@
 ---
 // src/components/Wash.astro — watercolour highlight behind inline text.
-import wash from '../assets/wash.png';
+import { getImage } from 'astro:assets';
+import washPng from '../assets/wash.png';
 interface Props { soft?: boolean }
 const { soft = false } = Astro.props;
+// WebP keeps the alpha at a fraction of the PNG's 194 KB.
+const wash = await getImage({ src: washPng, format: 'webp', quality: 80 });
 ---
 <span class:list={['tm-wash', { 'tm-wash--soft': soft }]} style={`--wash:url(${wash.src})`}><slot /></span>
 <style>
