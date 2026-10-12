@@ -55,4 +55,18 @@ describe('GuideLayout', async () => {
     const none = await container.renderToString(GuideLayout, { props: { ...base, related: [] }, slots });
     expect(none).not.toContain('Keep reading');
   });
+
+  it('keeps the contents column when a toc slot is given', () => {
+    expect(html).toContain('guide-toc');
+    expect(html).not.toContain('guide-main--solo');
+  });
+
+  it('renders no contents block and marks the layout solo when there is no toc slot', async () => {
+    const { toc: _toc, ...noToc } = slots;
+    const solo = await container.renderToString(GuideLayout, { props: { ...base, related }, slots: noToc });
+    expect(solo).not.toContain('guide-toc');
+    expect(solo).not.toContain('In this article');
+    expect(solo).toMatch(/class="[^"]*guide-main guide-main--solo/);
+    expect(solo).toContain('lg-article');
+  });
 });
