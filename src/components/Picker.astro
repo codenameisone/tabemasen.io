@@ -83,8 +83,8 @@ const sevId = `picker-sev-${event}`;
   .picker__chip[data-mandatory] { border-color: var(--tm-ink); }
   .picker__chip[data-mandatory]::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--tm-shu); flex: none; }
   .picker__chip[data-mandatory][aria-pressed="true"]::before { background: #e07f6e; }
-  .picker__legend { display: flex; align-items: center; gap: 8px; margin: 0 0 -8px; font-size: 13px; color: var(--tm-ink-muted); }
-  .picker__legend i { width: 7px; height: 7px; flex: none; border-radius: 50%; background: var(--tm-shu); }
+  .picker__legend { display: flex; align-items: flex-start; gap: 8px; margin: 0 0 -8px; font-size: 13px; color: var(--tm-ink-muted); }
+  .picker__legend i { width: 7px; height: 7px; flex: none; border-radius: 50%; background: var(--tm-shu); margin-top: 6px; margin-top: calc((1lh - 7px) / 2); }
   .picker__chip small { font-family: var(--tm-font-display); font-size: 13px; opacity: .8; }
   .picker__chip[aria-pressed="true"] { background: var(--tm-ink); border-color: var(--tm-ink); color: #fff; }
   .picker__severity { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid var(--tm-rule); padding-top: 18px; }
