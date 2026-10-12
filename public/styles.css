@@ -462,7 +462,7 @@ a:hover { text-decoration: underline; }
   font-weight: 600;
 }
 
-/* Mark Japan's 8 mandatory allergens with a small brand-red dot */
+/* Mark Japan's 9 mandatory allergens with a small brand-red dot */
 .chip--mandatory::before {
   content: '●';
   font-size: 6px;
