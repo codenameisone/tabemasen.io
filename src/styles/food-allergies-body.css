@@ -23,7 +23,7 @@
 .fa-main { display: flex; flex-direction: column; gap: 56px; }
 .fa-main [id] { scroll-margin-top: 24px; }
 .fa-section h2 { margin: 0 0 16px; font-family: var(--tm-font-display); font-weight: 600; font-size: clamp(1.7rem, 2.8vw, 2.2rem); line-height: 1.15; }
-.fa-section p, .fa-section li { font-size: 18px; line-height: 1.75; color: #2e2f33; }
+.fa-section p, .fa-section li { font-size: 18px; line-height: 1.75; color: var(--tm-ink); }
 .fa-section p { margin: 0 0 16px; }
 .fa-section a { color: var(--tm-ink); text-decoration-color: var(--tm-shu); text-underline-offset: 3px; }
 .fa-section em { font-style: italic; }
@@ -35,10 +35,10 @@
 .fa-formula__reading { font-size: 15px; font-style: italic; color: var(--tm-ink-muted); }
 .fa-formula__english { font-size: 17px; }
 
-/* ── allergen cards: mandatory 8 marked by a solid dark border and a dot, others by a thin border ── */
+/* ── allergen cards: mandatory 8 marked by a thick red border (the body text says so) and a dot, others by a thin neutral border ── */
 .fa-allergen-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 14px; margin: 12px 0 20px; }
 .fa-allergen-card { position: relative; background: #fff; border: 1px solid var(--tm-rule-strong); border-radius: var(--tm-radius); padding: 16px; display: flex; flex-direction: column; gap: 8px; }
-.fa-allergen-card--mandatory { border: 2px solid var(--tm-ink); }
+.fa-allergen-card--mandatory { border: 2px solid var(--tm-shu); }
 .fa-allergen-card--mandatory::before { content: ""; position: absolute; top: 12px; right: 12px; width: 9px; height: 9px; border-radius: 50%; background: var(--tm-shu); }
 .fa-allergen-card__kanji { font-family: var(--tm-font-display); font-weight: 700; font-size: 40px; line-height: 1.2; }
 .fa-allergen-card__furigana { margin-left: 8px; font-size: 14px; font-weight: 400; color: var(--tm-ink-muted); }
