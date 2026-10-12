@@ -136,7 +136,7 @@ test('mobile menu opens on a legacy page', async ({ page }, info) => {
   await expect(page.locator('.tm-header__toggle')).toHaveAttribute('aria-expanded', 'true');
 });
 
-for (const path of ['/', '/allergies/', '/halal/', '/guides/', '/allergies/labeling-guide/', '/allergies/food-allergies-in-japanese/', '/halal/certification-guide/', '/vegan/', '/gluten-free-japan/', '/celiac/']) {
+for (const path of ['/', '/allergies/', '/halal/', '/guides/', '/allergies/labeling-guide/', '/allergies/food-allergies-in-japanese/', '/halal/certification-guide/', '/vegan/', '/gluten-free-japan/', '/celiac/', '/about/', '/featured/']) {
   test(`${path} has no serious or critical axe violations`, async ({ page }) => {
     await page.goto(path);
     const { violations } = await new AxeBuilder({ page }).analyze();
@@ -583,4 +583,72 @@ test('celiac guide: in-page links resolve and the FAQ opens', async ({ page }) =
   const second = page.locator('.ce-faq__item').nth(1);
   await second.locator('summary').click();
   await expect(second).toHaveAttribute('open', '');
+});
+
+for (const path of ['/about/', '/featured/']) {
+  test(`${path}: one main landmark, no overflow at 375, in-page links resolve, CTA keeps event and href`, async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 800 });
+    await page.goto(path);
+    await expect(page.locator('main')).toHaveCount(1);
+    await expect(page.locator('h1')).toHaveCount(1);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow).toBeLessThanOrEqual(0);
+    const ids = await page.$$eval('main a[href^="#"]', (as) => as.map((a) => a.getAttribute('href').slice(1)).filter(Boolean));
+    for (const id of ids) await expect(page.locator(`[id="${id}"]`)).toHaveCount(1);
+    const cta = page.locator(`a[data-gc-event="cta-${path.replaceAll('/', '')}-footer"]`);
+    await expect(cta).toHaveCount(1);
+    await expect(cta).toHaveText('Generate my Japanese restaurant card →');
+    await expect(cta).toHaveAttribute('href', '/');
+  });
+}
+
+test('/featured/: logos and featured-* events keep their hrefs, alt text and sizes', async ({ page }) => {
+  await page.goto('/featured/');
+  const links = {
+    'featured-japanforkids-article': 'https://japanforkids.jp/food-allergies-japan-kids/',
+    'featured-japanforkids-logo': 'https://japanforkids.jp/',
+    'featured-japanforkids-site': 'https://japanforkids.jp/',
+    'featured-tokyochapter-about': 'https://www.thetokyochapter.com/my-chapters/',
+    'featured-tokyochapter-article': 'https://www.thetokyochapter.com/japan-with-severe-food-allergies/',
+    'featured-tokyochapter-logo': 'https://www.thetokyochapter.com/',
+  };
+  for (const [ev, href] of Object.entries(links)) {
+    const a = page.locator(`a[data-gc-event="${ev}"]`);
+    await expect(a).toHaveCount(1);
+    await expect(a).toHaveAttribute('href', href);
+  }
+  const tc = page.locator('a[data-gc-event="featured-tokyochapter-logo"] img');
+  await expect(tc).toHaveAttribute('alt', 'The Tokyo Chapter');
+  await expect(tc).toHaveAttribute('src', '/assets/featured/the-tokyo-chapter.webp');
+  await expect(tc).toHaveAttribute('width', '240');
+  await expect(tc).toHaveAttribute('height', '120');
+  const jk = page.locator('a[data-gc-event="featured-japanforkids-logo"] img');
+  await expect(jk).toHaveAttribute('alt', 'Japan for Kids');
+  await expect(jk).toHaveAttribute('src', '/assets/featured/japan-for-kids.webp');
+  await expect(jk).toHaveAttribute('width', '240');
+  await expect(jk).toHaveAttribute('height', '54');
+  await expect(page.locator('.feat-logo img')).toHaveCount(2);
+  // touch targets on the card links
+  for (const box of await page.locator('.ft-card__links a').all()) expect((await box.boundingBox()).height).toBeGreaterThanOrEqual(44);
+});
+
+test('/about/#corrections: the guides\' Corrections link lands on the Corrections section in view', async ({ page }) => {
+  await page.goto('/celiac/');
+  await page.locator('a[href="/about/#corrections"]').first().click();
+  await expect(page).toHaveURL(/\/about\/#corrections$/);
+  const target = page.locator('#corrections');
+  await expect(target).toHaveCount(1);
+  await expect(target.locator('h2')).toHaveText('Corrections');
+  await expect(target).toBeInViewport();
+  // the sticky header must not cover the heading
+  const header = await page.locator('.tm-header').boundingBox();
+  const h2 = await target.locator('h2').boundingBox();
+  expect(h2.y).toBeGreaterThanOrEqual(header.y + header.height - 1);
+});
+
+test('/about/: emergency callout and notes are marked by shape, not colour alone', async ({ page }) => {
+  await page.goto('/about/');
+  const css = (sel, prop) => page.locator(sel).first().evaluate((el, p) => getComputedStyle(el)[p], prop);
+  expect(await css('.ab-callout', 'borderLeftStyle')).toBe('solid');
+  expect(await css('.ab-meta', 'borderLeftStyle')).toBe('dashed');
 });

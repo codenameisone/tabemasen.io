@@ -1,0 +1,8 @@
+{
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "name": "About and safety",
+    "url": "https://tabemasen.io/about/",
+    "isPartOf": { "@id": "https://tabemasen.io/#website" },
+    "publisher": { "@id": "https://tabemasen.io/#organization" }
+  }
