@@ -7,7 +7,7 @@
     "/allergies/food-allergies-in-japanese/": { "legacy": "src/pages/allergies/food-allergies-in-japanese/index.astro", "exclude": [".site-header", ".site-footer"] },
     "/halal/": { "legacy": "src/pages/halal/index.astro", "exclude": [".site-header", ".site-footer", ".hl-phone-stage"] },
     "/halal/certification-guide/": { "legacy": "src/pages/halal/certification-guide/index.astro", "exclude": [".site-header", ".site-footer"] },
-    "/vegan/": { "legacy": "src/pages/vegan/index.astro", "exclude": [".site-header", ".site-footer"] },
+    "/vegan/": { "legacy": "src/pages/vegan/index.astro", "exclude": [".site-header", ".site-footer", ".vg-phone-stage"] },
     "/gluten-free-japan/": { "legacy": "src/pages/gluten-free-japan/index.astro", "exclude": [".site-header", ".site-footer"] },
     "/celiac/": { "legacy": "src/pages/celiac/index.astro", "exclude": [".site-header", ".site-footer"] },
     "/about/": { "legacy": "src/pages/about/index.astro", "exclude": [".site-header", ".site-footer"] },

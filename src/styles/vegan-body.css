@@ -1,0 +1,23 @@
+/* src/styles/vegan-body.css — the legacy /vegan/ body (vg-*), restyled. Text untouched. */
+/* The body fragment uses no variables from the retired styles.css, so no shims are needed. */
+
+.vg-main { display: flex; flex-direction: column; gap: 56px; }
+.vg-main [id] { scroll-margin-top: 24px; }
+.vg-section h2 { margin: 0 0 16px; font-family: var(--tm-font-display); font-weight: 600; font-size: clamp(1.7rem, 2.8vw, 2.2rem); line-height: 1.15; }
+.vg-section p { margin: 0 0 16px; font-size: 18px; line-height: 1.75; color: var(--tm-ink); }
+.vg-section a { color: var(--tm-ink); text-decoration-color: var(--tm-shu); text-underline-offset: 3px; }
+.vg-section em { font-style: italic; }
+.vg-section strong { font-weight: 700; }
+
+/* hidden-ingredient cards: ruled top edge, title + muted text */
+.vg-feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 24px 32px; }
+.vg-feature-card { border-top: 1.5px solid var(--tm-ink); padding-top: 14px; }
+.vg-feature-card__title { margin-bottom: 6px; font-family: var(--tm-font-display); font-weight: 700; font-size: 20px; line-height: 1.3; }
+.vg-feature-card__title em { font-style: normal; font-weight: 600; color: var(--tm-ink-faint); }
+.vg-feature-card__text { font-size: 16px; line-height: 1.65; color: var(--tm-ink-muted); }
+
+/* FAQ disclosures */
+.vg-faq { border-bottom: 1px solid var(--tm-rule); }
+.vg-faq__item { border-top: 1px solid var(--tm-rule); }
+.vg-faq__item summary { min-height: 44px; padding: 16px 0; cursor: pointer; font-weight: 700; font-size: 18px; list-style-position: outside; }
+.vg-faq__item p { margin: 0 0 16px; }
