@@ -1,0 +1,59 @@
+---
+// src/layouts/BaseLayout.astro
+import '../styles/fonts.css';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical: string;
+  page: string;          // analytics page name, e.g. "allergies"
+  current?: string;      // nav href to mark aria-current
+  ogType?: string;
+  ogImage?: string;
+  jsonLd?: string[];     // raw JSON strings, emitted verbatim
+  bodyClass?: string;
+}
+const {
+  title, description, canonical, page, current,
+  ogType = 'website', ogImage = 'https://tabemasen.io/assets/og-image.png',
+  jsonLd = [], bodyClass,
+} = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="msvalidate.01" content="739633B14AA9EF483F9FA562680C9A0F">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <link rel="canonical" href={canonical}>
+  <meta property="og:type" content={ogType}>
+  <meta property="og:url" content={canonical}>
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content={ogImage}>
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content={title}>
+  <meta name="twitter:description" content={description}>
+  <meta name="twitter:image" content={ogImage}>
+  {jsonLd.map((json) => <script type="application/ld+json" set:html={json} />)}
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <slot name="head" />
+</head>
+<body class={bodyClass}>
+  <SiteHeader page={page} current={current} />
+  <slot />
+  <SiteFooter page={page} />
+  <script is:inline src="/analytics.js"></script>
+  <script is:inline data-goatcounter="https://nqtn.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
