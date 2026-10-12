@@ -21,6 +21,7 @@ const chips = allergenKeys.map((k) => {
 });
 const pattern = DIETS[diet].pattern;
 const href = buildPickerHref({ pattern, allergens: [], severe: false });
+const sevId = `picker-sev-${event}`;
 ---
 
 <div class="picker" data-pattern={pattern ?? ''}>
@@ -33,8 +34,8 @@ const href = buildPickerHref({ pattern, allergens: [], severe: false });
   </div>
   {showSeverity && (
     <div class="picker__severity">
-      <span class="picker__sev-text" id="picker-sev-label"><strong>Severe allergy</strong> Adds a warning that trace amounts are dangerous</span>
-      <button type="button" class="picker__switch" role="switch" aria-checked="false" aria-labelledby="picker-sev-label"></button>
+      <span class="picker__sev-text" id={sevId}><strong>Severe allergy</strong> Adds a warning that trace amounts are dangerous</span>
+      <button type="button" class="picker__switch" role="switch" aria-checked="false" aria-labelledby={sevId}></button>
     </div>
   )}
   <a class="tm-btn picker__go" href={href} data-gc-event={event}>{ctaLabel}</a>
@@ -68,9 +69,10 @@ const href = buildPickerHref({ pattern, allergens: [], severe: false });
   .picker__severity { display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid var(--tm-rule); padding-top: 18px; }
   .picker__sev-text { display: flex; flex-direction: column; font-size: 14px; color: var(--tm-ink-muted); }
   .picker__sev-text strong { font-size: 16px; color: var(--tm-ink); }
-  .picker__switch { width: 56px; height: 32px; flex: none; border-radius: 16px; border: 0; padding: 0; background: var(--tm-rule-strong); position: relative; cursor: pointer; }
-  .picker__switch::after { content: ""; position: absolute; top: 4px; left: 4px; width: 24px; height: 24px; border-radius: 12px; background: #fff; transition: left .15s; }
-  .picker__switch[aria-checked="true"] { background: var(--tm-shu); }
+  .picker__switch { width: 56px; height: 44px; flex: none; border: 0; padding: 0; background: transparent; position: relative; cursor: pointer; display: flex; align-items: center; }
+  .picker__switch::before { content: ""; position: absolute; width: 56px; height: 32px; border-radius: 16px; background: var(--tm-ink-faint); transition: background .15s; }
+  .picker__switch::after { content: ""; position: absolute; width: 24px; height: 24px; border-radius: 12px; background: #fff; transition: left .15s; left: 4px; }
+  .picker__switch[aria-checked="true"]::before { background: var(--tm-shu); }
   .picker__switch[aria-checked="true"]::after { left: 28px; }
   .picker__go { align-self: flex-start; }
   .picker__more { margin: 0; font-size: 14px; color: var(--tm-ink-muted); }

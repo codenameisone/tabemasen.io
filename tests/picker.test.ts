@@ -44,3 +44,32 @@ describe('Picker', async () => {
     expect(html).toContain('role="switch"');
   });
 });
+
+describe('Picker duplicate id avoidance', async () => {
+  const container = await AstroContainer.create();
+  const html1 = await container.renderToString(Picker, {
+    props: { diet: 'allergies', allergenKeys: ['egg'], showSeverity: true,
+      ctaLabel: 'Allergy card', event: 'cta-allergies-hero' },
+  });
+  const html2 = await container.renderToString(Picker, {
+    props: { diet: 'vegan', allergenKeys: ['soy'], showSeverity: true,
+      ctaLabel: 'Vegan card', event: 'cta-vegan-hero' },
+  });
+  const combined = html1 + html2;
+
+  it('derives severity label id from event prop to avoid duplicates', () => {
+    expect(html1).toContain('id="picker-sev-cta-allergies-hero"');
+    expect(html2).toContain('id="picker-sev-cta-vegan-hero"');
+    expect(html1).toContain('aria-labelledby="picker-sev-cta-allergies-hero"');
+    expect(html2).toContain('aria-labelledby="picker-sev-cta-vegan-hero"');
+  });
+
+  it('each switch aria-labelledby matches its own label id', () => {
+    const match1 = combined.match(/id="(picker-sev-cta-allergies-hero)"/);
+    const match2 = combined.match(/id="(picker-sev-cta-vegan-hero)"/);
+    expect(match1).not.toBeNull();
+    expect(match2).not.toBeNull();
+    expect(combined.indexOf('aria-labelledby="picker-sev-cta-allergies-hero"')).toBeGreaterThan(-1);
+    expect(combined.indexOf('aria-labelledby="picker-sev-cta-vegan-hero"')).toBeGreaterThan(-1);
+  });
+});
