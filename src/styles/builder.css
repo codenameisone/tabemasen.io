@@ -52,7 +52,7 @@
 .panel-tools { padding-top: 8px; }
 .clear-btn { font: inherit; min-height: 44px; background: none; border: 0; padding: 0; color: var(--tm-ink-muted); text-decoration: underline; cursor: pointer; font-size: 14px; }
 
-.card-preview-section { position: sticky; top: 24px; display: flex; flex-direction: column; gap: 14px; padding-top: 20px; }
+.card-preview-section { position: sticky; top: 24px; max-height: calc(100vh - 48px); overflow-y: auto; display: flex; flex-direction: column; gap: 14px; padding-top: 20px; }
 .card-preview-header { display: flex; justify-content: space-between; align-items: center; }
 .preview-label { margin: 0; font-family: var(--tm-font-display); font-size: 24px; font-weight: 600; }
 .card:focus-visible { outline: 2px solid var(--tm-ai); outline-offset: 4px; }
@@ -67,7 +67,7 @@
 @media (max-width: 900px) {
   .tm-intro { grid-template-columns: 1fr; }
   .app-grid { grid-template-columns: 1fr; gap: 24px; }
-  .card-preview-section { position: static; }
+  .card-preview-section { position: static; max-height: none; overflow-y: visible; }
 }
 @media (max-width: 760px) {
   .tm-intro__ill { display: none; }
@@ -87,5 +87,5 @@
   .tm-header, .tm-footer, .tm-intro, .selection-panel, .card-preview-header, .action-bar, .tm-home-more { display: none !important; }
   html, body { background: #fff !important; margin: 0; padding: 0; }
   .main-content, .app-grid { display: block; max-width: 100%; margin: 0; padding: 0; }
-  .card-preview-section { position: static; padding: 0; }
+  .card-preview-section { position: static; max-height: none; overflow: visible; padding: 0; }
 }
