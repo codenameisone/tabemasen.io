@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import {
   baselineProblems, pageProblems, resolveInternal, linkCandidates, sitemapProblems,
   pageBasicsProblems, allowlistProblems,
-  socialMeta, socialProblems,
+  socialMeta, socialProblems, jsonLdDateModified,
 } from '../scripts/lib/seo-checks.mjs';
 
 const facts = (over = {}) => ({
@@ -106,6 +106,33 @@ describe('sitemapProblems', () => {
 
   it('reports sitemap URLs that do not exist', () => {
     expect(sitemapProblems(xml, ['/'])).toEqual(['sitemap.xml lists /halal/, which is not an indexable built page']);
+  });
+
+  const dated = (lastmod) => `<urlset><url><loc>https://tabemasen.io/celiac/</loc>${lastmod}</url></urlset>`;
+
+  it('requires a YYYY-MM-DD lastmod when asked to', () => {
+    const opts = { requireLastmod: true };
+    expect(sitemapProblems(dated('<lastmod>2026-10-12</lastmod>'), ['/celiac/'], opts)).toEqual([]);
+    expect(sitemapProblems(dated(''), ['/celiac/'], opts)).toEqual(['sitemap.xml: /celiac/ has no lastmod']);
+    expect(sitemapProblems(dated('<lastmod>Oct 12</lastmod>'), ['/celiac/'], opts))
+      .toEqual(['sitemap.xml: /celiac/ lastmod "Oct 12" is not YYYY-MM-DD']);
+  });
+
+  it("requires lastmod to match the page's JSON-LD dateModified", () => {
+    const opts = { dateModified: { '/celiac/': '2026-10-12' } };
+    expect(sitemapProblems(dated('<lastmod>2026-10-12</lastmod>'), ['/celiac/'], opts)).toEqual([]);
+    expect(sitemapProblems(dated('<lastmod>2026-10-10</lastmod>'), ['/celiac/'], opts))
+      .toEqual(['sitemap.xml: /celiac/ lastmod 2026-10-10 differs from its JSON-LD dateModified 2026-10-12']);
+  });
+});
+
+describe('jsonLdDateModified', () => {
+  it('reads dateModified from any JSON-LD block, or null', () => {
+    const block = (json) => `<script type="application/ld+json">${JSON.stringify(json)}</script>`;
+    expect(jsonLdDateModified(block({ '@type': 'FAQPage' }) + block({ '@type': 'Article', dateModified: '2026-10-12' })))
+      .toBe('2026-10-12');
+    expect(jsonLdDateModified(block({ '@graph': [{ '@type': 'Article', dateModified: '2026-10-08' }] }))).toBe('2026-10-08');
+    expect(jsonLdDateModified(block({ '@type': 'WebApplication' }))).toBeNull();
   });
 });
 

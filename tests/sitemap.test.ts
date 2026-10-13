@@ -29,4 +29,8 @@ describe('sitemapXml', () => {
       '/guides/', '/featured/', '/about/',
     ]);
   });
+
+  it('gives every page a lastmod', () => {
+    expect(STATIC_PAGES.filter((p) => !/^\d{4}-\d{2}-\d{2}$/.test(p.lastmod ?? '')).map((p) => p.loc)).toEqual([]);
+  });
 });
