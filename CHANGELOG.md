@@ -1,5 +1,10 @@
 # Changelog
 
+## 2026-10-13
+
+- seo(sitemap): every URL in sitemap.xml now has a `lastmod`: the date its words last changed, not when it was restyled. Pages whose text changed in the Oct 12 review are dated 2026-10-12; the halal certification guide (2026-10-08), /about/ (2026-10-08) and /featured/ (2026-10-05) keep their earlier dates. The four guides corrected on Oct 12 (labeling, food allergies, celiac, gluten-free) have their JSON-LD `dateModified` bumped to match.
+- check:seo: every sitemap URL must have a YYYY-MM-DD `lastmod`, and it must equal the page's JSON-LD `dateModified` where there is one. Bump both together.
+
 ## 2026-10-12
 
 - fix: review follow-ups after the redesign.

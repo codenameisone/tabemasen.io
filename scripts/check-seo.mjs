@@ -4,7 +4,7 @@ import { pageFacts } from './lib/page-facts.mjs';
 import { listDistPages } from './lib/dist-pages.mjs';
 import {
   SITE, baselineProblems, pageProblems, resolveInternal, linkCandidates, sitemapProblems,
-  pageBasicsProblems, allowlistProblems, socialMeta, socialProblems, faqProblems,
+  pageBasicsProblems, allowlistProblems, socialMeta, socialProblems, faqProblems, jsonLdDateModified,
 } from './lib/seo-checks.mjs';
 
 const dist = 'dist';
@@ -16,6 +16,7 @@ const social = {};
 const current = {};
 const problems = [];
 const indexable = [];
+const dateModified = {};
 
 problems.push(...allowlistProblems(allowlist));
 
@@ -30,6 +31,8 @@ for (const { url, file } of listDistPages(dist)) {
   problems.push(...pageBasicsProblems(url, facts));
   problems.push(...faqProblems(url, html));
   if (facts.canonical === SITE + url && !/noindex/i.test(facts.robots ?? '')) indexable.push(url);
+  const modified = jsonLdDateModified(html);
+  if (modified) dateModified[url] = modified;
 
   for (const href of facts.links) {
     const path = resolveInternal(href, url);
@@ -43,7 +46,7 @@ for (const { url, file } of listDistPages(dist)) {
 problems.push(...baselineProblems(baseline, current, allowlist));
 problems.push(...socialProblems(socialBaseline, social));
 const sitemapPath = join(dist, 'sitemap.xml');
-if (existsSync(sitemapPath)) problems.push(...sitemapProblems(readFileSync(sitemapPath, 'utf8'), indexable));
+if (existsSync(sitemapPath)) problems.push(...sitemapProblems(readFileSync(sitemapPath, 'utf8'), indexable, { requireLastmod: true, dateModified }));
 else problems.push('dist/sitemap.xml is missing');
 
 if (problems.length) {

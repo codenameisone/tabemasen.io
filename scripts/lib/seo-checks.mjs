@@ -62,14 +62,26 @@ export function linkCandidates(pathname) {
   return [rel, `${rel}/index.html`];
 }
 
-export function sitemapProblems(sitemapXml, indexableUrls, site = SITE) {
-  const listed = [...sitemapXml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)]
-    .map((m) => m[1].replace(site, '') || '/');
+// requireLastmod: every <url> needs a YYYY-MM-DD lastmod. dateModified: { url: date } from each
+// page's JSON-LD; the sitemap must say the same date, so the two can't drift apart.
+export function sitemapProblems(sitemapXml, indexableUrls, { requireLastmod = false, dateModified = {}, site = SITE } = {}) {
+  const entries = [...sitemapXml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map(([, body]) => ({
+    url: (body.match(/<loc>\s*([^<\s]+)\s*<\/loc>/)?.[1] ?? '').replace(site, '') || '/',
+    lastmod: body.match(/<lastmod>\s*([^<]*?)\s*<\/lastmod>/)?.[1] ?? null,
+  }));
+  const listed = entries.map((e) => e.url);
   const problems = indexableUrls
     .filter((u) => !listed.includes(u))
     .map((u) => `sitemap.xml is missing ${u}`);
   for (const u of listed) {
     if (!indexableUrls.includes(u)) problems.push(`sitemap.xml lists ${u}, which is not an indexable built page`);
+  }
+  for (const { url, lastmod } of entries) {
+    if (lastmod === null) { if (requireLastmod) problems.push(`sitemap.xml: ${url} has no lastmod`); continue; }
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(lastmod)) problems.push(`sitemap.xml: ${url} lastmod "${lastmod}" is not YYYY-MM-DD`);
+    else if (dateModified[url] && dateModified[url] !== lastmod) {
+      problems.push(`sitemap.xml: ${url} lastmod ${lastmod} differs from its JSON-LD dateModified ${dateModified[url]}`);
+    }
   }
   return problems;
 }
@@ -126,18 +138,27 @@ function visibleText(html) {
   return squash(out);
 }
 
-function faqQuestions(html) {
+function jsonLdNodes(html) {
   const out = [];
   const visit = (node) => {
     if (Array.isArray(node)) return node.forEach(visit);
     if (!node || typeof node !== 'object') return;
-    if (node['@type'] === 'FAQPage') for (const q of [node.mainEntity ?? []].flat()) out.push(q);
+    out.push(node);
     for (const v of Object.values(node)) if (typeof v === 'object') visit(v);
   };
   for (const m of html.matchAll(/<script type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)) {
     try { visit(JSON.parse(m[1])); } catch { /* reported by pageProblems */ }
   }
   return out;
+}
+
+// The page's JSON-LD dateModified (the guides' Article), or null when it has none.
+export function jsonLdDateModified(html) {
+  return jsonLdNodes(html).find((n) => typeof n.dateModified === 'string')?.dateModified ?? null;
+}
+
+function faqQuestions(html) {
+  return jsonLdNodes(html).filter((n) => n['@type'] === 'FAQPage').flatMap((n) => [n.mainEntity ?? []].flat());
 }
 
 export function faqProblems(url, html) {
