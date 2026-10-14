@@ -11,6 +11,7 @@ const { src, alt, caption, widths = [480, 640, 800, 1200], sizes = '(max-width: 
 </figure>
 <style>
   .tm-ill { margin: 0; }
-  .tm-ill :global(img) { display: block; width: 100%; height: auto; }
+  /* multiply: the white paper takes the section's background (e.g. --tm-paper-warm); no-op on white */
+  .tm-ill :global(img) { display: block; width: 100%; height: auto; mix-blend-mode: multiply; }
   .tm-ill__cap { margin-top: 10px; font-size: 14px; color: var(--tm-ink-faint); line-height: 1.5; }
 </style>
