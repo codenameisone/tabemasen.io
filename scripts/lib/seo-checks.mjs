@@ -103,13 +103,15 @@ export function socialMeta(html) {
   return out;
 }
 
-// Every legacy social value must survive unchanged; tags added since are fine.
-export function socialProblems(baseline, current) {
+// Every legacy social value must survive unchanged, unless seo-allowlist.json lists the change;
+// tags added since are fine.
+export function socialProblems(baseline, current, allowlist = { changes: [] }) {
   const problems = [];
   for (const [url, before] of Object.entries(baseline)) {
     const now = current[url] ?? {};
     for (const [key, value] of Object.entries(before)) {
       if (JSON.stringify(now[key]) === JSON.stringify(value)) continue;
+      if (allowlist.changes.some((c) => c.url === url && c.field === key)) continue;
       problems.push(`${url}: ${key} changed\n    was: ${JSON.stringify(value)}\n    now: ${JSON.stringify(now[key] ?? null)}`);
     }
   }
