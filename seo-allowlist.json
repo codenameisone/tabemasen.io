@@ -1,4 +1,29 @@
 {
-  "changes": [],
+  "changes": [
+    {
+      "url": "/celiac/",
+      "field": "title",
+      "date": "2026-10-18",
+      "reason": "Keep the 2026-10-10 coeliac spelling; lead with the label fact instead of the 'Why' explainer (0.4% CTR at position 6.6, GSC 28 days to 14 Oct)"
+    },
+    {
+      "url": "/celiac/",
+      "field": "description",
+      "date": "2026-10-18",
+      "reason": "Name the free card in the snippet; keeps celiac and coeliac (0.4% CTR at position 6.6)"
+    },
+    {
+      "url": "/celiac/",
+      "field": "og:title",
+      "date": "2026-10-18",
+      "reason": "Mirrors the new title"
+    },
+    {
+      "url": "/celiac/",
+      "field": "twitter:title",
+      "date": "2026-10-18",
+      "reason": "Mirrors the new title"
+    }
+  ],
   "knownBrokenLinks": []
 }

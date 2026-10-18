@@ -197,6 +197,14 @@ describe('social meta', () => {
     expect(socialProblems(baseline, { '/a/': { 'article:tag': ['b', 'a'] } })).toHaveLength(1);
   });
 
+  it('passes an allowlisted change and still flags the rest', () => {
+    const baseline = { '/a/': { 'og:title': 'old', 'twitter:title': 'old' } };
+    const allow = { changes: [{ url: '/a/', field: 'og:title', date: '2026-10-18', reason: 'r' }] };
+    const problems = socialProblems(baseline, { '/a/': { 'og:title': 'new', 'twitter:title': 'new' } }, allow);
+    expect(problems).toHaveLength(1);
+    expect(problems[0]).toContain('/a/: twitter:title changed');
+  });
+
   it('passes when every legacy value is unchanged', () => {
     expect(socialProblems({ '/a/': { 'og:type': 'article' } }, { '/a/': { 'og:type': 'article', 'og:url': 'u' } })).toEqual([]);
   });
