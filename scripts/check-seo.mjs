@@ -44,7 +44,7 @@ for (const { url, file } of listDistPages(dist)) {
 }
 
 problems.push(...baselineProblems(baseline, current, allowlist));
-problems.push(...socialProblems(socialBaseline, social));
+problems.push(...socialProblems(socialBaseline, social, allowlist));
 const sitemapPath = join(dist, 'sitemap.xml');
 if (existsSync(sitemapPath)) problems.push(...sitemapProblems(readFileSync(sitemapPath, 'utf8'), indexable, { requireLastmod: true, dateModified }));
 else problems.push('dist/sitemap.xml is missing');
