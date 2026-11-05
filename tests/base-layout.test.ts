@@ -31,7 +31,7 @@ describe('BaseLayout', async () => {
   it('wraps the slot in the site header and footer and loads analytics', () => {
     expect(html).toMatch(/class="tm-header[\s\S]*<p>body<\/p>[\s\S]*class="tm-footer/);
     expect(html).toContain('src="/analytics.js"');
-    expect(html).toContain('data-goatcounter="https://nqtn.goatcounter.com/count"');
+    expect(html).toContain('data-goatcounter="https://tabemasen.goatcounter.com/count"');
   });
 
   it('declares the language and viewport', () => {
